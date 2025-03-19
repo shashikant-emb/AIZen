@@ -1,0 +1,386 @@
+.about-page {
+    color: var(--primary-text);
+  }
+  
+  /* Hero Section */
+  .about-hero {
+    background: linear-gradient(rgba(14, 18, 32, 0.8), rgba(14, 18, 32, 0.8)),
+      url("/placeholder.svg?height=300&width=1200");
+    background-size: cover;
+    background-position: center;
+    padding: 80px 32px;
+    text-align: center;
+  }
+  
+  .about-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .about-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .about-hero p {
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+    line-height: 1.6;
+  }
+  
+  /* Mission Section */
+  .about-mission {
+    background-color: var(--secondary-bg);
+    padding: 64px 32px;
+  }
+  
+  .mission-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .about-mission h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  
+  .about-mission p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--secondary-text);
+  }
+  
+  /* Technology Section */
+  .about-technology {
+    padding: 64px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .about-technology h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  
+  .technology-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  
+  .technology-card {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.2s ease;
+  }
+  
+  .technology-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .technology-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+  
+  .technology-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .technology-card p {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  /* How It Works Section */
+  .about-how-it-works {
+    padding: 64px 32px;
+    background-color: var(--secondary-bg);
+  }
+  
+  .about-how-it-works h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  
+  .how-it-works-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .how-it-works-step {
+    display: flex;
+    margin-bottom: 32px;
+    gap: 24px;
+  }
+  
+  .how-it-works-step:last-child {
+    margin-bottom: 0;
+  }
+  
+  .step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  
+  .step-content h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .step-content p {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  /* Team Section */
+  .about-team {
+    padding: 64px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .about-team h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  
+  .team-member {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  
+  .member-avatar {
+    width: 80px;
+    height: 80px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 auto 16px;
+  }
+  
+  .team-member h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .member-title {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+  
+  .member-bio {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  /* Investors Section */
+  .about-investors {
+    padding: 64px 32px;
+    background-color: var(--secondary-bg);
+    text-align: center;
+  }
+  
+  .about-investors h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+  
+  .investors-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .investor-logo {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+  }
+  
+  /* FAQ Section */
+  .about-faq {
+    padding: 64px 32px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .about-faq h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  
+  .faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .faq-item {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  
+  .faq-item h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .faq-item p {
+    color: var(--secondary-text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  /* CTA Section */
+  .about-cta {
+    background: linear-gradient(rgba(14, 18, 32, 0.8), rgba(14, 18, 32, 0.8)),
+      url("/placeholder.svg?height=300&width=1200");
+    background-size: cover;
+    background-position: center;
+    padding: 64px 32px;
+    margin-top: 64px;
+  }
+  
+  .cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .cta-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  
+  .cta-content p {
+    font-size: 1.1rem;
+    color: var(--secondary-text);
+    margin-bottom: 32px;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+  
+  .outline-button {
+    background-color: transparent;
+    color: var(--primary-text);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+  
+  .outline-button:hover {
+    background-color: rgba(138, 86, 255, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1024px) {
+    .technology-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .investors-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .about-hero h1 {
+      font-size: 2.2rem;
+    }
+  
+    .about-mission h2,
+    .about-technology h2,
+    .about-how-it-works h2,
+    .about-team h2,
+    .about-investors h2,
+    .about-faq h2,
+    .cta-content h2 {
+      font-size: 1.8rem;
+    }
+  
+    .investors-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .technology-grid,
+    .team-grid,
+    .investors-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  

@@ -1,4 +1,4 @@
-.filters {
+/* .filters {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -6,15 +6,18 @@
 }
 
 .filter-dropdowns {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex; 
+  flex-wrap: wrap;
   gap: 16px;
+  align-items: center;
 }
+
 
 .filter-group {
   display: flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap; 
 }
 
 .filter-group label {
@@ -54,4 +57,90 @@
     grid-template-columns: 1fr;
   }
 }
+ */
 
+
+ .filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.filter-dropdowns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; 
+  /* align-items: center; */
+  /* justify-content: space-between; */
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-width: 200px;
+}
+
+.filter-group label {
+  font-size: 14px;
+  color: #a0a0b0; 
+  white-space: nowrap;
+}
+
+.filter-group select {
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a0a0b0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  min-width: 160px;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tag.active {
+  background-color: #7d5efc;
+  border-color: #7d5efc;
+}
+
+@media (max-width: 768px) {
+  .filter-dropdowns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-group select {
+    width: 100%;
+    max-width: unset;
+  }
+}

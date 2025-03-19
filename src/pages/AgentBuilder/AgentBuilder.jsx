@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AgentBuilder.css';
+import { capabilities, tools } from '../../assets/constants/agentBuilderConstants';
 
 const AgentBuilder = () => {
   const [formData, setFormData] = useState({
@@ -8,40 +9,21 @@ const AgentBuilder = () => {
     description: '',
     goals: '',
     instructions: '',
+    category:'',
     capabilities: ['Liquidity Provision', 'Asset Rebalancing'],
     tools: ['RSI', 'Momentum', 'Alpha-based Trigger']
   });
 
   const [isLoading, setIsLoading] = useState(false);
   const [isDeployed, setIsDeployed] = useState(false);
-  const [deployedAgent, setDeployedAgent] = useState(null);
+  const [isSaved,setIsSaved]=useState(false)
+  const [savedAgent, setsavedAgent] = useState(null);
   const [chatMessages, setChatMessages] = useState([
     { text: "Hello! I'm your liquidity rebalancer agent. How can I assist you today?", isUser: false }
   ]);
   const [userMessage, setUserMessage] = useState('');
 
-  const capabilities = [
-    'Liquidity Provision',
-    'Asset Rebalancing',
-    'Yield Farming',
-    'Volatility Prediction',
-    'Arbitrage Execution'
-  ];
-
-  const tools = [
-    'Bollinger Bands',
-    'RSI',
-    'Momentum',
-    'MACD',
-    'Calendar Rebalance',
-    'Alpha-based Trigger',
-    'Stop-Loss',
-    'Moving Average',
-    'Liquidity Pool API',
-    'DEX Integration',
-    'Trend Analysis',
-    'Volatility Index'
-  ];
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +38,13 @@ const AgentBuilder = () => {
         return { ...prev, capabilities: [...prev.capabilities, capability] };
       }
     });
+    
   };
+  
+  const handleCategoryChange=(e)=>{
+    handleInputChange(e)
+
+  }
 
   const handleToolToggle = (tool) => {
     setFormData(prev => {
@@ -72,8 +60,23 @@ const AgentBuilder = () => {
     setIsLoading(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log("res",formData)
+    
+    // alert('Agent saved successfully!');
+    const response = {
+      name: formData.name || 'OrionBot',
+      role: formData.role || 'Liquidity Rebalancer',
+      goals: formData.goals || 'Optimize liquidity across pools with minimal IL',
+      description: formData.description || 'Advanced algorithmic agent for DeFi liquidity optimization',
+      tools: formData.tools,
+      rebalanceFrequency: 6,
+      riskProfile: 'medium',
+      autoExecute: true
+    };
+    console.log("res",response)
+    setsavedAgent(response);
+    setIsSaved(true)
     setIsLoading(false);
-    alert('Agent saved successfully!');
   };
 
   const handleSimulate = async () => {
@@ -101,16 +104,18 @@ const AgentBuilder = () => {
       riskProfile: 'medium',
       autoExecute: true
     };
+    console.log("res",response)
     
-    setDeployedAgent(response);
-    setIsDeployed(true);
+    // setsavedAgent(response);
+    // setIsDeployed(true);
     setIsLoading(false);
+    alert('Agent Deployed successfully!');
   };
 
   const handleCopyJSON = () => {
-    if (!deployedAgent) return;
+    if (!savedAgent) return;
     
-    const jsonString = JSON.stringify(deployedAgent, null, 2);
+    const jsonString = JSON.stringify(savedAgent, null, 2);
     navigator.clipboard.writeText(jsonString);
     alert('JSON copied to clipboard!');
   };
@@ -142,20 +147,20 @@ const AgentBuilder = () => {
   };
 
   const formatJsonForDisplay = () => {
-    if (!deployedAgent) return '';
+    if (!savedAgent) return '';
     
     // Create a formatted JSON string with syntax highlighting classes
     return `{
-  "name": "${deployedAgent.name}",
-  "role": "${deployedAgent.role}",
-  "goals": "${deployedAgent.goals}",
-  "description": "${deployedAgent.description}",
+  "name": "${savedAgent.name}",
+  "role": "${savedAgent.role}",
+  "goals": "${savedAgent.goals}",
+  "description": "${savedAgent.description}",
   "tools": [
-    ${deployedAgent.tools.map(tool => `"${tool}"`).join(',\n    ')}
+    ${savedAgent.tools.map(tool => `"${tool}"`).join(',\n    ')}
   ],
-  "rebalanceFrequency": ${deployedAgent.rebalanceFrequency},
-  "riskProfile": "${deployedAgent.riskProfile}",
-  "autoExecute": ${deployedAgent.autoExecute}
+  "rebalanceFrequency": ${savedAgent.rebalanceFrequency},
+  "riskProfile": "${savedAgent.riskProfile}",
+  "autoExecute": ${savedAgent.autoExecute}
 }`;
   };
 
@@ -170,7 +175,7 @@ const AgentBuilder = () => {
         </div>
       </div>
 
-      {!isDeployed ? (
+      {/* {!isDeployed ? ( */}
         <div className="agent-form-container">
           <div className="agent-form-header">
             {/* <h2>Build Your Agent</h2> */}
@@ -239,6 +244,21 @@ const AgentBuilder = () => {
               />
             </div>
 
+            <div className="filter-controls">
+            <div className="filter-group">
+              <label>Category:</label>
+              {/* handleCategoryChange */}
+              <select name='category' value={formData.category} onChange={handleCategoryChange}>
+                <option value="All Chains">All Chains</option>
+                <option value="Ethereum">Ethereum</option>
+                <option value="Arbitrum">Arbitrum</option>
+                <option value="Optimism">Optimism</option>
+                <option value="Base">Base</option>
+                <option value="Solana">Solana</option>
+              </select>
+            </div>
+          </div>
+
             <div className="form-group">
               <label>Agent Capabilities</label>
               <div className="checkbox-group">
@@ -300,14 +320,10 @@ const AgentBuilder = () => {
             </div>
           </div>
         </div>
-      ) : (
+      {/* ) : ( */}
+      {isSaved &&
+      (
         <div className="agent-deployed-container">
-          {/* <div className="agent-actions">
-            <button className="gradient-button save-button">Save Agent</button>
-            <button className="action-button simulate-button">Simulate</button>
-            <button className="action-button deploy-button">Deploy</button>
-          </div> */}
-          
           <div className="json-configuration">
             <div className="section-header">
               <h2>Generated JSON Configuration</h2>
@@ -360,7 +376,7 @@ const AgentBuilder = () => {
             </div>
           </div>
         </div>
-      )}
+      )} 
     </div>
   );
 };

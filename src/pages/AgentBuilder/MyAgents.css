@@ -1,0 +1,180 @@
+.my-agents {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .my-agents-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .my-agents-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .create-agent-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+  }
+  
+  .my-agents-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  
+  .stat-card {
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .stat-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .stat-card p {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+  }
+  
+  .my-agents-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .filter-controls {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .filter-group label {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    white-space: nowrap;
+  }
+  
+  .filter-group select {
+    background-color: var(--secondary-bg);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a0a0b0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    min-width: 180px;
+  }
+  
+  .my-agents-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+  }
+  
+  .my-agent-card-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .agent-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 0 16px;
+  }
+  
+  .action-button {
+    flex: 1;
+    background-color: var(--secondary-bg);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .action-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .edit-button {
+    background-color: var(--accent-color);
+  }
+  
+  .deploy-button {
+    background-color: var(--positive);
+  }
+  
+  .stop-button {
+    background-color: var(--negative);
+  }
+  
+  .no-agents {
+    text-align: center;
+    padding: 40px;
+    color: var(--secondary-text);
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 1024px) {
+    .my-agents-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .my-agents-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .my-agents-list {
+      grid-template-columns: 1fr;
+    }
+  
+    .filter-controls {
+      flex-direction: column;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .my-agents-stats {
+      grid-template-columns: 1fr;
+    }
+  
+    .my-agents-header {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+  }
+  
+  

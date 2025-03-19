@@ -16,7 +16,7 @@ const AgentCard = ({ agent }) => {
       {agent.trending && <div className="trending-badge">Trending</div>}
 
       <div className="agent-image">
-        <img src="/placeholder.svg?height=160&width=400" alt={agent.name} />
+        <img src={agent.image} alt={agent.name} />
       </div>
 
       <div className="agent-header">
