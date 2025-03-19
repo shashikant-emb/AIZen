@@ -9,6 +9,7 @@ export const dummyData = {
     {
       id: "1",
       name: "Alpha Hunter",
+      image:"https://imgs.search.brave.com/R4O7bdhjmzol8LdzhoRAPLOUf7QHGPmR4HN-6XmbuoM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdj/ZG4uc3RhYmxlZGlm/ZnVzaW9ud2ViLmNv/bS8yMDI1LzIvMTUv/N2YwN2YwM2ItZTQ1/Yy00MTcwLWI3ZjYt/MzM1NDgxZDdiNzZj/LmpwZw",
       description:
         "Aggressive high-volume trading agent focused on capturing short-term alpha across multiple DEXes with minimal impermanent loss.",
       performance: "+34.5%",
@@ -18,10 +19,14 @@ export const dummyData = {
       weeklyReward: "8.2%",
       tags: ["Momentum", "High Risk", "Ethereum"],
       trending: true,
+      // riskLevel:"low",
+      // strategyType:"momentum",
+      // created_date:"2025-03-18T07:13:20+00:00"
     },
     {
       id: "2",
       name: "Delta Neutral",
+      image:"https://imgs.search.brave.com/P1lxWCOvUW5nIDWMX7YBTDYOzaFvu5U-5kqC58jQjeA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zaGVs/Zi5pby93cC1jb250/ZW50L3VwbG9hZHMv/MjAyNC8xMC9pbWFn/ZS0xMS5wbmc",
       description:
         "Hedged strategy maintaining near-zero exposure to market volatility while generating consistent yield from liquidity provision.",
       performance: "+8.2%",
@@ -34,6 +39,7 @@ export const dummyData = {
     {
       id: "3",
       name: "Grid Trader Pro",
+      image:"https://imgs.search.brave.com/R4O7bdhjmzol8LdzhoRAPLOUf7QHGPmR4HN-6XmbuoM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdj/ZG4uc3RhYmxlZGlm/ZnVzaW9ud2ViLmNv/bS8yMDI1LzIvMTUv/N2YwN2YwM2ItZTQ1/Yy00MTcwLWI3ZjYt/MzM1NDgxZDdiNzZj/LmpwZw",
       description:
         "Automated grid trading strategy placing strategic buy and sell orders at predetermined price levels to capitalize on sideways markets.",
       performance: "-2.3%",
@@ -46,6 +52,7 @@ export const dummyData = {
     {
       id: "4",
       name: "Yield Maximizer",
+      image:"https://imgs.search.brave.com/P1lxWCOvUW5nIDWMX7YBTDYOzaFvu5U-5kqC58jQjeA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zaGVs/Zi5pby93cC1jb250/ZW50L3VwbG9hZHMv/MjAyNC8xMC9pbWFn/ZS0xMS5wbmc",
       description:
         "Optimized for maximum yield generation across DeFi protocols, automatically shifting capital.",
       performance: "+15.7%",
@@ -58,6 +65,7 @@ export const dummyData = {
     {
       id: "5",
       name: "Liquidity Sniper",
+      image:"https://imgs.search.brave.com/R4O7bdhjmzol8LdzhoRAPLOUf7QHGPmR4HN-6XmbuoM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdj/ZG4uc3RhYmxlZGlm/ZnVzaW9ud2ViLmNv/bS8yMDI1LzIvMTUv/N2YwN2YwM2ItZTQ1/Yy00MTcwLWI3ZjYt/MzM1NDgxZDdiNzZj/LmpwZw",
       description:
         "Targets newly launched tokens and pools with high volume potential, providing early liquidity for maximum fee generation.",
       performance: "+42.1%",
@@ -71,6 +79,7 @@ export const dummyData = {
     {
       id: "6",
       name: "Stable Harvester",
+      image:"https://imgs.search.brave.com/R4O7bdhjmzol8LdzhoRAPLOUf7QHGPmR4HN-6XmbuoM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdj/ZG4uc3RhYmxlZGlm/ZnVzaW9ud2ViLmNv/bS8yMDI1LzIvMTUv/N2YwN2YwM2ItZTQ1/Yy00MTcwLWI3ZjYt/MzM1NDgxZDdiNzZj/LmpwZw",
       description:
         "Focuses exclusively on stablecoin pairs to minimize volatility while generating consistent returns from trading fees.",
       performance: "+3.8%",

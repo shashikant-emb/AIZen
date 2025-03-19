@@ -1,0 +1,436 @@
+.lp-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .wallet-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .wallet-balance {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .balance-label {
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+  }
+  
+  .balance-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  /* Overview Cards */
+  .dashboard-overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  
+  .overview-card {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  
+  .overview-card h3 {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    margin-bottom: 12px;
+  }
+  
+  .value-amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  
+  .value-change {
+    font-size: 0.8rem;
+  }
+  
+  .positive {
+    color: var(--positive);
+  }
+  
+  .negative {
+    color: var(--negative);
+  }
+  
+  /* Performance Chart */
+  .performance-chart {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .chart-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .timeframe-selector {
+    display: flex;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .timeframe-selector button {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .timeframe-selector button.active {
+    background-color: var(--accent-color);
+    color: white;
+  }
+  
+  .chart-placeholder {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mock-chart {
+    width: 100%;
+    height: 200px;
+    position: relative;
+  }
+  
+  .chart-line {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(180deg, rgba(138, 86, 255, 0.2) 0%, rgba(138, 86, 255, 0) 100%);
+    border-top: 2px solid var(--accent-color);
+    border-radius: 100px 100px 0 0;
+  }
+  
+  .chart-labels {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  .chart-labels span {
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+  }
+  
+  /* Pools Section */
+  .pools-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .section-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .filter-controls {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .filter-group label {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+  }
+  
+  .filter-group select {
+    background-color: var(--secondary-bg);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a0a0b0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    min-width: 150px;
+  }
+  
+  .pools-table-container {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pools-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .pools-table th,
+  .pools-table td {
+    padding: 12px 16px;
+    text-align: left;
+  }
+  
+  .pools-table th {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--secondary-text);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  
+  .pools-table tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .pools-table tr:last-child {
+    border-bottom: none;
+  }
+  
+  .pools-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+  
+  .pool-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .token-icons {
+    display: flex;
+    margin-right: -8px;
+  }
+  
+  .token-icon {
+    width: 24px;
+    height: 24px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 2px solid var(--secondary-bg);
+  }
+  
+  .token-icon:nth-child(2) {
+    margin-left: -12px;
+    background-color: #56ccf2;
+  }
+  
+  .chain-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  
+  .apy-cell {
+    color: var(--positive);
+    font-weight: 600;
+  }
+  
+  .pool-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .action-button {
+    background-color: var(--card-bg);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .action-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .remove-button {
+    color: var(--negative);
+  }
+  
+  /* Rewards Section */
+  .rewards-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .rewards-section h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  .reward-card {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  
+  .reward-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  
+  .reward-protocol {
+    font-size: 0.8rem;
+    color: var(--secondary-text);
+  }
+  
+  .reward-chain {
+    font-size: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  
+  .reward-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .reward-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .reward-detail {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .detail-label {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+  }
+  
+  .detail-value {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .claim-button {
+    width: 100%;
+    background-color: var(--card-bg);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .claim-button:hover {
+    background-color: var(--accent-color);
+  }
+  
+  @media (max-width: 1024px) {
+    .dashboard-overview {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .rewards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  
+    .wallet-summary {
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    .pools-table {
+      display: block;
+      overflow-x: auto;
+    }
+  
+    .rewards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dashboard-overview {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  
