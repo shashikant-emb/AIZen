@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit"
 import { getRequest, postRequest, deleteRequest } from "../../services/apiService"
-import type { Agent } from "../../types"
+import { Agent } from "../../types"
 
 // Define types for My Agents
 interface MyAgentsStats {

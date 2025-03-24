@@ -19,9 +19,9 @@ export const dummyData = {
       weeklyReward: "8.2%",
       tags: ["Momentum", "High Risk", "Ethereum"],
       trending: true,
-      // riskLevel:"low",
-      // strategyType:"momentum",
-      // created_date:"2025-03-18T07:13:20+00:00"
+      riskLevel:"low",
+      strategyType:"momentum",
+      created_date:"2025-03-18T07:13:20+00:00"
     },
     {
       id: "2",

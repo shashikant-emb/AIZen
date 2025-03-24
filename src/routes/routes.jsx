@@ -10,20 +10,42 @@ import About from "../pages/About/About";
 import MyAgents from "../pages/AgentBuilder/MyAgents";
 import History from "../pages/AgentBuilder/History";
 import Settings from "../pages/AgentBuilder/Settings";
+import Login from "../components/Auth/Login";
+import Register from "../components/Auth/Register";
+import { useReduxActions, useReduxSelectors } from "../hooks/useReduxActions";
+import { useEffect } from "react";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const AppRoutes = () => {
+  const { auth } = useReduxActions()
+  const { auth: authSelectors } = useReduxSelectors()
+  const { isAuthenticated } = authSelectors
+
+  useEffect(() => {
+    // Check if there's a token in localStorage and try to authenticate
+    const token = localStorage.getItem("auth_token")
+    if (token && !isAuthenticated) {
+      auth.fetchUserProfile()
+    }
+  }, [auth, isAuthenticated])
   return (
     <Routes>
       {/* Marketplace route with Navbar */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      {/* <Route path="/" element={ <ProtectedRoute><Home /></ProtectedRoute>} /> */}
+      <Route path="/" element={ <Home />} />
       <Route
         path="/marketplace"
         element={
+          // <ProtectedRoute>
           <>
             <Navbar />
             <div className="marketplace-content">
               <Marketplace />
             </div>
           </>
+          // </ProtectedRoute>
         }
       />
 
@@ -31,16 +53,18 @@ const AppRoutes = () => {
       <Route
         path="/agent-builder"
         element={
+          // <ProtectedRoute>
           <>
             <Sidebar />
             <div className="main-content">
               <AgentBuilder />
             </div>
           </>
+          // </ProtectedRoute>
         }
       />
 
-      <Route path="/home" element={<Home />} />
+     
       <Route path="/about" element={<About />} />
       <Route path="/lp-dashboard" element={<LPDashboard />} />
 
@@ -48,11 +72,17 @@ const AppRoutes = () => {
       <Route path="/marketplace" element={<Navigate to="/marketplace" replace />} />
 
       {/* Additional routes for agent builder dashboard */}
+      {/* <Route path="/my-agents" element={<ProtectedRoute><MyAgents /></ProtectedRoute>}/>
+      <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>}/>
+      <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>}/> */}
       <Route path="/my-agents" element={<MyAgents />}/>
       <Route path="/history" element={<History />}/>
       <Route path="/settings" element={<Settings />}/>
       
-
+      <Route
+            path="/"
+            element={isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />}
+          />
     
       
     </Routes>

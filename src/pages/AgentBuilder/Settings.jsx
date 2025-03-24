@@ -273,7 +273,7 @@ const Settings = () => {
           >
             Profile
           </button>
-          <button
+          {/* <button
             className={`tab-button ${activeTab === "preferences" ? "active" : ""}`}
             onClick={() => setActiveTab("preferences")}
           >
@@ -284,7 +284,7 @@ const Settings = () => {
             onClick={() => setActiveTab("security")}
           >
             Security
-          </button>
+          </button> */}
         </div>
 
         <div className="settings-content">

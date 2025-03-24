@@ -41,6 +41,7 @@ export const useReduxActions = () => {
 
   // Agent Builder actions
   const agentBuilder = {
+    categorySelection: useCallback((formData: any) => dispatch(agentBuilderActions.categorySelection(formData)), [dispatch]),
     saveAgent: useCallback((formData: any) => dispatch(agentBuilderActions.saveAgent(formData)), [dispatch]),
     simulateAgent: useCallback((formData: any) => dispatch(agentBuilderActions.simulateAgent(formData)), [dispatch]),
     deployAgent: useCallback((formData: any) => dispatch(agentBuilderActions.deployAgent(formData)), [dispatch]),
@@ -99,7 +100,19 @@ export const useReduxActions = () => {
 
   // Auth actions
   const auth = {
-    connectWallet: useCallback(() => dispatch(authActions.connectWallet()), [dispatch]),
+    login: useCallback(
+      (data: { email: string; password: string; rememberMe: boolean }) => dispatch(authActions.login(data)),
+      [dispatch],
+    ),
+    register: useCallback(
+      (data: { name: string; email: string; password: string }) => dispatch(authActions.register(data)),
+      [dispatch],
+    ),
+    registerWithWallet: useCallback(
+      (data: { name: string }) => dispatch(authActions.registerWithWallet(data)),
+      [dispatch],
+    ),
+    connectWallet: useCallback((data:any) => dispatch(authActions.connectWallet(data)), [dispatch]),
     disconnectWallet: useCallback(() => dispatch(authActions.disconnectWallet()), [dispatch]),
     fetchUserProfile: useCallback(() => dispatch(authActions.fetchUserProfile()), [dispatch]),
     updateUserProfile: useCallback(
@@ -154,6 +167,8 @@ export const useReduxSelectors = () => {
 
   // Agent Builder selectors
   const agentBuilder = {
+    tools:useAppSelector((state) => state.agentBuilder.tools),
+    capabilities:useAppSelector((state) => state.agentBuilder.capabilities),
     formData: useAppSelector((state) => state.agentBuilder.formData),
     isLoading: useAppSelector((state) => state.agentBuilder.isLoading),
     isDeployed: useAppSelector((state) => state.agentBuilder.isDeployed),

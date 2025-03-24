@@ -13,24 +13,13 @@
 // }
 
 // export default History
-"use client"
 
+"use client"
 import  React from "react"
 import { useState } from "react"
-// import { historyData } from "../../data/historyData"
 import "./History.css"
 import { historyData } from "../../data/historyData"
 import Sidebar from "../../components/SideBar/SideBar"
-
-// interface HistoryItem {
-//   id: string
-//   agentName: string
-//   agentType: string
-//   timestamp: string
-//   duration: string
-//   status: "Completed" | "Failed" | "In Progress"
-//   performance: string
-// }
 
 const History= () => {
   const [selectedPeriod, setSelectedPeriod] = useState("Last 7 Days")
@@ -64,11 +53,13 @@ const History= () => {
 
   const getStatusClass = (status) => {
     switch (status) {
-      case "Completed":
+      case "Deployed":
         return "status-completed"
       case "Failed":
         return "status-failed"
       case "In Progress":
+        return "status-in-progress"
+      case "Draft":
         return "status-in-progress"
       default:
         return ""
@@ -81,11 +72,19 @@ const History= () => {
     if (value < 0) return "performance-negative"
     return ""
   }
+  const [expandedRow, setExpandedRow] = useState(null);
+  const toggleExpandRow = (id) => {
+    setExpandedRow(expandedRow === id ? null : id);
+  };
 
+  const toggleAgentStatus = (id) => {
+    console.log(`Toggling status for agent ID: ${id}`);
+    alert("agent Status Updated")
+  };
   return (
     <>
     <Sidebar />
-    
+    {/* <div className="main-content"> */}
     <div className="history-page">
       <div className="history-header">
         <h1>Agent History</h1>
@@ -139,6 +138,7 @@ const History= () => {
       <div className="history-table-container">
         <table className="history-table">
           <thead>
+            
             <tr>
               <th>Agent Name</th>
               <th>Type</th>
@@ -151,7 +151,8 @@ const History= () => {
           </thead>
           <tbody>
             {filteredHistory.map((item) => (
-              <tr key={item.id}>
+                <React.Fragment key={item.id}>
+              <tr >
                 <td className="agent-name">{item.agentName}</td>
                 <td>{item.agentType}</td>
                 <td>{item.timestamp}</td>
@@ -162,11 +163,40 @@ const History= () => {
                 <td className={getPerformanceClass(item.performance)}>{item.performance}</td>
                 <td>
                   <div className="table-actions">
-                    <button className="action-icon view-icon">👁️</button>
-                    <button className="action-icon download-icon">⬇️</button>
+                    <button onClick={() => toggleExpandRow(item.id)} className="action-icon view-icon">👁️</button>
+                    <button onClick={() => toggleAgentStatus(item.id)} className="action-icon download-icon">{item.status === "Deployed" ? "⏸️" : "▶️"}</button>
                   </div>
                 </td>
               </tr>
+              {expandedRow === item.id &&  (
+                  <tr className="expanded-row">
+                    <td colSpan="6">
+                      <div className="history-details">
+                        { item.agentHistory && item.agentHistory.length > 0  ? (
+                        <table className="w-full text-left border border-gray-200 rounded-md">
+                          <thead>
+                            <tr className="bg-gray-200">
+                              <th className="p-2">Event</th>
+                              <th className="p-2">Timestamp</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {item.agentHistory.map((history, index) => (
+                              <tr key={index} className="border-t">
+                                <td className="p-2">{history.event}</td>
+                                <td className="p-2">{history.timestamp}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      ) : (
+                        <p className="text-gray-500">No history available</p>
+                      )}
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
             ))}
           </tbody>
         </table>
@@ -178,9 +208,8 @@ const History= () => {
         )}
       </div>
     </div>
+    {/* </div> */}
     </>
   )
 }
-
 export default History
-

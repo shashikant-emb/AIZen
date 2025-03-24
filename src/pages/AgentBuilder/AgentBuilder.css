@@ -1,7 +1,8 @@
 .agent-builder {
     background-color: var(--primary-bg);
     color: var(--primary-text);
-    padding: 24px;
+    /* padding: 24px; */
+    padding: 32px 16px;
     min-height: 100vh;
   }
   
@@ -217,7 +218,39 @@
     width: 33%;
   }
   
+  .outline-button {
+    background-color: transparent;
+    color: var(--primary-text);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+    width: 33%;
+  }
   .simulate-button {
+    background-color: #4a4a4a; 
+    color: #a0a0a0; 
+    border: 1px solid #5a5a5a; 
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+    width: 33%;
+    cursor: not-allowed; /* Removes pointer and shows disabled cursor */
+    opacity: 0.6; /* Makes it look inactive */
+    pointer-events: none; /* Prevents clicking */
+}
+  
+  .outline-button:hover {
+    background-color: rgba(138, 86, 255, 0.1);
+    transform: translateY(-1px);
+  }
+  /* .simulate-button {
     background-color: var(--secondary-bg);
     width: 33%;
   }
@@ -225,7 +258,7 @@
   .deploy-button {
     background-color: var(--secondary-bg);
     width: 33%;
-  }
+  } */
   
   /* Deployed Agent Styles */
   .agent-deployed-container {
@@ -402,12 +435,31 @@
     .form-actions {
       flex-direction: column;
     }
+    .gradient-button{
+      width: 100%;
+    }
+    .outline-button{
+      width: 100%;
+  }
+  .simulate-button{
+    width: 100%;
+  }
+  .checkbox-group {
+    
+    width: 100%;
+  }
   }
   
   @media (max-width: 480px) {
     .tools-grid {
       grid-template-columns: 1fr;
     }
+    .outline-button{
+      width: 100%;
+  }
+  .simulate-button{
+    width: 100%;
+  }
   }
   
   

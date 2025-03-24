@@ -9,8 +9,11 @@ export interface Agent {
     weeklyReward: string
     tags: string[]
     trending?: boolean
+    riskLevel:string
+    strategyType:string
     status?: "Deployed" | "Draft"
     dateCreated?: string
+    created_date?:string
   }
   
   export interface Stats {

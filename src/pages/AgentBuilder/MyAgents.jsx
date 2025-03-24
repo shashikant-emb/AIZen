@@ -23,12 +23,13 @@ import { myAgentsData } from '../../data/myAgentsData';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import AgentCard from '../../components/AgentCard/AgentCard';
 import Sidebar from '../../components/SideBar/SideBar';
+import { Link, useLocation, useNavigate} from "react-router-dom"
 
 const MyAgents = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All Agents');
   const [selectedSort, setSelectedSort] = useState('Date Created (Newest)');
-
+  const navigate = useNavigate();
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -60,10 +61,11 @@ const MyAgents = () => {
   return (
     <>
     <Sidebar />
+    {/* <div className="main-content"> */}
     <div className="my-agents">
       <div className="my-agents-header">
         <h1>My Agents</h1>
-        <button className="gradient-button create-agent-button">
+        <button  onClick={() => navigate("/agent-builder")} className="gradient-button create-agent-button">
           <span>+</span> Create New Agent
         </button>
       </div>
@@ -135,6 +137,7 @@ const MyAgents = () => {
         </div>
       )}
     </div>
+    {/* </div> */}
     </>
   );
 };

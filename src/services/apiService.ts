@@ -1,8 +1,9 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios"
 
 // Base URL for API calls
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.stratgpt.com"
-const API_BASE_URL="https://jsonplaceholder.typicode.com/users"
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://api.aizen.com"
+// const API_BASE_URL="http://13.203.197.24:8000"
+
 
 // Create axios instance with default config
 const apiClient = axios.create({

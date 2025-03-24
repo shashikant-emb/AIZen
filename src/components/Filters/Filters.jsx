@@ -50,8 +50,8 @@ const Filters = ({
           <label>Strategy Type:</label>
           <select value={selectedStrategy} onChange={(e) => onStrategyChange(e.target.value)}>
             <option value="All Strategies">All Strategies</option>
-            <option value="Momentum">Momentum</option>
-            <option value="Grid">Grid</option>
+            <option value="momentum">Momentum</option>
+            <option value="grid">Grid</option>
             <option value="Delta Neutral">Delta Neutral</option>
           </select>
         </div>
@@ -60,7 +60,7 @@ const Filters = ({
           <label>Risk Level:</label>
           <select value={selectedRiskLevel} onChange={(e) => onRiskLevelChange(e.target.value)}>
             <option value="All Levels">All Levels</option>
-            <option value="Low Risk">Low Risk</option>
+            <option value="low">Low Risk</option>
             <option value="Medium Risk">Medium Risk</option>
             <option value="High Risk">High Risk</option>
           </select>

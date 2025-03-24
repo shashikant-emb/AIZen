@@ -44,8 +44,9 @@ const initialState: MarketplaceState = {
 // Async thunks for API calls
 export const fetchAgents = createAsyncThunk("marketplace/fetchAgents", async (_, { rejectWithValue }) => {
   try {
-    const response = await getRequest("/agents")
-    return response.data
+    const response = await getRequest("/agent_marketplace")
+    // console.log("Rres",response)
+    return response.data.response
   } catch (error: any) {
     return rejectWithValue(error.response?.data || "Failed to fetch agents")
   }
@@ -115,8 +116,11 @@ const marketplaceSlice = createSlice({
       })
       .addCase(fetchAgents.fulfilled, (state, action) => {
         state.loading = false
-        state.agents = action.payload
-        state.filteredAgents = filterAgents(action.payload, state.filters)
+        state.agents = action.payload.agents
+        state.filteredAgents = action.payload.agents
+        state.stats = action.payload.stats
+        
+        // filterAgents(action.payload, state.filters)
       })
       .addCase(fetchAgents.rejected, (state, action) => {
         state.loading = false
@@ -172,16 +176,21 @@ const filterAgents = (agents: Agent[], filters: MarketplaceState["filters"]) => 
 
   // Apply strategy filter
   if (filters.selectedStrategy !== "All Strategies") {
-    filtered = filtered.filter((agent) => agent.tags.includes(filters.selectedStrategy))
+    console.log("filters.selectedStrategy",filters.selectedStrategy)
+    filtered = filtered.filter((agent) => agent.strategyType==filters.selectedStrategy)
   }
 
   // Apply risk level filter
   if (filters.selectedRiskLevel !== "All Levels") {
-    filtered = filtered.filter((agent) => agent.tags.includes(filters.selectedRiskLevel))
+    console.log("preFilteed",filtered)
+    console.log("filters.selectedStrategy",filters.selectedRiskLevel)
+    filtered = filtered.filter((agent) => agent.riskLevel==filters.selectedRiskLevel)
+    console.log("postFiltereted",filtered)
   }
 
   // Apply tag filter
   if (!filters.selectedTags.includes("All")) {
+    console.log("filters.selectedStrategy",filters.selectedStrategy)
     filtered = filtered.filter((agent) => filters.selectedTags.some((tag) => agent.tags.includes(tag)))
   }
 

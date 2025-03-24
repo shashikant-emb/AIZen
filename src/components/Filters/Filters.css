@@ -83,12 +83,15 @@
   padding: 8px 12px;
   border-radius: 8px;
   min-width: 200px;
+  
+  /* width: auto; */
 }
 
 .filter-group label {
   font-size: 14px;
   color: #a0a0b0; 
   white-space: nowrap;
+  
 }
 
 .filter-group select {
@@ -137,6 +140,7 @@
 
   .filter-group {
     width: 100%;
+    flex-wrap: wrap;
   }
 
   .filter-group select {

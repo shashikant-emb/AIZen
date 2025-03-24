@@ -33,19 +33,68 @@ const initialState: AuthState = {
 }
 
 // Async thunks for API calls
-export const connectWallet = createAsyncThunk("auth/connectWallet", async (_, { rejectWithValue }) => {
+
+export const login = createAsyncThunk(
+  "auth/login",
+  async (
+    { email, password, rememberMe }: { email: string; password: string; rememberMe: boolean },
+    { rejectWithValue },
+  ) => {
+    try {
+      const response = await postRequest("/auth/login", { email, password, rememberMe })
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Login failed. Please check your credentials.")
+    }
+  },
+)
+
+export const register = createAsyncThunk(
+  "auth/register",
+  async ({ name, email, password }: { name: string; email: string; password: string }, { rejectWithValue }) => {
+    try {
+      const response = await postRequest("/auth/register", { name, email, password })
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Registration failed. Please try again.")
+    }
+  },
+)
+
+export const registerWithWallet = createAsyncThunk(
+  "auth/registerWithWallet",
+  async ({ name }: { name: string }, { rejectWithValue }) => {
+    try {
+      // First connect wallet
+      const walletAddress = "0x71C7656EC7ab88b098defB751B7401B5f6d8976F" // Simulated wallet address
+
+      // Then register with the wallet
+      const response = await postRequest("/auth/register-wallet", { name, walletAddress })
+      return {
+        ...response.data,
+        walletAddress,
+        walletBalance: "0.0",
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Wallet registration failed. Please try again.")
+    }
+  },
+)
+
+
+export const connectWallet = createAsyncThunk("auth/connectWallet", async (walletAddress, { rejectWithValue }) => {
   try {
     // In a real app, this would interact with a wallet provider like MetaMask
     // For this example, we'll simulate a successful connection
-    const walletAddress = "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
-    const walletBalance = "42580.25"
+    // const walletAddress = "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
+    // const walletBalance = "42580.25"
 
     // Register wallet with backend
-    const response = await postRequest("/auth/connect-wallet", { walletAddress })
+    const response = await postRequest("/wallet_auth",  walletAddress )
 
     return {
       walletAddress,
-      walletBalance,
+      // walletBalance,
       ...response.data,
     }
   } catch (error: any) {
@@ -99,6 +148,72 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+        // Handle login
+        builder
+        .addCase(login.pending, (state) => {
+          state.loading = true
+          state.error = null
+        })
+        .addCase(login.fulfilled, (state, action) => {
+          state.loading = false
+          state.isAuthenticated = true
+          state.userProfile = action.payload.user
+  
+          // Store auth token if provided
+          if (action.payload.token) {
+            localStorage.setItem("auth_token", action.payload.token)
+          }
+        })
+        .addCase(login.rejected, (state, action) => {
+          state.loading = false
+          state.error = action.payload as string
+        })
+  
+      // Handle register
+      builder
+        .addCase(register.pending, (state) => {
+          state.loading = true
+          state.error = null
+        })
+        .addCase(register.fulfilled, (state, action) => {
+          state.loading = false
+          state.isAuthenticated = true
+          state.userProfile = action.payload.user
+  
+          // Store auth token if provided
+          if (action.payload.token) {
+            localStorage.setItem("auth_token", action.payload.token)
+          }
+        })
+        .addCase(register.rejected, (state, action) => {
+          state.loading = false
+          state.error = action.payload as string
+        })
+  
+      // Handle registerWithWallet
+      builder
+        .addCase(registerWithWallet.pending, (state) => {
+          state.loading = true
+          state.error = null
+        })
+        .addCase(registerWithWallet.fulfilled, (state, action) => {
+          state.loading = false
+          state.isAuthenticated = true
+          state.isWalletConnected = true
+          state.walletAddress = action.payload.walletAddress
+          state.walletBalance = action.payload.walletBalance
+          state.userProfile = action.payload.user
+  
+          // Store auth token if provided
+          if (action.payload.token) {
+            localStorage.setItem("auth_token", action.payload.token)
+          }
+        })
+        .addCase(registerWithWallet.rejected, (state, action) => {
+          state.loading = false
+          state.error = action.payload as string
+        })
+        
     // Handle connectWallet
     builder
       .addCase(connectWallet.pending, (state) => {
