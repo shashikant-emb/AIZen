@@ -373,6 +373,9 @@
       flex-direction: column;
       align-items: center;
     }
+    .outline-button{
+        width: 100%;
+    }
   }
   
   @media (max-width: 480px) {
@@ -380,6 +383,9 @@
     .team-grid,
     .investors-grid {
       grid-template-columns: 1fr;
+    }
+    .outline-button{
+        width: 100%;
     }
   }
   

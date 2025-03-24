@@ -39,8 +39,8 @@ const Home= () => {
           </div>
         </div>
         <div className="hero-image">
-          <img src="/placeholder.svg?height=400&width=500" alt="AIZen Platform" />
-          {/* <img src="https://imgs.search.brave.com/R4O7bdhjmzol8LdzhoRAPLOUf7QHGPmR4HN-6XmbuoM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdj/ZG4uc3RhYmxlZGlm/ZnVzaW9ud2ViLmNv/bS8yMDI1LzIvMTUv/N2YwN2YwM2ItZTQ1/Yy00MTcwLWI3ZjYt/MzM1NDgxZDdiNzZj/LmpwZw?height=400&width=500" alt="AIZen Platform" /> */}
+          {/* <img src="/placeholder.svg?height=400&width=500" alt="AIZen Platform" /> */}
+          <img src="https://imgs.search.brave.com/GXPQ2KIJX2XU5Zo9OaqfO8rYqqcEuZDR5H7nBy9Y5So/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mcmFj/dGlvbmFpLnh5ei9f/bmV4dC9zdGF0aWMv/bWVkaWEvRGF0YVNw/YWNlc0JvdHRvbUdy/YWRpZW50LjUwODNh/NWUxLnN2Zw?height=400&width=500" alt="AIZen Platform" />
         </div>
       </section>
 

@@ -32,7 +32,7 @@ body {
 
 .main-content {
   flex: 1;
-  margin-left: 220px;
+  margin-left: 260px;
 }
 
 .marketplace-content {
@@ -93,6 +93,9 @@ button {
 
   .main-content {
     margin-left: 60px;
+  }
+  .gradient-button{
+    width: 100%;
   }
 }
 /* 

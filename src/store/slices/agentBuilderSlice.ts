@@ -38,6 +38,8 @@ interface AgentBuilderState {
   error: string | null
   savedAgents: AgentResponse[]
   simulationResults: any | null
+  capabilities: string[]
+  tools:string[]
 }
 
 // Initial state
@@ -58,14 +60,30 @@ const initialState: AgentBuilderState = {
   error: null,
   savedAgents: [],
   simulationResults: null,
+  capabilities:[],
+  tools:[]
 }
 
 // Async thunks for API calls
+export const categorySelection = createAsyncThunk(
+  "agentBuilder/categorySelection",
+  async (formData: AgentFormData, { rejectWithValue }) => {
+    try {
+      // const response = await postRequest("/agents/save", formData)
+      const response = await postRequest("post_category_selection", formData)
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || "Failed to save agent")
+    }
+  },
+)
+
 export const saveAgent = createAsyncThunk(
   "agentBuilder/saveAgent",
   async (formData: AgentFormData, { rejectWithValue }) => {
     try {
-      const response = await postRequest("/agents/save", formData)
+      // const response = await postRequest("/agents/save", formData)
+      const response = await postRequest("build_agent", formData)
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Failed to save agent")
@@ -156,6 +174,22 @@ const agentBuilderSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Handle categorySelection
+    builder
+      .addCase(categorySelection.pending, (state) => {
+        state.isLoading = true
+        state.error = null
+      })
+      .addCase(categorySelection.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.capabilities = action.payload.response.capabilities
+        state.tools= action.payload.response.tools
+      })
+      .addCase(categorySelection.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload as string
+      })
+
     // Handle saveAgent
     builder
       .addCase(saveAgent.pending, (state) => {

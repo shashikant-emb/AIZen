@@ -82,7 +82,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
   
-  /* Logo */
+
   .navbar-logo {
     display: flex;
     align-items: center;
@@ -112,7 +112,7 @@
     font-weight: 700;
   }
   
-  /* Navigation Links */
+  
   .navbar-links {
     display: flex;
     gap: 24px;
@@ -131,7 +131,7 @@
     color: var(--primary-text);
   }
   
-  /* Actions */
+
   .navbar-actions {
     display: flex;
     align-items: center;
@@ -174,9 +174,9 @@
     font-weight: 500;
   }
   
-  /* ---------- RESPONSIVE DESIGN ---------- */
+ 
   .menu-toggle {
-    display: none; /* Hidden by default */
+    display: none; 
     background: none;
     border: none;
     font-size: 24px;
@@ -184,12 +184,14 @@
     color: white;
   }
   
-  /* Mobile View */
+  
   @media (max-width: 768px) {
     .menu-toggle {
-      display: block; /* Show menu button */
+      display: block; 
     }
-  
+    .navbar{
+      z-index: 99;
+    }
     .navbar-links {
       display: none;
       flex-direction: column;
@@ -203,7 +205,7 @@
     }
   
     .navbar-links.open {
-      display: flex; /* Show menu when toggled */
+      display: flex; 
     }
   
     .nav-link {
@@ -213,7 +215,7 @@
     }
   
     .navbar-actions {
-      display: none; /* Hide wallet & avatar in small screens */
+      display: none; 
     }
   }
   

@@ -5,8 +5,14 @@ export const historyData = [
       agentType: "Liquidity Rebalancer",
       timestamp: "2025-03-17 14:32:15",
       duration: "4h 12m",
-      status: "Completed",
+      status: "Deployed",
       performance: "+2.8%",
+      agentHistory: [
+        { event: "Created", timestamp: "2025-03-01" },
+        { event: "Configured", timestamp: "2025-03-03" },
+        { event: "Deployed", timestamp: "2025-03-15" },
+        { event: "Trade Executed", timestamp: "2025-03-16" },
+      ],
     },
     {
       id: "h-2",
@@ -14,8 +20,14 @@ export const historyData = [
       agentType: "Yield Optimizer",
       timestamp: "2025-03-17 10:15:22",
       duration: "6h 45m",
-      status: "Completed",
+      status: "Draft",
       performance: "+3.4%",
+      agentHistory: [
+        { event: "Created", timestamp: "2025-03-01" },
+        { event: "Configured", timestamp: "2025-03-03" },
+        { event: "Deployed", timestamp: "2025-03-15" },
+        { event: "Trade Executed", timestamp: "2025-03-16" },
+      ],
     },
     {
       id: "h-3",
@@ -32,7 +44,7 @@ export const historyData = [
       agentType: "Stablecoin Strategy",
       timestamp: "2025-03-16 22:45:33",
       duration: "12h 10m",
-      status: "Completed",
+      status: "Deployed",
       performance: "+0.6%",
     },
     {
@@ -41,7 +53,7 @@ export const historyData = [
       agentType: "Delta Neutral",
       timestamp: "2025-03-16 18:20:45",
       duration: "8h 35m",
-      status: "Completed",
+      status: "Draft",
       performance: "+1.1%",
     },
     {
@@ -50,7 +62,7 @@ export const historyData = [
       agentType: "Liquidity Rebalancer",
       timestamp: "2025-03-16 12:10:05",
       duration: "4h 05m",
-      status: "Completed",
+      status: "Deployed",
       performance: "+1.9%",
     },
     {
@@ -68,7 +80,7 @@ export const historyData = [
       agentType: "Momentum Strategy",
       timestamp: "2025-03-15 22:15:42",
       duration: "3h 20m",
-      status: "Completed",
+      status: "Draft",
       performance: "+4.2%",
     },
     {
@@ -77,7 +89,7 @@ export const historyData = [
       agentType: "Stablecoin Strategy",
       timestamp: "2025-03-15 16:40:33",
       duration: "12h 05m",
-      status: "Completed",
+      status: "Deployed",
       performance: "+0.5%",
     },
     {

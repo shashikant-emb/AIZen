@@ -163,11 +163,17 @@
     .filter-controls {
       flex-direction: column;
     }
+    .filter-group{
+        flex-wrap: wrap;
+    }
   }
   
   @media (max-width: 480px) {
     .my-agents-stats {
       grid-template-columns: 1fr;
+    }
+    .filter-group{
+        flex-wrap: wrap;
     }
   
     .my-agents-header {

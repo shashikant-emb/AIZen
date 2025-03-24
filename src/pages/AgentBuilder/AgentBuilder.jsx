@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AgentBuilder.css';
 import { capabilities, tools } from '../../assets/constants/agentBuilderConstants';
+import { useAccount, useBalance } from "wagmi";
+import { useReduxActions, useReduxSelectors } from '../../hooks/useReduxActions';
 
 const AgentBuilder = () => {
+  const { agentBuilder } = useReduxActions()
+  const { agentBuilder: agentBuilderSelectors } = useReduxSelectors()
+  const {
+    tools,
+    capabilities
+  } = agentBuilderSelectors
+  console.log(tools,capabilities)
+  const { address, isConnected } = useAccount();
+  const { data: balance } = useBalance({ address });
+  console.log("address",address)
+  console.log('balance',`${balance?.formatted} ${balance?.symbol}`)
   const [formData, setFormData] = useState({
     name: '',
     role: '',
@@ -15,6 +28,8 @@ const AgentBuilder = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaveLoading,setIsSaveLoading]=useState(false)
+  const [isDeployLoading,setIsDeployLoading]=useState(false)
   const [isDeployed, setIsDeployed] = useState(false);
   const [isSaved,setIsSaved]=useState(false)
   const [savedAgent, setsavedAgent] = useState(null);
@@ -23,7 +38,7 @@ const AgentBuilder = () => {
   ]);
   const [userMessage, setUserMessage] = useState('');
 
-  
+  // saveAgent
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,9 +56,9 @@ const AgentBuilder = () => {
     
   };
   
-  const handleCategoryChange=(e)=>{
+  const handleCategoryChange= async(e)=>{
     handleInputChange(e)
-
+    agentBuilder.categorySelection({category:e.target.value})
   }
 
   const handleToolToggle = (tool) => {
@@ -57,27 +72,52 @@ const AgentBuilder = () => {
   };
 
   const handleSave = async () => {
-    setIsLoading(true);
+    if(formData.name==''||formData.role=='' ||formData.goals=='' || formData.description==''){
+      alert("Please fill all the input fields")
+      return
+    }else if(formData.category==''){
+      alert("please select category")
+      return
+    }
+    setIsSaveLoading(true);
+    try {
+      const response = {
+        AgentName: formData.name || 'OrionBot',
+        AgentRole: formData.role || 'Liquidity Rebalancer',
+        AgentGoals: formData.goals || 'Optimize liquidity across pools with minimal IL',
+        AgentDescription: formData.description || 'Advanced algorithmic agent for DeFi liquidity optimization',
+        AgentInstructions: formData.instructions,
+        SelectedTools: formData.tools,
+        category: formData.category,
+        AgentCapabilities: formData.capabilities,
+        rebalanceFrequency: 6,
+        riskProfile: 'medium',
+        autoExecute: true
+      };
+      console.log("res",response)
+      setsavedAgent(response)
+      agentBuilder.saveAgent(response)
+      setIsSaved(true)
+      // alert('Agent saved successfully!');
+      setIsSaveLoading(false);
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      });
+      
+    } catch (error) {
+      console.error("error",error)
+      setIsSaveLoading(false);
+    }
+   
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log("res",formData)
+    // await new Promise(resolve => setTimeout(resolve, 1000));
+    // console.log("res",formData)
     
     // alert('Agent saved successfully!');
-    const response = {
-      name: formData.name || 'OrionBot',
-      role: formData.role || 'Liquidity Rebalancer',
-      goals: formData.goals || 'Optimize liquidity across pools with minimal IL',
-      description: formData.description || 'Advanced algorithmic agent for DeFi liquidity optimization',
-      tools: formData.tools,
-      rebalanceFrequency: 6,
-      riskProfile: 'medium',
-      autoExecute: true
-    };
-    console.log("res",response)
-    setsavedAgent(response);
-    setIsSaved(true)
-    setIsLoading(false);
+    
+   
   };
+
 
   const handleSimulate = async () => {
     setIsLoading(true);
@@ -88,7 +128,7 @@ const AgentBuilder = () => {
   };
 
   const handleDeploy = async () => {
-    setIsLoading(true);
+    setIsDeployLoading(true);
     
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
@@ -100,6 +140,7 @@ const AgentBuilder = () => {
       goals: formData.goals || 'Optimize liquidity across pools with minimal IL',
       description: formData.description || 'Advanced algorithmic agent for DeFi liquidity optimization',
       tools: formData.tools,
+      
       rebalanceFrequency: 6,
       riskProfile: 'medium',
       autoExecute: true
@@ -108,7 +149,7 @@ const AgentBuilder = () => {
     
     // setsavedAgent(response);
     // setIsDeployed(true);
-    setIsLoading(false);
+    setIsDeployLoading(false);
     alert('Agent Deployed successfully!');
   };
 
@@ -151,12 +192,12 @@ const AgentBuilder = () => {
     
     // Create a formatted JSON string with syntax highlighting classes
     return `{
-  "name": "${savedAgent.name}",
-  "role": "${savedAgent.role}",
-  "goals": "${savedAgent.goals}",
-  "description": "${savedAgent.description}",
+  "name": "${savedAgent.AgentName}",
+  "role": "${savedAgent.AgentRole}",
+  "goals": "${savedAgent.AgentGoals}",
+  "description": "${savedAgent.AgentDescription}",
   "tools": [
-    ${savedAgent.tools.map(tool => `"${tool}"`).join(',\n    ')}
+    ${savedAgent.SelectedTools.map(tool => `"${tool}"`).join(',\n    ')}
   ],
   "rebalanceFrequency": ${savedAgent.rebalanceFrequency},
   "riskProfile": "${savedAgent.riskProfile}",
@@ -169,10 +210,10 @@ const AgentBuilder = () => {
       <div className="agent-builder-header">
         {/* <h1>Agent Builder Dashboard</h1> */}
         <h1>{"Build Your Agent"}</h1>
-        <div className="user-info">
+        {/* <div className="user-info">
           <div className="user-avatar">JC</div>
           <span>Jane Creator</span>
-        </div>
+        </div> */}
       </div>
 
       {/* {!isDeployed ? ( */}
@@ -192,6 +233,7 @@ const AgentBuilder = () => {
                   name="name"
                   placeholder="e.g. OrionBot"
                   value={formData.name}
+                  required
                   onChange={handleInputChange}
                 />
               </div>
@@ -250,15 +292,15 @@ const AgentBuilder = () => {
               {/* handleCategoryChange */}
               <select name='category' value={formData.category} onChange={handleCategoryChange}>
                 <option value="All Chains">All Chains</option>
-                <option value="Ethereum">Ethereum</option>
-                <option value="Arbitrum">Arbitrum</option>
-                <option value="Optimism">Optimism</option>
-                <option value="Base">Base</option>
-                <option value="Solana">Solana</option>
+                {/* <option value="Ethereum">Ethereum</option>
+                <option value="Solana">Solana</option> */}
+                 <option value="Uniswap V3">Uniswap V3</option>
+                
               </select>
             </div>
           </div>
 
+           {capabilities.length>0 && ( 
             <div className="form-group">
               <label>Agent Capabilities</label>
               <div className="checkbox-group">
@@ -275,8 +317,10 @@ const AgentBuilder = () => {
                 ))}
               </div>
             </div>
+          )}
 
-            <div className="form-group">
+           {tools.length>0 && (
+             <div className="form-group">
               <label>Select Tools & Strategies</label>
               <p className="form-hint">Choose from available alpha indicators and utilities.</p>
               <div className="tools-grid">
@@ -293,17 +337,17 @@ const AgentBuilder = () => {
                 ))}
               </div>
             </div>
-
+          )}
             <div className="form-actions">
               <button 
                 className="gradient-button save-button" 
                 onClick={handleSave}
                 disabled={isLoading}
               >
-                {isLoading ? 'Saving...' : 'Save Agent'}
+                {isSaveLoading ? 'Saving...' : isSaved ? 'Update Agent': 'Save Agent'}
               </button>
               <button 
-                className="action-button simulate-button" 
+                className="simulate-button" 
                 onClick={handleSimulate}
                 // disabled={isLoading}
                 disabled={true}
@@ -311,11 +355,12 @@ const AgentBuilder = () => {
                 {isLoading ? 'Simulating...' : 'Simulate'}
               </button>
               <button 
-                className="action-button deploy-button" 
+                className="simulate-button" 
                 onClick={handleDeploy}
-                disabled={isLoading}
+                // disabled={isLoading}
+                disabled={true}
               >
-                {isLoading ? 'Deploying...' : 'Deploy'}
+                {isDeployLoading ? 'Deploying...' : 'Deploy'}
               </button>
             </div>
           </div>
@@ -370,7 +415,8 @@ const AgentBuilder = () => {
                   className="send-button gradient-button"
                   onClick={handleSendMessage}
                 >
-                  What's your rebalancing strategy?
+                  {/* What's your rebalancing strategy? */}
+                  Send
                 </button>
               </div>
             </div>
