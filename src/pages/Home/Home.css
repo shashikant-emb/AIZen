@@ -317,7 +317,7 @@
       font-size: 2.2rem;
     }
     .outline-button{
-        width: 100%;
+        width: 90%;
     }
    
     
@@ -342,6 +342,9 @@
     
     .stats-section {
       grid-template-columns: 1fr;
+    }
+    .outline-button{
+        width: 90%;
     }
   }
   

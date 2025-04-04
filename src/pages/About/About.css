@@ -374,7 +374,7 @@
       align-items: center;
     }
     .outline-button{
-        width: 100%;
+        width: 90%;
     }
   }
   
@@ -385,7 +385,7 @@
       grid-template-columns: 1fr;
     }
     .outline-button{
-        width: 100%;
+        width: 90%;
     }
   }
   

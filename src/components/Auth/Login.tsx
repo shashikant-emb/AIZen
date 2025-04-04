@@ -21,7 +21,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     // If user is already authenticated, redirect to home
     if (isAuthenticated) {
-      navigate("/home")
+      navigate("/")
     }
   }, [isAuthenticated, navigate])
 
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
   const handleWalletLogin = async () => {
     setLoginError(null)
     try {
-      await auth.connectWallet()
+    //   await auth.connectWallet()
     } catch (err) {
       // Error will be handled by Redux
     }

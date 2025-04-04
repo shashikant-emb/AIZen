@@ -6,7 +6,7 @@ const AgentList = ({ agents }) => {
   return (
     <div className="agent-list">
       {agents.map((agent) => (
-        <AgentCard key={agent.id} agent={agent} />
+        <AgentCard key={agent.id} agent={agent} showActions={true} />
       ))}
     </div>
   )

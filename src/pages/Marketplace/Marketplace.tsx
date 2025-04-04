@@ -8,6 +8,7 @@ import Filters from "../../components/Filters/Filters"
 import AgentList from "../../components/AgentList/AgentList"
 import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
 import "./Marketplace.css"
+import { dummyData } from "../../data/dummyData"
 
 const Marketplace: React.FC = () => {
   const { marketplace } = useReduxActions()
@@ -19,15 +20,14 @@ const Marketplace: React.FC = () => {
     filters: { searchQuery, selectedStrategy, selectedRiskLevel, selectedSort, selectedTimePeriod, selectedTags },
     loading,
   } = marketplaceSelectors
-  console.log("agents",agents)
-  console.log("filteredAgents",filteredAgents)
+
 
   useEffect(() => {
     // Fetch agents and stats when component mounts
     marketplace.fetchAgents()
     // marketplace.fetchStats()
   }, [])
-  console.log("loading",loading)
+  // console.log("loading",loading)
 
   const handleSearch = (query: string) => {
     marketplace.setSearchQuery(query)
@@ -96,6 +96,7 @@ const Marketplace: React.FC = () => {
       ) : (
         // <AgentList agents={filteredAgents} onCommission={(agentId) => marketplace.commissionAgent(agentId)} />
         <AgentList agents={filteredAgents} />
+        // <AgentList agents={dummyData.agents} />
       )}
     </div>
   )

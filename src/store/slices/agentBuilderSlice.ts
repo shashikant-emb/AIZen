@@ -23,6 +23,10 @@ interface AgentResponse {
   riskProfile: string
   autoExecute: boolean
 }
+interface DeployAgentPayload {
+  formData: AgentFormData
+  id: string
+}
 
 interface ChatMessage {
   text: string
@@ -32,6 +36,7 @@ interface ChatMessage {
 interface AgentBuilderState {
   formData: AgentFormData
   isLoading: boolean
+  isChatLoading:boolean
   isDeployed: boolean
   deployedAgent: AgentResponse | null
   chatMessages: ChatMessage[]
@@ -54,6 +59,7 @@ const initialState: AgentBuilderState = {
     tools: ["RSI", "Momentum", "Alpha-based Trigger"],
   },
   isLoading: false,
+  isChatLoading:false,
   isDeployed: false,
   deployedAgent: null,
   chatMessages: [{ text: "Hello! I'm your liquidity rebalancer agent. How can I assist you today?", isUser: false }],
@@ -105,9 +111,9 @@ export const simulateAgent = createAsyncThunk(
 
 export const deployAgent = createAsyncThunk(
   "agentBuilder/deployAgent",
-  async (formData: AgentFormData, { rejectWithValue }) => {
+  async ({ formData, id }: DeployAgentPayload, { rejectWithValue }) => {
     try {
-      const response = await postRequest("/agents/deploy", formData)
+      const response = await postRequest(`deploy_agent?id=${id}`, formData)
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Failed to deploy agent")
@@ -115,11 +121,24 @@ export const deployAgent = createAsyncThunk(
   },
 )
 
+// export const sendChatMessage = createAsyncThunk(
+//   "agentBuilder/sendChatMessage",
+//   async ({ agentId, message }: { agentId: string; message: string }, { rejectWithValue }) => {
+//     try {
+//       const response = await postRequest(`/agents/${agentId}/chat`, { message })
+//       return response.data
+//     } catch (error: any) {
+//       return rejectWithValue(error.response?.data || "Failed to send message")
+//     }
+//   },
+// )
 export const sendChatMessage = createAsyncThunk(
   "agentBuilder/sendChatMessage",
-  async ({ agentId, message }: { agentId: string; message: string }, { rejectWithValue }) => {
+  async (data:any, { rejectWithValue }) => {
+    console.log("dsadata",data);
+    
     try {
-      const response = await postRequest(`/agents/${agentId}/chat`, { message })
+      const response = await postRequest(`/chat`, data)
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Failed to send message")
@@ -239,18 +258,18 @@ const agentBuilderSlice = createSlice({
     // Handle sendChatMessage
     builder
       .addCase(sendChatMessage.pending, (state) => {
-        state.isLoading = true
+        state.isChatLoading = true
         state.error = null
       })
       .addCase(sendChatMessage.fulfilled, (state, action) => {
-        state.isLoading = false
+        state.isChatLoading = false
         state.chatMessages.push({
           text: action.payload.response,
           isUser: false,
         })
       })
       .addCase(sendChatMessage.rejected, (state, action) => {
-        state.isLoading = false
+        state.isChatLoading = false
         state.error = action.payload as string
       })
 

@@ -108,8 +108,14 @@
   }
   
   .navbar-logo h1 {
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
     font-weight: 700;
+    /* margin-bottom: 16px; */
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+
   }
   
   
@@ -172,6 +178,7 @@
     justify-content: center;
     color: white;
     font-weight: 500;
+    cursor: pointer;
   }
   
  
@@ -183,6 +190,239 @@
     cursor: pointer;
     color: white;
   }
+
+
+  /*---------*/
+    /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/
+  .user-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 50%;
+    background: var(--secondary-bg);
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    border-radius: 3%;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .user-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    color: var(--primary-text);
+  }
+  
+  .close-button {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .close-button:hover {
+    color: var(--primary-text);
+  }
+  
+  .user-avatar-large {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: bold;
+    margin: 15px 0;
+    color: var(--primary-text);
+  }
+  
+  .user-email {
+    margin: 10px 0;
+    font-size: 14px;
+    color: var(--secondary-text);
+  }
+  
+  .user-action-button {
+    width: 80%;
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s;
+  }
+  
+  .deposit {
+    background: var(--positive);
+    color: var(--primary-text);
+  }
+  
+  .deposit:hover {
+    background: #009c3b;
+  }
+  
+  .withdraw {
+    background: var(--negative);
+    color: var(--primary-text);
+  }
+  
+  .withdraw:hover {
+    background: #d32f2f;
+  }
+  .transaction-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .transaction-input input {
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .transaction-input input:focus {
+    border-color: #007bff;
+  }
+  
+  .transaction-input button {
+    padding: 8px 12px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .transaction-input button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/
+  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/
+    /* User Profile Dropdown */
+    .user-profile-container {
+      position: relative;
+    }
+    
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 280px;
+      background-color: var(--secondary-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      overflow: hidden;
+      animation: dropdown-appear 0.2s ease-out;
+    }
+    
+    @keyframes dropdown-appear {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .profile-header {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .profile-header h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 4px 0;
+    }
+    
+    .profile-email {
+      font-size: 0.8rem;
+      color: var(--secondary-text);
+      margin: 0;
+      word-break: break-all;
+    }
+    
+    .profile-wallet {
+      padding: 12px 16px;
+      background-color: rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .wallet-label {
+      font-size: 0.8rem;
+      color: var(--secondary-text);
+    }
+    
+    .wallet-balance {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .profile-actions {
+      padding: 8px;
+    }
+    
+    .profile-action-button {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      text-align: left;
+      color: var(--primary-text);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .profile-action-button:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .action-icon {
+      font-size: 1rem;
+    }
+    
+    .logout-button {
+      color: var(--negative);
+    }
+    
+    .logout-button:hover {
+      background-color: rgba(255, 82, 82, 0.1);
+    }
+
+/*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/
+/*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/  /*---------*/
   
   
   @media (max-width: 768px) {
@@ -191,6 +431,17 @@
     }
     .navbar{
       z-index: 99;
+      padding: 16px 8px;
+    }
+    .navbar-logo h1 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      /* margin-bottom: 16px; */
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+  
     }
     .navbar-links {
       display: none;
@@ -214,7 +465,10 @@
       font-size: 1.1rem;
     }
   
-    .navbar-actions {
+    .navbar-actions .user-info{
+      display: none; 
+    }
+    .navbar-actions .user-profile-container{
       display: none; 
     }
   }

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import { useToast } from "../components/Toast/Toast";
 
 const useWallet = () => {
+   const { showToast } = useToast();
   const [account, setAccount] = useState(null);
   const [provider, setProvider] = useState(null);
   const [balance, setBalance] = useState(null);
@@ -16,10 +18,11 @@ const useWallet = () => {
   const connectWallet = async () => {
     if (!window.ethereum) {
       alert("MetaMask not detected!");
+      showToast("MetaMask not detected!","error")
       return;
     }
     
-    console.log(window.ethereum);
+    // console.log(window.ethereum);
 
     try {
       const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
