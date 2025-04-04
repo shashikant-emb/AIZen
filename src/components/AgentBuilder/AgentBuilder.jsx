@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './AgentBuilder.css';
+import { useToast } from '../Toast/Toast';
 
 const AgentBuilder = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ const AgentBuilder = () => {
     capabilities: ['Liquidity Provision', 'Asset Rebalancing'],
     tools: ['RSI', 'Momentum', 'Alpha-based Trigger']
   });
-
+  const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [isDeployed, setIsDeployed] = useState(false);
   const [deployedAgent, setDeployedAgent] = useState(null);
@@ -42,6 +43,7 @@ const AgentBuilder = () => {
     'Trend Analysis',
     'Volatility Index'
   ];
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -74,6 +76,7 @@ const AgentBuilder = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     setIsLoading(false);
     alert('Agent saved successfully!');
+    
   };
 
   const handleSimulate = async () => {
@@ -113,6 +116,7 @@ const AgentBuilder = () => {
     const jsonString = JSON.stringify(deployedAgent, null, 2);
     navigator.clipboard.writeText(jsonString);
     alert('JSON copied to clipboard!');
+    showToast("JSON copied to clipboard!","error")
   };
 
   const handleSendMessage = () => {

@@ -13,21 +13,24 @@ import Settings from "../pages/AgentBuilder/Settings";
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
 import { useReduxActions, useReduxSelectors } from "../hooks/useReduxActions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProtectedRoute from "../components/ProtectedRoute";
+import AgentCommission from "../components/AgentCommission/AgentCommission";
+import AgentDetails from "../components/AgentDetails/AgentDetails";
 
 const AppRoutes = () => {
   const { auth } = useReduxActions()
   const { auth: authSelectors } = useReduxSelectors()
   const { isAuthenticated } = authSelectors
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
-  useEffect(() => {
-    // Check if there's a token in localStorage and try to authenticate
-    const token = localStorage.getItem("auth_token")
-    if (token && !isAuthenticated) {
-      auth.fetchUserProfile()
-    }
-  }, [auth, isAuthenticated])
+  // useEffect(() => {
+  //   // Check if there's a token in localStorage and try to authenticate
+  //   const token = localStorage.getItem("auth_token")
+  //   if (token && !isAuthenticated) {
+  //     auth.fetchUserProfile()
+  //   }
+  // }, [auth, isAuthenticated])
   return (
     <Routes>
       {/* Marketplace route with Navbar */}
@@ -53,14 +56,14 @@ const AppRoutes = () => {
       <Route
         path="/agent-builder"
         element={
-          // <ProtectedRoute>
+          <ProtectedRoute>
           <>
             <Sidebar />
             <div className="main-content">
               <AgentBuilder />
             </div>
           </>
-          // </ProtectedRoute>
+           </ProtectedRoute>
         }
       />
 
@@ -70,14 +73,42 @@ const AppRoutes = () => {
 
       {/* Default redirect to marketplace */}
       <Route path="/marketplace" element={<Navigate to="/marketplace" replace />} />
+       {/* Agent Commission route - Protected */}
+       <Route
+              path="/agent-commission/:agentId"
+              element={
+                <ProtectedRoute>
+                  <>
+                    <Navbar />
+                    <div className="marketplace-content">
+                      <AgentCommission />
+                    </div>
+                  </>
+                </ProtectedRoute>
+              }
+            />
 
       {/* Additional routes for agent builder dashboard */}
-      {/* <Route path="/my-agents" element={<ProtectedRoute><MyAgents /></ProtectedRoute>}/>
+      <Route path="/my-agents" element={<ProtectedRoute><MyAgents /></ProtectedRoute>}/>
       <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>}/>
-      <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>}/> */}
-      <Route path="/my-agents" element={<MyAgents />}/>
+      <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>}/>
+      {/* <Route path="/my-agents" element={<MyAgents />}/>
       <Route path="/history" element={<History />}/>
-      <Route path="/settings" element={<Settings />}/>
+      <Route path="/settings" element={<Settings />}/> */}
+       {/* Agent Details route - Protected */}
+       <Route
+              path="/agent-details/:agentId"
+              element={
+                <ProtectedRoute>
+                  <>
+                    <Sidebar />
+                    <div className={`main-content ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
+                      <AgentDetails />
+                    </div>
+                  </>
+                </ProtectedRoute>
+              }
+            />
       
       <Route
             path="/"

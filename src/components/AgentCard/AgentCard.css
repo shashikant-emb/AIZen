@@ -68,11 +68,42 @@
   background-color: rgba(255, 82, 82, 0.1);
 }
 
+/* .agent-description {
+  padding: 0 16px 16px;
+  font-size: 0.9rem;
+  color: var(--secondary-text);
+  line-height: 1.5;
+} */
+
 .agent-description {
   padding: 0 16px 16px;
   font-size: 0.9rem;
   color: var(--secondary-text);
   line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: auto; 
+  max-height: 4.5rem;
+  height: 4.5rem;
+}
+
+.agent-description.expanded {
+  max-height: none;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+}
+
+.read-more {
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0 16px;
+  text-align: left;
 }
 
 .agent-tags {

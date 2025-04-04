@@ -63,9 +63,9 @@ export const fetchMarketplaceStats = createAsyncThunk("marketplace/fetchStats", 
 
 export const commissionAgent = createAsyncThunk(
   "marketplace/commissionAgent",
-  async (agentId: string, { rejectWithValue }) => {
+  async (data: any, { rejectWithValue }) => {
     try {
-      const response = await postRequest(`/agents/${agentId}/commission`)
+      const response = await postRequest(`/commission`,data)
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Failed to commission agent")
@@ -176,21 +176,21 @@ const filterAgents = (agents: Agent[], filters: MarketplaceState["filters"]) => 
 
   // Apply strategy filter
   if (filters.selectedStrategy !== "All Strategies") {
-    console.log("filters.selectedStrategy",filters.selectedStrategy)
+    // console.log("filters.selectedStrategy",filters.selectedStrategy)
     filtered = filtered.filter((agent) => agent.strategyType==filters.selectedStrategy)
   }
 
   // Apply risk level filter
   if (filters.selectedRiskLevel !== "All Levels") {
-    console.log("preFilteed",filtered)
-    console.log("filters.selectedStrategy",filters.selectedRiskLevel)
+    // console.log("preFilteed",filtered)
+    // console.log("filters.selectedStrategy",filters.selectedRiskLevel)
     filtered = filtered.filter((agent) => agent.riskLevel==filters.selectedRiskLevel)
-    console.log("postFiltereted",filtered)
+    // console.log("postFiltereted",filtered)
   }
 
   // Apply tag filter
   if (!filters.selectedTags.includes("All")) {
-    console.log("filters.selectedStrategy",filters.selectedStrategy)
+    // console.log("filters.selectedStrategy",filters.selectedStrategy)
     filtered = filtered.filter((agent) => filters.selectedTags.some((tag) => agent.tags.includes(tag)))
   }
 

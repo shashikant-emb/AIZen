@@ -43,9 +43,9 @@ const initialState: MyAgentsState = {
 }
 
 // Async thunks for API calls
-export const fetchMyAgents = createAsyncThunk("myAgents/fetchMyAgents", async (_, { rejectWithValue }) => {
+export const fetchMyAgents = createAsyncThunk("myAgents/fetchMyAgents", async (userId, { rejectWithValue }) => {
   try {
-    const response = await getRequest("/agents/my")
+    const response = await postRequest("my_agents",{user_id:userId})
     return response.data
   } catch (error: any) {
     return rejectWithValue(error.response?.data || "Failed to fetch my agents")
@@ -105,6 +105,16 @@ export const duplicateMyAgent = createAsyncThunk(
     }
   },
 )
+
+export const fetchMyAgent = createAsyncThunk("myAgents/fetchMyAgent", async (data, { rejectWithValue }) => {
+  try {
+    const response = await postRequest("get_agent",data)
+    return response.data
+  } catch (error: any) {
+    return rejectWithValue(error.response?.data || "Failed to fetch my agents")
+  }
+})
+
 
 // Helper function to filter agents based on filters
 const filterAgents = (agents: Agent[], filters: MyAgentsState["filters"]) => {
@@ -184,8 +194,10 @@ const myAgentsSlice = createSlice({
       })
       .addCase(fetchMyAgents.fulfilled, (state, action) => {
         state.loading = false
-        state.agents = action.payload
-        state.filteredAgents = filterAgents(action.payload, state.filters)
+        state.agents = action.payload.response.agents
+        // state.filteredAgents = filterAgents(action.payload, state.filters)
+        state.filteredAgents = action.payload.response.agents
+        state.stats = action.payload.response.stats
       })
       .addCase(fetchMyAgents.rejected, (state, action) => {
         state.loading = false

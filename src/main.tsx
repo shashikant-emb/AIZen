@@ -31,7 +31,8 @@ import '@rainbow-me/rainbowkit/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from "react-redux"
-import { store } from "./store/index.js"
+import { store ,persistor} from "./store/index.js"
+import { PersistGate } from "redux-persist/integration/react"
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
@@ -45,6 +46,7 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
   //<React.StrictMode>
     <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider theme={darkTheme()}>
@@ -52,6 +54,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
+    </PersistGate>
     </Provider>
   //</React.StrictMode>
 );

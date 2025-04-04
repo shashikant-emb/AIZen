@@ -27,3 +27,30 @@ export interface Agent {
     stats: Stats
     agents: Agent[]
   }
+
+  export interface MyAgentStats {
+    totalAgents: number;
+    deployedAgents: number;
+    totalAUM: string;
+    avgPerformance: string;
+  }
+  
+  export interface MyAgent {
+    id: string;
+    name: string;
+    image: string;
+    description: string;
+    performance: string;
+    aum: string;
+    il: string;
+    dailyRebalance: string;
+    weeklyReward: string;
+    tags: string[];
+    status: "Deployed" | "Inactive" | "Pending";
+    dateCreated: string;
+  }
+  
+ export interface MyAgentsData {
+    stats: MyAgentStats;
+    agents: MyAgent[];
+  }

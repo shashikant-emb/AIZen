@@ -3,6 +3,7 @@
 import { useCallback } from "react"
 import { useAppDispatch, useAppSelector } from "../store"
 import * as marketplaceActions from "../store/slices/marketplaceSlice"
+import * as historyActions from "../store/slices/historySlice"
 import * as agentBuilderActions from "../store/slices/agentBuilderSlice"
 import * as myAgentsActions from "../store/slices/myAgentsSlice"
 import * as lpDashboardActions from "../store/slices/lpDashboardSlice"
@@ -18,7 +19,7 @@ export const useReduxActions = () => {
     fetchAgents: useCallback(() => dispatch(marketplaceActions.fetchAgents()), [dispatch]),
     fetchStats: useCallback(() => dispatch(marketplaceActions.fetchMarketplaceStats()), [dispatch]),
     commissionAgent: useCallback(
-      (agentId: string) => dispatch(marketplaceActions.commissionAgent(agentId)),
+      (data: any) => dispatch(marketplaceActions.commissionAgent(data)),
       [dispatch],
     ),
     setSearchQuery: useCallback((query: string) => dispatch(marketplaceActions.setSearchQuery(query)), [dispatch]),
@@ -44,9 +45,9 @@ export const useReduxActions = () => {
     categorySelection: useCallback((formData: any) => dispatch(agentBuilderActions.categorySelection(formData)), [dispatch]),
     saveAgent: useCallback((formData: any) => dispatch(agentBuilderActions.saveAgent(formData)), [dispatch]),
     simulateAgent: useCallback((formData: any) => dispatch(agentBuilderActions.simulateAgent(formData)), [dispatch]),
-    deployAgent: useCallback((formData: any) => dispatch(agentBuilderActions.deployAgent(formData)), [dispatch]),
+    deployAgent: useCallback((formData: any,id:any) => dispatch(agentBuilderActions.deployAgent({formData,id})), [dispatch]),
     sendChatMessage: useCallback(
-      (agentId: string, message: string) => dispatch(agentBuilderActions.sendChatMessage({ agentId, message })),
+      (data:any) => dispatch(agentBuilderActions.sendChatMessage(data)),
       [dispatch],
     ),
     fetchSavedAgents: useCallback(() => dispatch(agentBuilderActions.fetchSavedAgents()), [dispatch]),
@@ -66,7 +67,8 @@ export const useReduxActions = () => {
 
   // My Agents actions
   const myAgents = {
-    fetchMyAgents: useCallback(() => dispatch(myAgentsActions.fetchMyAgents()), [dispatch]),
+    fetchMyAgents: useCallback((userId:any) => dispatch(myAgentsActions.fetchMyAgents(userId)), [dispatch]),
+    fetchMyAgent:  useCallback((data:any) => dispatch(myAgentsActions.fetchMyAgent(data)), [dispatch]),
     fetchMyAgentsStats: useCallback(() => dispatch(myAgentsActions.fetchMyAgentsStats()), [dispatch]),
     deployMyAgent: useCallback((agentId: string) => dispatch(myAgentsActions.deployMyAgent(agentId)), [dispatch]),
     stopMyAgent: useCallback((agentId: string) => dispatch(myAgentsActions.stopMyAgent(agentId)), [dispatch]),
@@ -121,6 +123,7 @@ export const useReduxActions = () => {
     ),
     logout: useCallback(() => dispatch(authActions.logout()), [dispatch]),
     setWalletBalance: useCallback((balance: string) => dispatch(authActions.setWalletBalance(balance)), [dispatch]),
+    getUserPrivatekey:useCallback((id: string) => dispatch(authActions.getUserPrivatekey(id)), [dispatch]),
   }
 
   // Settings actions
@@ -143,6 +146,27 @@ export const useReduxActions = () => {
     ),
   }
 
+  // History actions
+  const history = {
+    fetchHistoryItems: useCallback(() => dispatch(historyActions.fetchHistoryItems()), [dispatch]),
+    fetchHistoryStats: useCallback(() => dispatch(historyActions.fetchHistoryStats()), [dispatch]),
+    fetchHistoryItemDetails: useCallback(
+      (itemId: string) => dispatch(historyActions.fetchHistoryItemDetails(itemId)),
+      [dispatch],
+    ),
+    downloadHistoryReport: useCallback(
+      (itemId: string) => dispatch(historyActions.downloadHistoryReport(itemId)),
+      [dispatch],
+    ),
+    deleteHistoryItem: useCallback((itemId: string) => dispatch(historyActions.deleteHistoryItem(itemId)), [dispatch]),
+    setSearchQuery: useCallback((query: string) => dispatch(historyActions.setSearchQuery(query)), [dispatch]),
+    setSelectedPeriod: useCallback((period: string) => dispatch(historyActions.setSelectedPeriod(period)), [dispatch]),
+    setSelectedStatus: useCallback((status: string) => dispatch(historyActions.setSelectedStatus(status)), [dispatch]),
+    resetFilters: useCallback(() => dispatch(historyActions.resetFilters()), [dispatch]),
+    selectHistoryItem: useCallback((itemId: string) => dispatch(historyActions.selectHistoryItem(itemId)), [dispatch]),
+    clearSelectedItem: useCallback(() => dispatch(historyActions.clearSelectedItem()), [dispatch]),
+  }
+
   return {
     marketplace,
     agentBuilder,
@@ -150,6 +174,7 @@ export const useReduxActions = () => {
     lpDashboard,
     auth,
     settings,
+    history,
   }
 }
 
@@ -171,6 +196,7 @@ export const useReduxSelectors = () => {
     capabilities:useAppSelector((state) => state.agentBuilder.capabilities),
     formData: useAppSelector((state) => state.agentBuilder.formData),
     isLoading: useAppSelector((state) => state.agentBuilder.isLoading),
+    isChatLoading:useAppSelector((state) => state.agentBuilder.isChatLoading),
     isDeployed: useAppSelector((state) => state.agentBuilder.isDeployed),
     deployedAgent: useAppSelector((state) => state.agentBuilder.deployedAgent),
     chatMessages: useAppSelector((state) => state.agentBuilder.chatMessages),
@@ -211,6 +237,7 @@ export const useReduxSelectors = () => {
     userProfile: useAppSelector((state) => state.auth.userProfile),
     loading: useAppSelector((state) => state.auth.loading),
     error: useAppSelector((state) => state.auth.error),
+    userID:useAppSelector((state) => state.auth.userID),
   }
 
   // Settings selectors
@@ -223,6 +250,17 @@ export const useReduxSelectors = () => {
     error: useAppSelector((state) => state.settings.error),
   }
 
+  // History selectors
+  const history = {
+    items: useAppSelector((state) => state.history.items),
+    filteredItems: useAppSelector((state) => state.history.filteredItems),
+    stats: useAppSelector((state) => state.history.stats),
+    filters: useAppSelector((state) => state.history.filters),
+    selectedItem: useAppSelector((state) => state.history.selectedItem),
+    loading: useAppSelector((state) => state.history.loading),
+    error: useAppSelector((state) => state.history.error),
+  }
+
   return {
     marketplace,
     agentBuilder,
@@ -230,6 +268,7 @@ export const useReduxSelectors = () => {
     lpDashboard,
     auth,
     settings,
+    history,
   }
 }
 

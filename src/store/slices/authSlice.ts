@@ -18,7 +18,8 @@ interface AuthState {
   walletBalance: string | null
   userProfile: UserProfile | null
   loading: boolean
-  error: string | null
+  error: string | null,
+  userID:string 
 }
 
 // Initial state
@@ -28,6 +29,7 @@ const initialState: AuthState = {
   walletAddress: null,
   walletBalance: null,
   userProfile: null,
+  userID: '',
   loading: false,
   error: null,
 }
@@ -41,7 +43,7 @@ export const login = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const response = await postRequest("/auth/login", { email, password, rememberMe })
+      const response = await postRequest("/login", { email, password, rememberMe })
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || "Login failed. Please check your credentials.")
@@ -53,7 +55,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async ({ name, email, password }: { name: string; email: string; password: string }, { rejectWithValue }) => {
     try {
-      const response = await postRequest("/auth/register", { name, email, password })
+      const response = await postRequest("/signup", { name, email, password })
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message || "Registration failed. Please try again.")
@@ -132,6 +134,17 @@ export const updateUserProfile = createAsyncThunk(
     }
   },
 )
+export const getUserPrivatekey = createAsyncThunk(
+  "auth/updateUserProfile",
+  async (id:any, { rejectWithValue }) => {
+    try {
+      const response = await getRequest(`/get_private_key?id=${id}`)
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || "Failed to update user profile")
+    }
+  },
+)
 
 // Create the Auth slice
 const authSlice = createSlice({
@@ -142,6 +155,8 @@ const authSlice = createSlice({
       state.isAuthenticated = false
       state.userProfile = null
       localStorage.removeItem("auth_token")
+      localStorage.removeItem("wallet_address")
+
     },
     setWalletBalance: (state, action: PayloadAction<string>) => {
       state.walletBalance = action.payload
@@ -155,13 +170,24 @@ const authSlice = createSlice({
           state.error = null
         })
         .addCase(login.fulfilled, (state, action) => {
+          
           state.loading = false
           state.isAuthenticated = true
-          state.userProfile = action.payload.user
+          // state.userProfile = action.payload.user
+          state.userProfile = {
+            id: action.payload.response.id,
+            email: action.payload.response.email,
+            name: action.payload.response.name,
+            walletAddress: action.payload.response.wallet_address || "", // Default empty string
+            bio: action.payload.response.bio || "", // Default empty string
+            avatar: action.payload.response.avatar || "", // Default empty string
+          }
+          state.userID= action.payload?.response?.id  || null
   
           // Store auth token if provided
-          if (action.payload.token) {
-            localStorage.setItem("auth_token", action.payload.token)
+          if (action.payload.response.public_key) {
+            localStorage.setItem("public_key", action.payload.response.public_key)
+            localStorage.setItem("wallet_address", action.payload.response.wallet_address)
           }
         })
         .addCase(login.rejected, (state, action) => {
@@ -178,11 +204,20 @@ const authSlice = createSlice({
         .addCase(register.fulfilled, (state, action) => {
           state.loading = false
           state.isAuthenticated = true
-          state.userProfile = action.payload.user
-  
+          // state.userProfile = {id:action.payload.id,email:action.payload.email,name:action.payload.name}
+          state.userProfile = {
+            id: action.payload.response.id,
+            email: action.payload.response.email,
+            name: action.payload.response.name,
+            walletAddress: action.payload.response.wallet_address || "", // Default empty string
+            bio: action.payload.response.bio || "", // Default empty string
+            avatar: action.payload.response.avatar || "", // Default empty string
+          }
+          state.userID= action.payload?.response?.id  || null
           // Store auth token if provided
-          if (action.payload.token) {
-            localStorage.setItem("auth_token", action.payload.token)
+          if (action.payload.response.public_key) {
+            localStorage.setItem("public_key", action.payload.response.public_key)
+            localStorage.setItem("wallet_address", action.payload.response.wallet_address)
           }
         })
         .addCase(register.rejected, (state, action) => {
@@ -223,14 +258,14 @@ const authSlice = createSlice({
       .addCase(connectWallet.fulfilled, (state, action) => {
         state.loading = false
         state.isWalletConnected = true
-        state.walletAddress = action.payload.walletAddress
-        state.walletBalance = action.payload.walletBalance
-        state.isAuthenticated = true
+        // state.walletAddress = action.payload.walletAddress.wallet_address
+        // state.walletBalance = action.payload.walletBalance
+        // state.isAuthenticated = true
 
         // If the response includes user profile data
-        if (action.payload.userProfile) {
-          state.userProfile = action.payload.userProfile
-        }
+        // if (action.payload.userProfile) {
+        //   state.userProfile = action.payload.userProfile
+        // }
 
         // Store auth token if provided
         if (action.payload.token) {

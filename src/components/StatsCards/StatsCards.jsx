@@ -6,8 +6,12 @@ const StatsCards = ({ stats }) => {
   return (
     <div className="stats-cards">
       <div className="stat-card">
-        <h2>{stats.activeAgents}</h2>
-        <p>Active Agents</p>
+        <h2>{stats.totalAgents}</h2>
+        <p>Total Agents</p>
+      </div>
+      <div className="stat-card">
+        <h2>{stats.deployedAgents}</h2>
+        <p>DeployedAgents</p>
       </div>
 
       <div className="stat-card">
@@ -15,13 +19,13 @@ const StatsCards = ({ stats }) => {
         <p>Total AUM</p>
       </div>
 
-      <div className="stat-card">
+      {/* <div className="stat-card">
         <h2>{stats.weeklyReturn}</h2>
         <p>Avg. Weekly Return</p>
-      </div>
+      </div> */}
 
       <div className="stat-card">
-        <h2>{stats.avgIL}</h2>
+        <h2>{stats.avgPerformance}</h2>
         <p>Avg. IL</p>
       </div>
     </div>

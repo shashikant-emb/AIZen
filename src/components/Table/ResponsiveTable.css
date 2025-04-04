@@ -1,0 +1,112 @@
+.responsive-table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+  }
+  
+  .responsive-table th,
+  .responsive-table td {
+    padding: 12px 16px;
+    text-align: left;
+  }
+  
+  .responsive-table th {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--secondary-text);
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  
+  .responsive-table tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .responsive-table tr:last-child {
+    border-bottom: none;
+  }
+  
+  .responsive-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+  
+  .responsive-table .actions-column {
+    white-space: nowrap;
+    text-align: right;
+  }
+  
+  .responsive-table-empty {
+    padding: 32px;
+    text-align: center;
+    color: var(--secondary-text);
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+  }
+  
+  .expanded-content-row {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .expanded-content {
+    padding: 16px;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .expanded-content table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .expanded-content table th,
+  .expanded-content table td {
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .expanded-content table th {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Mobile responsive styles */
+  @media (max-width: 768px) {
+    .responsive-table {
+      /* Enable horizontal scrolling on mobile */
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    /* Ensure the table doesn't break on small screens */
+    .responsive-table th,
+    .responsive-table td {
+      min-width: auto;
+    }
+  
+    /* Make sure action buttons are visible and usable */
+    .responsive-table .actions-column {
+      position: sticky;
+      right: 0;
+      background-color: var(--secondary-bg);
+      box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  

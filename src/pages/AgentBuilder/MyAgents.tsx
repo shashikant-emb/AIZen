@@ -14,7 +14,8 @@
 
 // export default MyAgents
 
-import React, { useState } from 'react';
+import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
+import React, { useEffect, useState } from 'react';
 // import SearchBar from '../SearchBar/SearchBar';
 // import AgentCard from '../AgentCard/AgentCard';
 // import { myAgentsData } from '../../data/myAgentsData';
@@ -24,29 +25,54 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import AgentCard from '../../components/AgentCard/AgentCard';
 import Sidebar from '../../components/SideBar/SideBar';
 import { Link, useLocation, useNavigate} from "react-router-dom"
+import { Agent } from "../../types";
 
-const MyAgents = () => {
+const MyAgents:React.FC = () => {
+const { myAgents } = useReduxActions()
+  const { auth: authSelectors } = useReduxSelectors()
+  const { isAuthenticated, error,userProfile } = authSelectors
+  const { myAgents: myAgentsSelectors } = useReduxSelectors()
+  useEffect(() => {
+    if(userProfile?.id){
+      myAgents.fetchMyAgents(userProfile?.id);
+    }
+  }, []);
+  
+    const {
+        agents:myAgentsData,
+        // filteredAgents,
+        stats,
+        // filters: { searchQuery, selectedStrategy, selectedRiskLevel, selectedSort, selectedTimePeriod, selectedTags },
+        loading,
+      } = myAgentsSelectors 
+    
+    // console.log("myagents",myAgentsData)
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All Agents');
   const [selectedSort, setSelectedSort] = useState('Date Created (Newest)');
   const navigate = useNavigate();
-  const handleSearch = (query) => {
+  const handleSearch = (query:string) => {
     setSearchQuery(query);
   };
 
-  const handleFilterChange = (e) => {
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedFilter(e.target.value);
   };
 
-  const handleSortChange = (e) => {
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSort(e.target.value);
   };
+  const handleViewDetails = (agent:any) => {
+    console.log("agent",agent);
+    
+    navigate(`/agent-details/${agent.id}`)
+  }
 
   // Filter agents based on search query and selected filter
-  const filteredAgents = myAgentsData.agents.filter(agent => {
+  const filteredAgents = myAgentsData.filter((agent:Agent) => {
     const matchesSearch = agent.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           agent.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          agent.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+                          agent.tags.some((tag:string) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     
     if (selectedFilter === 'All Agents') {
       return matchesSearch;
@@ -72,19 +98,19 @@ const MyAgents = () => {
 
       <div className="my-agents-stats">
         <div className="stat-card">
-          <h2>{myAgentsData.stats.totalAgents}</h2>
+          <h2>{stats.totalAgents}</h2>
           <p>Total Agents</p>
         </div>
         <div className="stat-card">
-          <h2>{myAgentsData.stats.deployedAgents}</h2>
+          <h2>{stats.deployedAgents}</h2>
           <p>Deployed</p>
         </div>
         <div className="stat-card">
-          <h2>{myAgentsData.stats.totalAUM}</h2>
+          <h2>{stats.totalAUM}</h2>
           <p>Total AUM</p>
         </div>
         <div className="stat-card">
-          <h2>{myAgentsData.stats.avgPerformance}</h2>
+          <h2>{stats.avgPerformance}</h2>
           <p>Avg. Performance</p>
         </div>
       </div>
@@ -113,21 +139,26 @@ const MyAgents = () => {
           </div>
         </div>
       </div>
-
-      {filteredAgents.length > 0 ? (
+      {loading ? (
+         <div className="loading-container">
+         <div className="loading-spinner"></div>
+         <p>Loading agents...</p>
+       </div>
+     ) : 
+      filteredAgents.length > 0 ? (
         <div className="my-agents-list">
           {filteredAgents.map(agent => (
             <div key={agent.id} className="my-agent-card-container">
-              <AgentCard agent={agent} />
-              <div className="agent-actions">
+              <AgentCard agent={agent} showActions={false} handleViewDetails={handleViewDetails}/>
+              {/* <div className="agent-actions">
                 <button className="action-button edit-button">Edit</button>
-                <button className="action-button">Duplicate</button>
-                {agent.status === 'Draft' ? (
+                <button className="action-button">Delete</button>
+                {agent.status === 'Deployed' ? (
                   <button className="action-button deploy-button">Deploy</button>
                 ) : (
                   <button className="action-button stop-button">Stop</button>
                 )}
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
@@ -143,3 +174,4 @@ const MyAgents = () => {
 };
 
 export default MyAgents;
+

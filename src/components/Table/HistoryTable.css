@@ -1,0 +1,117 @@
+.history-responsive-table {
+    margin-top: 16px;
+  }
+  
+  .table-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  
+  .action-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .action-button:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .action-button.active {
+    background-color: rgba(138, 86, 255, 0.2);
+    opacity: 1;
+  }
+  
+  .view-button.active {
+    color: var(--accent-color);
+  }
+  
+  .toggle-button {
+    color: var(--primary-text);
+  }
+  
+  .history-details {
+    width: 100%;
+  }
+  
+  .history-details h3 {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .history-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  
+  .history-details-table th,
+  .history-details-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .history-details-table th {
+    background-color: rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  
+  .history-details-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+  
+  .no-history-message {
+    color: var(--secondary-text);
+    font-style: italic;
+    padding: 12px 0;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 0;
+    color: var(--secondary-text);
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--accent-color);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 16px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Mobile responsive styles */
+  @media (max-width: 768px) {
+    .action-button {
+      width: 36px;
+      height: 36px;
+      font-size: 1.1rem;
+    }
+  }
+  
+  

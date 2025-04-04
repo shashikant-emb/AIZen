@@ -133,6 +133,7 @@ import { Link, useLocation } from "react-router-dom"
 import { Menu, X, Home, PieChart, Users, History, Settings, LogOut } from "lucide-react"
 import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
 import "./Sidebar.css"
+import { formatUserName } from "../../utils/formatUserName"
 
 const Sidebar= () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -140,11 +141,12 @@ const Sidebar= () => {
   const location = useLocation()
   const { auth } = useReduxActions()
   const { auth: authSelectors } = useReduxSelectors()
-  // const { userProfile } = authSelectors
-  const userProfile={
-    name:"Jane Creator",
-    email:"janecreator@test.com"
-  }
+  const { userProfile } = authSelectors
+  
+  // const userProfile={
+  //   name:"Jane Creator",
+  //   email:"janecreator@test.com"
+  // }
 
   // Check if screen is mobile on mount and when window resizes
   useEffect(() => {
@@ -172,15 +174,14 @@ const Sidebar= () => {
   }
 
   const toggleSidebar = () => {
-    console.log("Before toggle: ", mobileOpen);
+    // console.log("Before toggle: ", mobileOpen);
     if (window.innerWidth <= 768) {
-      console.log("After toggle: ", mobileOpen);
+      // console.log("After toggle: ", mobileOpen);
       setMobileOpen(!mobileOpen)
     } else {
       setCollapsed(!collapsed)
     }
   }
-  console.log("mobileopen ", mobileOpen);
 
   const handleLogout = () => {
     auth.logout()
@@ -243,16 +244,11 @@ const Sidebar= () => {
           {userProfile && (
             <div className="user-info">
               <div className="user-avatar">
-                {userProfile.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")
-                  .substring(0, 2)
-                  .toUpperCase()}
+              {formatUserName(userProfile?.name || "")}
               </div>
               <div className="user-details">
-                <span className="user-name">{userProfile.name}</span>
-                <span className="user-email">{userProfile.email}</span>
+                <span className="user-name">{userProfile?.name}</span>
+                <span className="user-email">{userProfile?.email}</span>
               </div>
             </div>
           )}

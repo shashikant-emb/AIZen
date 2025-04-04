@@ -8,10 +8,18 @@
   }
   
   .marketplace-title {
-    font-size: 2rem;
+    /* font-size: 2rem;
     font-weight: 700;
     margin-bottom: 8px;
-    text-align: left;
+    text-align: left; */
+    /* font-size: 2rem; */
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+
   }
   .loading-container {
     display: flex;

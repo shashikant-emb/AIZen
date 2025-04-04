@@ -23,7 +23,7 @@ const Register: React.FC = () => {
   useEffect(() => {
     // If user is already authenticated, redirect to home
     if (isAuthenticated) {
-      navigate("/home")
+      navigate("/")
     }
   }, [isAuthenticated, navigate])
 
