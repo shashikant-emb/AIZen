@@ -174,9 +174,9 @@ const Home= () => {
         <div className="cta-content">
           <h2>Ready to Optimize Your DeFi Strategy?</h2>
           <p>Join thousands of users who are already maximizing their returns with AIZen.</p>
-          <Link to="/marketplace" className="gradient-button">
+          {/* <Link to="/marketplace" className="gradient-button">
             Get Started Now
-          </Link>
+          </Link> */}
         </div>
       </section>
     </div>

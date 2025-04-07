@@ -63,9 +63,21 @@ export const fetchMyAgentsStats = createAsyncThunk("myAgents/fetchMyAgentsStats"
 
 export const deployMyAgent = createAsyncThunk(
   "myAgents/deployMyAgent",
-  async (agentId: string, { rejectWithValue }) => {
+  async (data: any, { rejectWithValue }) => {
     try {
-      const response = await postRequest(`/agents/${agentId}/deploy`)
+      const response = await postRequest(`/update_agent`,data)
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || "Failed to deploy agent")
+    }
+  },
+)
+
+export const updateMyAgent = createAsyncThunk(
+  "myAgents/deployMyAgent",
+  async (data: any, { rejectWithValue }) => {
+    try {
+      const response = await postRequest(`/update_agent`,data)
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Failed to deploy agent")

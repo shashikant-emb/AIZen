@@ -149,35 +149,38 @@ const AgentDetails: React.FC = () => {
   const { auth: authSelectors } = useReduxSelectors()
   const { isAuthenticated, error,userProfile } = authSelectors
   const { agentId } = useParams<{ agentId: string }>()
+  console.log("userrPro",userProfile);
+  
   const navigate = useNavigate()
   const { showToast } = useToast()
   const [agent, setAgent] = useState(dummyAgent)
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState("overview")
+// Simulate API call to fetch agent details
+const fetchAgentDetails = async () => {
+    try {
+      setLoading(true)
+      // await new Promise((resolve) => setTimeout(resolve, 1000))
+     const payload={
+      agent_id:agentId,
+      // user_id:userProfile?.id
+     }
+     const res = await myAgents.fetchMyAgent(payload)
+      setAgent({
+      //   ...dummyAgent,
+        ...res?.payload?.response,
+        tags:[],
+        id: agentId || "my-1",
+      })
+    } catch (error) {
+      showToast("Failed to load agent details", "error")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
-    // Simulate API call to fetch agent details
-    const fetchAgentDetails = async () => {
-      try {
-        setLoading(true)
-        // await new Promise((resolve) => setTimeout(resolve, 1000))
-       const payload={
-        agent_id:agentId,
-        // user_if:userProfile?.id
-       }
-       const res = await myAgents.fetchMyAgent(payload)
-        setAgent({
-        //   ...dummyAgent,
-          ...res?.payload?.response,
-          tags:[],
-          id: agentId || "my-1",
-        })
-      } catch (error) {
-        showToast("Failed to load agent details", "error")
-      } finally {
-        setLoading(false)
-      }
-    }
+    
 
     fetchAgentDetails()
   }, [])
@@ -188,20 +191,47 @@ const AgentDetails: React.FC = () => {
 
   const handleDeployAgent = () => {
     showToast("Agent deployment initiated", "info")
-
+    const payload={
+        user_id: userProfile?.id,
+        agent_id: agentId,
+        is_deployed: true
+    }
+    myAgents.updateMyAgent(payload).then((res)=>{
+       
+        if(res.payload.status_code ===200){
+            showToast("Agent deployed successfully!", "success")
+            fetchAgentDetails()
+        }else{
+            showToast("Something went wrong!", "error")
+        }
+        
+    })
     // Simulate a successful deployment after 2 seconds
-    setTimeout(() => {
-      showToast("Agent deployed successfully!", "success")
-    }, 2000)
+    // setTimeout(() => {
+    //   showToast("Agent deployed successfully!", "success")
+    // }, 2000)
   }
 
   const handleStopAgent = () => {
     showToast("Agent stopping initiated", "info")
+    const payload={
+        user_id: userProfile?.id,
+        agent_id: agentId,
+        is_deployed: false
+    }
+    myAgents.updateMyAgent(payload).then((res)=>{
+        if(res.payload.status_code ===200){
+            showToast("Agent stopped successfully!", "warning")
+            fetchAgentDetails()
+        }else{
+            showToast("Something went wrong!", "error")
+        }
+    })
 
     // Simulate a successful stop after 2 seconds
-    setTimeout(() => {
-      showToast("Agent stopped successfully!", "warning")
-    }, 2000)
+    // setTimeout(() => {
+    //   showToast("Agent stopped successfully!", "warning")
+    // }, 2000)
   }
 
   return (
@@ -212,7 +242,7 @@ const AgentDetails: React.FC = () => {
         </button>
         <h1>Agent Details</h1>
         <div className="agent-actions">
-          {agent?.is_deployed === "Deployed" ? (
+          {agent?.is_deployed === true ? (
             <button className="stop-button" onClick={handleStopAgent}>
               Stop Agent
             </button>

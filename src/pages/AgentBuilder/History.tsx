@@ -39,6 +39,9 @@ const History: React.FC = () => {
     const { history } = useReduxActions()
     const { history: historySelectors } = useReduxSelectors()
     const { showToast } = useToast()
+    const { myAgents } = useReduxActions()
+    const { auth: authSelectors } = useReduxSelectors()
+    const { isAuthenticated,userProfile } = authSelectors
   
     const {
       filteredItems,
@@ -115,10 +118,35 @@ const History: React.FC = () => {
     setExpandedRow(expandedRow === id ? null : id);
   };
 
-  const toggleAgentStatus = (id:any) => {
-    console.log(`Toggling status for agent ID: ${id}`);
-    showToast("agent Status Updated","success")
+const toggleAgentStatus = (id: any, status: any) => {
+  const agentId = id?.split("-")[1];
+  const currentStatus = status === "Deployed";
+
+  if (!agentId) {
+    showToast("Invalid agent ID", "error");
+    return;
+  }
+
+  const payload = {
+    user_id: userProfile?.id,
+    agent_id: agentId,
+    is_deployed: !currentStatus, // toggle the deployment status
   };
+
+
+  myAgents.updateMyAgent(payload).then((res) => {
+    if (res?.payload?.status_code === 200) {
+      showToast("Agent status updated!", "success");
+      history.fetchHistoryItems();
+    } else {
+      showToast("Something went wrong!", "error");
+    }
+  }).catch((error) => {
+    console.error("Update failed", error);
+    showToast("Request failed!", "error");
+  });
+};
+
   const [isMediumScreen, setIsMediumScreen] = useState(
     window.innerWidth < 782
   );
@@ -218,8 +246,8 @@ const History: React.FC = () => {
                 <td className={getPerformanceClass(item.performance)}>{item.performance}</td>
                 <td>
                   <div className="table-actions">
-                    <button onClick={() => toggleExpandRow(item.id)} className="action-icon view-icon">👁️</button>
-                    <button onClick={() => toggleAgentStatus(item.id)} className="action-icon download-icon">{item.status === "Deployed" ? "⏸️" : "▶️"}</button>
+                    <button onClick={() => toggleExpandRow(item.id,item.status)} className="action-icon view-icon">👁️</button>
+                    <button onClick={() => toggleAgentStatus(item.id,item.status)} className="action-icon download-icon">{item.status === "Deployed" ? "⏸️" : "▶️"}</button>
                   </div>
                 </td>
               </tr>

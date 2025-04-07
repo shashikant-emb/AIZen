@@ -72,6 +72,7 @@ export const useReduxActions = () => {
     fetchMyAgentsStats: useCallback(() => dispatch(myAgentsActions.fetchMyAgentsStats()), [dispatch]),
     deployMyAgent: useCallback((agentId: string) => dispatch(myAgentsActions.deployMyAgent(agentId)), [dispatch]),
     stopMyAgent: useCallback((agentId: string) => dispatch(myAgentsActions.stopMyAgent(agentId)), [dispatch]),
+    updateMyAgent:useCallback((data: any) => dispatch(myAgentsActions.updateMyAgent(data)), [dispatch]),
     deleteMyAgent: useCallback((agentId: string) => dispatch(myAgentsActions.deleteMyAgent(agentId)), [dispatch]),
     duplicateMyAgent: useCallback((agentId: string) => dispatch(myAgentsActions.duplicateMyAgent(agentId)), [dispatch]),
     setSearchQuery: useCallback((query: string) => dispatch(myAgentsActions.setSearchQuery(query)), [dispatch]),
