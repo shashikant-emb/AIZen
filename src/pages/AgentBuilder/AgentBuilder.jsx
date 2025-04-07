@@ -7,109 +7,6 @@ import {useNavigate} from "react-router-dom"
 import { useToast } from '../../components/Toast/Toast';
 
 const AgentBuilder = () => {
-  let trrrr={
-    "strategy": {
-        "name": "Uniswap V3 Automated Rebalancing Strategy",
-        "description": "This strategy dynamically manages liquidity in Uniswap V3 pools based on technical indicators, market conditions, and real-time on-chain data.",
-        "liquidity_management": {
-            "action": "rebalance",
-            "frequency": "hourly",
-            "target_profit_percentage": 0.02,
-            "max_slippage": 0.01,
-            "liquidity_depth_threshold": 10000,
-            "fee_earnings_threshold": 0.005
-        },
-        "technical_indicators": {
-            "RSI": {
-                "period": 14,
-                "oversold_threshold": 30,
-                "overbought_threshold": 70,
-                "explanation": "RSI measures the speed and change of price movements; generally, an RSI below 30 indicates an oversold condition, while above 70 indicates an overbought condition."
-            },
-            "MACD": {
-                "fast_length": 12,
-                "slow_length": 26,
-                "signal_length": 9,
-                "explanation": "The MACD is the difference between a 12-period and a 26-period Exponential Moving Average (EMA), indicating momentum; it typically provides buy signals when the MACD crosses above the signal line and sell signals when it crosses below."
-            },
-            "Bollinger_Bands": {
-                "length": 20,
-                "deviation": 2,
-                "explanation": "Bollinger Bands consist of a middle band (20-period MA) and two outer bands (2 standard deviations). Prices at the lower band indicate potential buying opportunities, while prices at the upper band indicate selling."
-            },
-            "Moving_Averages": {
-                "short_length": 5,
-                "long_length": 20,
-                "explanation": "Short-term moving averages crossing above long-term moving averages may indicate a bullish trend (Golden Cross), while the opposite (Death Cross) may indicate a bearish trend."
-            },
-            "VWAP": {
-                "lookback_period": "1d",
-                "explanation": "The Volume Weighted Average Price (VWAP) represents the average price a security has traded at throughout the day, based on both volume and price. It serves as a trading benchmark."
-            },
-            "Order_Flow": {
-                "lookback_period": "1h",
-                "explanation": "Order flow analysis assesses the demand and supply dynamics based on the number of buy and sell orders, providing insights into ongoing trends."
-            },
-            "Uniswap_V3_Liquidity_Depth": {
-                "threshold": 10000,
-                "explanation": "Measures the liquidity depth in the pool; high liquidity depth generally results in lower slippage."
-            }
-        },
-        "conditions": {
-            "rebalance_conditions": {
-                "must_meet": [
-                    {
-                        "indicator": "RSI",
-                        "action": "remove_liquidity",
-                        "condition": "RSI > 70"
-                    },
-                    {
-                        "indicator": "Uniswap_V3_Liquidity_Depth",
-                        "action": "remove_liquidity",
-                        "condition": "Liquidity Depth < 10000"
-                    }
-                ],
-                "optional": [
-                    {
-                        "indicator": "MACD",
-                        "action": "add_liquidity",
-                        "condition": "MACD Line crosses above Signal Line"
-                    },
-                    {
-                        "indicator": "Bollinger_Bands",
-                        "action": "add_liquidity",
-                        "condition": "Price hits lower Bollinger Band"
-                    },
-                    {
-                        "indicator": "Order_Flow",
-                        "action": "remove_liquidity",
-                        "condition": "Bearish order flow detected"
-                    }
-                ]
-            },
-            "rebalance_condition": {
-                "trigger": "Profit Target Reached",
-                "action": "rebalance",
-                "threshold": "target_profit_percentage"
-            }
-        },
-        "liquidity_range_adjustments": {
-            "new_range_calculation": {
-                "formula": "New_Liquidity_Range = Current_Price * (1 +- Adjustment_Percentage)",
-                "parameters": {
-                    "Current_Price": "Current market price of the asset",
-                    "Adjustment_Percentage": "Dynamic percentage based on volatility and expected price movement"
-                }
-            }
-        },
-        "execution": {
-            "bot_setup": {
-                "webhook_url": "https://example.com/webhook",
-                "cron_schedule": "0 * * * *"
-            }
-        }
-    }
-}
   const navigate= useNavigate()
    const { showToast } = useToast();
   const { agentBuilder } = useReduxActions()
@@ -227,8 +124,9 @@ const AgentBuilder = () => {
           window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
         });
         showToast("Agent Saved Successfully","success")
+      }else{
+        showToast("Agent Updated Successfully","success")
       }
-      showToast("Agent Updated Successfully","success")
      }
      setIsSaveLoading(false);
     } catch (error) {
@@ -318,7 +216,7 @@ const AgentBuilder = () => {
   
   const config = res?.payload?.response?.config;
   if (config && Object.keys(config).length > 0) {
-    setJsonData(JSON.stringify(res.payload.response.config || trrrr, null, 2));
+    setJsonData(JSON.stringify(res.payload.response.config, null, 2));
   }
  
   const responseText =

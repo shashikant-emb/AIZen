@@ -160,7 +160,7 @@ const handleCopyAddress = (address: string) => {
     }
       
       
-    showToast("Withdrawal initiated. Please confirm the transaction in your wallet.", "info")
+    showToast("Withdrawal initiated.", "info")
     // console.log("withdrawAmount.toString()",withdrawAmount)
     setProcessing(true)
       withdrawETH(withdrawAmount.toString()).then(() => {

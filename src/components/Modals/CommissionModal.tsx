@@ -265,7 +265,7 @@ const CommissionModal: React.FC<CommissionModalProps> = ({ isOpen, onClose, onCo
             </div>
 
             <div className="commission-info">
-              <p><strong>Note:</strong> The specified amount will be locked in the agent's contract and used for trading operations. You can withdraw your funds at any time by stopping the agent.</p>
+              <p><strong>Note:</strong> The specified amount will be locked in the agent's contract and used for Agent operations. You can withdraw your funds at any time by stopping the agent.</p>
             </div>
 
             <div className="modal-actions">

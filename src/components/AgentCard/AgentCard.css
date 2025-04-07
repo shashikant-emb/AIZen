@@ -5,9 +5,11 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  cursor: pointer;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 .agent-card:hover {
+  
   transform: translateY(-8px);
   box-shadow: 0 15px 30px rgba(165, 133, 255, 0.3), 0 0 10px rgba(165, 133, 255, 0.5);
 }
