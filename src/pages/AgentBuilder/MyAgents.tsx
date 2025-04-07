@@ -46,7 +46,6 @@ const { myAgents } = useReduxActions()
         loading,
       } = myAgentsSelectors 
     
-    // console.log("myagents",myAgentsData)
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All Agents');
   const [selectedSort, setSelectedSort] = useState('Date Created (Newest)');
@@ -63,8 +62,6 @@ const { myAgents } = useReduxActions()
     setSelectedSort(e.target.value);
   };
   const handleViewDetails = (agent:any) => {
-    console.log("agent",agent);
-    
     navigate(`/agent-details/${agent.id}`)
   }
 
@@ -79,7 +76,7 @@ const { myAgents } = useReduxActions()
     } else if (selectedFilter === 'Deployed') {
       return matchesSearch && agent.status === 'Deployed';
     } else if (selectedFilter === 'Draft') {
-      return matchesSearch && agent.status === 'Draft';
+      return matchesSearch && agent.status === 'Inactive';
     }
     return matchesSearch;
   });

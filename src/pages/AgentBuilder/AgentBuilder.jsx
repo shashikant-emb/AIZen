@@ -212,7 +212,6 @@ const AgentBuilder = () => {
     }
     
   const res=  await agentBuilder.sendChatMessage(payload)
-  console.log("chatres",res.payload.response.output[0].summary);
   
   const config = res?.payload?.response?.config;
   if (config && Object.keys(config).length > 0) {

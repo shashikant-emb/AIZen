@@ -91,10 +91,17 @@ const Navbar: React.FC = () => {
   const { auth } = useReduxActions()
   const { auth: authSelectors } = useReduxSelectors()
   const { isAuthenticated, loading, error,userProfile } = authSelectors
-  const backendWallet = localStorage.getItem("wallet_address") as `0x${string}`;
-  const { data: savedBalance, refetch: refetchSavedBalance } = useBalance({ address: backendWallet });
-  const savedWalletBalance = savedBalance?.formatted
-  
+  const backendWallet = localStorage.getItem("wallet_address");
+  // const { data: savedBalance, refetch: refetchSavedBalance } = useBalance({ address: backendWallet});
+
+  const [savedWalletBalance,setSavedWalletbalance] =useState(0) 
+  useEffect(()=>{
+    if(backendWallet){
+      auth.walletBalance(backendWallet).then((res)=>{
+        setSavedWalletbalance(res?.payload?.wallet_balance)
+      })
+    }
+  },[isAuthenticated])
   const location = useLocation();
   const navigate = useNavigate();
   const isActive = (path: any) => (location.pathname === path ? "active" : "");

@@ -27,7 +27,6 @@ const Marketplace: React.FC = () => {
     marketplace.fetchAgents()
     // marketplace.fetchStats()
   }, [])
-  // console.log("loading",loading)
 
   const handleSearch = (query: string) => {
     marketplace.setSearchQuery(query)

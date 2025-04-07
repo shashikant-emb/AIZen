@@ -104,6 +104,17 @@ export const connectWallet = createAsyncThunk("auth/connectWallet", async (walle
   }
 })
 
+export const walletBalance = createAsyncThunk("auth/walletBalance", async (walletAddress, { rejectWithValue }) => {
+  try {
+    const response = await postRequest("/wallet_balance", {wallet_address:walletAddress })
+    return {
+      ...response.data,
+    }
+  } catch (error: any) {
+    return rejectWithValue(error.response?.data || "Failed to connect wallet")
+  }
+})
+
 export const disconnectWallet = createAsyncThunk("auth/disconnectWallet", async (_, { rejectWithValue }) => {
   try {
     // In a real app, this would disconnect from the wallet provider
@@ -257,8 +268,8 @@ const authSlice = createSlice({
       })
       .addCase(connectWallet.fulfilled, (state, action) => {
         state.loading = false
-        state.isWalletConnected = true
-        // state.walletAddress = action.payload.walletAddress.wallet_address
+        // state.isWalletConnected = true
+        // state.walletAddress = action.payload.wallet_address
         // state.walletBalance = action.payload.walletBalance
         // state.isAuthenticated = true
 
@@ -276,6 +287,25 @@ const authSlice = createSlice({
         state.loading = false
         state.error = action.payload as string
       })
+
+    //Wallet Balance
+    builder
+    .addCase(walletBalance.pending, (state) => {
+      state.loading = true
+      state.error = null
+    })
+    .addCase(walletBalance.fulfilled, (state, action) => {
+      state.loading = false
+      state.isWalletConnected = true
+      state.walletAddress = action.payload.wallet_address
+      state.walletBalance = action.payload.wallet_balance
+    
+    })
+    .addCase(walletBalance.rejected, (state, action) => {
+      state.loading = false
+      state.error = action.payload as string
+    })
+
 
     // Handle disconnectWallet
     builder

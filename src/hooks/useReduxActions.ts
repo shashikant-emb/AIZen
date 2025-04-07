@@ -117,6 +117,7 @@ export const useReduxActions = () => {
     ),
     connectWallet: useCallback((data:any) => dispatch(authActions.connectWallet(data)), [dispatch]),
     disconnectWallet: useCallback(() => dispatch(authActions.disconnectWallet()), [dispatch]),
+    walletBalance: useCallback((data:any) => dispatch(authActions.walletBalance(data)), [dispatch]),
     fetchUserProfile: useCallback(() => dispatch(authActions.fetchUserProfile()), [dispatch]),
     updateUserProfile: useCallback(
       (profileData: any) => dispatch(authActions.updateUserProfile(profileData)),
