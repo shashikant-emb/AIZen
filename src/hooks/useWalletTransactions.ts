@@ -18,26 +18,12 @@ const useWalletTransactions = () => {
   const { address: connectedWallet, isConnected } = useAccount();
    const { address } = useAccount();
     const { data: balance } = useBalance({ address });
-
-    // console.log('balancefromhook',`${balance?.formatted} ${balance?.symbol}`)
   const { auth } = useReduxActions()
   const { auth: authSelectors } = useReduxSelectors()
   const {userID, isAuthenticated, loading, error } = authSelectors
   // Get backend wallet details from localStorage
   const backendWallet = localStorage.getItem("wallet_address");
-//   console.log("backendWallet",backendWallet)
-//   console.log("connectedWallet",connectedWallet);
-  // Deposit ETH from connected wallet to backend wallet
   const { disconnect } = useDisconnect();
-//   useEffect(()=>{
-//     if(!isConnected){
-//         disconnect();
-//         localStorage.removeItem("wagmi.wallet");
-//         localStorage.removeItem("wagmi.connected");
-//         localStorage.removeItem("rainbowkit.wallet");
-//         console.log("disconnect Actions perfromed ")
-//     }
-//   },[isConnected])
   const depositETH = async (amount: string) => {
 
     setIsProgress(true)

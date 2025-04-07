@@ -149,7 +149,6 @@ const AgentDetails: React.FC = () => {
   const { auth: authSelectors } = useReduxSelectors()
   const { isAuthenticated, error,userProfile } = authSelectors
   const { agentId } = useParams<{ agentId: string }>()
-  console.log("userrPro",userProfile);
   
   const navigate = useNavigate()
   const { showToast } = useToast()

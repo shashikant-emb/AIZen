@@ -76,7 +76,7 @@ export const categorySelection = createAsyncThunk(
   async (formData: AgentFormData, { rejectWithValue }) => {
     try {
       // const response = await postRequest("/agents/save", formData)
-      const response = await postRequest("post_category_selection", formData)
+      const response = await postRequest("agent_tools", formData)
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.response?.data || "Failed to save agent")
@@ -135,7 +135,6 @@ export const deployAgent = createAsyncThunk(
 export const sendChatMessage = createAsyncThunk(
   "agentBuilder/sendChatMessage",
   async (data:any, { rejectWithValue }) => {
-    console.log("dsadata",data);
     
     try {
       const response = await postRequest(`/chat`, data)

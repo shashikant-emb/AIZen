@@ -8,22 +8,32 @@ import { useToast } from "../../components/Toast/Toast"
 import Sidebar from "../../components/SideBar/SideBar"
 import useWalletTransactions from "../../hooks/useWalletTransactions"
 import { useAccount, useBalance } from "wagmi"
+import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
 
 const Settings: React.FC = () => {
 
  const { address: connectedWallet, isConnected } = useAccount();
    const { address } = useAccount();
+   const { auth } = useReduxActions()
+   const { auth: authSelectors } = useReduxSelectors()
+   const { isAuthenticated, walletAddress,walletBalance } = authSelectors
+
+   
+   
    const backendWallet = localStorage.getItem("wallet_address") as `0x${string}`;
-   const { data: balance, refetch: refetchConnectedBalance } = useBalance({ address: connectedWallet });
-   const { data: savedBalance, refetch: refetchSavedBalance } = useBalance({ address: backendWallet });
+  //  const { data: balance, refetch: refetchConnectedBalance } = useBalance({ address: connectedWallet });
+  //  const { data: savedBalance, refetch: refetchSavedBalance } = useBalance({ address: backendWallet });
     
-    const connectedWalletBalance = balance
-      ? `${balance.formatted} ${balance.symbol}`
-      : "Loading...";
+    // const connectedWalletBalance = balance
+    //   ? `${balance.formatted} ${balance.symbol}`
+    //   : "Loading...";
     
-    const savedWalletBalance = savedBalance
-      ? `${savedBalance.formatted} ${savedBalance.symbol}`
-      : "Loading...";
+    // const savedWalletBalance = savedBalance
+    //   ? `${savedBalance.formatted} ${savedBalance.symbol}`
+    //   : "Loading...";
+  const [savedWalletBalance,setSavedWalletbalance] = useState(0)
+  const [connectedWalletBalance,setConnectedWalletBalance]=useState(0)
+  // `${walletBalance} ETH`
 
   const [activeTab, setActiveTab] = useState("profile")
   const [withdrawAmount, setWithdrawAmount] = useState("")
@@ -57,6 +67,32 @@ const Settings: React.FC = () => {
       },
     },
   })
+
+  
+  const fetchBalance = async (walletAddress: string) => {
+    if (walletAddress) {
+      try {
+        const res = await auth.walletBalance(walletAddress);
+        return res?.payload?.wallet_balance || 0;
+      } catch (err) {
+        console.error("Error fetching wallet balance:", err);
+        return 0;
+      }
+    }
+    return 0;
+  };
+  const getBalances = async () => {
+    const connectedBalance = await fetchBalance(connectedWallet  as `0x${string}`);
+    const backendBalance = await fetchBalance(backendWallet);
+    
+    setSavedWalletbalance(backendBalance);
+    setConnectedWalletBalance(connectedBalance);
+  };
+
+
+  useEffect(() => {
+    getBalances();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
    
@@ -143,8 +179,7 @@ const handleCopyAddress = (address: string) => {
      depositETH(depositAmount.toString()).then(() => {
       setProcessing(false)
       setDepositAmount("")
-      refetchConnectedBalance()
-      refetchSavedBalance()
+      getBalances()
       showToast("Deposit successful!", "success")
     })
   
@@ -158,16 +193,13 @@ const handleCopyAddress = (address: string) => {
       showToast("please enter a valid amount","warning")
       return
     }
-      
-      
+
     showToast("Withdrawal initiated.", "info")
-    // console.log("withdrawAmount.toString()",withdrawAmount)
     setProcessing(true)
       withdrawETH(withdrawAmount.toString()).then(() => {
       setProcessing(false)
       setWithdrawAmount("")
-      refetchConnectedBalance()
-      refetchSavedBalance()
+      getBalances()
       showToast("Withdrawal successful!", "success")
     })
   }

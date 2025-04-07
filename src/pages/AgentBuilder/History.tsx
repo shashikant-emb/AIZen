@@ -68,22 +68,23 @@ const History: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("")
 
   const handlePeriodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // setSelectedPeriod(e.target.value)
+    setSelectedPeriod(e.target.value)
   }
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // setSelectedStatus(e.target.value)
+    setSelectedStatus(e.target.value)
   }
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // setSearchQuery(e.target.value)
+    setSearchQuery(e.target.value)
   }
 
   // Filter history items based on selected filters and search query
   const filteredHistory = filteredItems.filter((item) => {
     const matchesSearch =
-      item.agentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.agentType.toLowerCase().includes(searchQuery.toLowerCase())
+      item.agentName.toLowerCase().includes(searchQuery.toLowerCase()) 
+      // ||
+      // item.agentType.toLowerCase().includes(searchQuery.toLowerCase())
 
     const matchesStatus = selectedStatus === "All" || item.status === selectedStatus
 

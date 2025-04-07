@@ -5,11 +5,12 @@ import { useToast } from "../Toast/Toast"
 import CommissionModal from "../Modals/CommissionModal"
 import { useBalance } from "wagmi"
 import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
+import { fallbackImages } from "../../assets/constants/agentBuilderConstants"
 
 
 const AgentCard = ({ agent,showActions,handleViewDetails }) => {
     const { auth: authSelectors } = useReduxSelectors()
-    const { isAuthenticated, loading, error } = authSelectors
+    const { isAuthenticated, loading, error,walletBalance } = authSelectors 
     
   const navigate = useNavigate()
   const { showToast } = useToast()
@@ -25,8 +26,9 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
   }
 
      const backendWallet = localStorage.getItem("wallet_address") as `0x${string}`;
-     const { data: savedBalance, refetch: refetchSavedBalance } = useBalance({ address: backendWallet });
-    const savedWalletBalance = savedBalance?.formatted
+     const [savedWalletBalance,setSavedWalletBalance]=useState(walletBalance)
+    //  const { data: savedBalance, refetch: refetchSavedBalance } = useBalance({ address: backendWallet });
+    // const savedWalletBalance = savedBalance?.formatted
 
   // const handleCommission = async () => {
   //   try {
@@ -42,6 +44,10 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
   //     showToast("Failed to commission agent. Please try again.", "error")
   //   }
   // }
+  const getRandomImage = () => {
+    const index = Math.floor(Math.random() * fallbackImages.length);
+    return fallbackImages[index];
+  };
 
   const handleCommissionClick = () => {
     if(isAuthenticated){
@@ -63,9 +69,7 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
         tokens: 10,
       };
 
-      // In a real app, this would be a call to your API with the amount
       const res = await marketplace.commissionAgent(payload);
-      console.log("resss", res);
       if (res.payload.status === "success") {
         // Close the modal
         setIsCommissionModalOpen(false);
@@ -91,7 +95,7 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
       {agent.trending && <div className="trending-badge">Trending</div>}
 
       <div className="agent-image">
-        <img src={agent.image} alt={agent.name} />
+       <img src={agent.image === "https://via.placeholder.com/150" ? getRandomImage() : agent.image} alt={agent.name} />
       </div>
 
       <div className="agent-header">

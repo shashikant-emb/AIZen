@@ -10,7 +10,7 @@ const AgentBuilder = () => {
     goals: '',
     instructions: '',
     capabilities: ['Liquidity Provision', 'Asset Rebalancing'],
-    tools: ['RSI', 'Momentum', 'Alpha-based Trigger']
+    tools: ['RSI']
   });
   const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);

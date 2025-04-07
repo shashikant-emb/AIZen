@@ -28,20 +28,20 @@ const Filters = ({
   onTimePeriodChange,
   onTagClick,
 }) => {
-  const tags = [
-    "All",
-    "DeFi",
-    "Uniswap",
-    "PancakeSwap",
-    "Ethereum",
-    "Arbitrum",
-    "Base",
-    "Solana",
-    "AMM",
-    "Delta Neutral",
-    "High Yield",
-    "Low IL",
-  ]
+  // const tags = [
+  //   "All",
+  //   "DeFi",
+  //   "Uniswap",
+  //   "PancakeSwap",
+  //   "Ethereum",
+  //   "Arbitrum",
+  //   "Base",
+  //   "Solana",
+  //   "AMM",
+  //   "Delta Neutral",
+  //   "High Yield",
+  //   "Low IL",
+  // ]
 
   return (
     <div className="filters">
@@ -50,9 +50,9 @@ const Filters = ({
           <label>Strategy Type:</label>
           <select value={selectedStrategy} onChange={(e) => onStrategyChange(e.target.value)}>
             <option value="All Strategies">All Strategies</option>
-            <option value="momentum">Momentum</option>
-            <option value="grid">Grid</option>
-            <option value="Delta Neutral">Delta Neutral</option>
+            <option value="momentum">RSI</option>
+            <option value="grid">MACD</option>
+            <option value="Delta Neutral">Volatility</option>
           </select>
         </div>
 
@@ -89,7 +89,7 @@ const Filters = ({
       
       
 
-      <div className="filter-tags">
+      {/* <div className="filter-tags">
         {tags.map((tag) => (
           <button
             key={tag}
@@ -99,7 +99,7 @@ const Filters = ({
             {tag}
           </button>
         ))}
-      </div>
+      </div> */}
     </div>
   )
 }
