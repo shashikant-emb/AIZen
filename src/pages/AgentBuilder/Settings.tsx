@@ -180,7 +180,7 @@ const handleCopyAddress = (address: string) => {
       setProcessing(false)
       setDepositAmount("")
       getBalances()
-      showToast("Deposit successful!", "success")
+      // showToast("Deposit successful!", "success")
     })
   
   }
@@ -200,7 +200,7 @@ const handleCopyAddress = (address: string) => {
       setProcessing(false)
       setWithdrawAmount("")
       getBalances()
-      showToast("Withdrawal successful!", "success")
+      // showToast("Withdrawal successful!", "success")
     })
   }
 
@@ -458,7 +458,7 @@ const handleCopyAddress = (address: string) => {
    
   return (
     <>
-    <Sidebar />
+    {/* <Sidebar /> */}
     <div className="settings-page">
       <div className="settings-header">
         <h1>Settings</h1>

@@ -23,7 +23,7 @@ const AgentBuilder = () => {
   } = agentBuilderSelectors
 
   const { address, isConnected } = useAccount();
-  const { data: balance } = useBalance({ address });
+  // const { data: balance } = useBalance({ address });
 
   const [formData, setFormData] = useState({
     name: '',

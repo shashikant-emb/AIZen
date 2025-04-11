@@ -89,9 +89,12 @@ const AppRoutes = () => {
             />
 
       {/* Additional routes for agent builder dashboard */}
-      <Route path="/my-agents" element={<ProtectedRoute><MyAgents /></ProtectedRoute>}/>
-      <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>}/>
-      <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>}/>
+<Route path="/my-agents" element={<ProtectedRoute> <> <Sidebar /> <div className="main-content"><MyAgents /></div></></ProtectedRoute>}/>
+<Route path="/history" element={<ProtectedRoute> <> <Sidebar /> <div className="main-content"><History /></div></></ProtectedRoute>}/>
+<Route path="/settings" element={<ProtectedRoute> <> <Sidebar /> <div className="main-content"><Settings /></div></></ProtectedRoute>}/>
+      {/* <Route path="/my-agents" element={<ProtectedRoute><MyAgents /></ProtectedRoute>}/> */}
+      {/* <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>}/>
+      <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>}/> */}
       {/* <Route path="/my-agents" element={<MyAgents />}/>
       <Route path="/history" element={<History />}/>
       <Route path="/settings" element={<Settings />}/> */}

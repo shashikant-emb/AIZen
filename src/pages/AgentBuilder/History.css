@@ -17,7 +17,7 @@
 }
 
 .history-header h1 {
-  font-size: 2rem;
+  font-size: 2 rem;
   font-weight: 700;
 }
 .history-summary {
@@ -81,7 +81,9 @@
   min-width: 120px;
 }
 
-
+.agent-name{
+  font-size: 1.1rem;
+}
 .history-table-container {
   background-color: var(--secondary-bg);
   border-radius: 8px;
@@ -116,9 +118,48 @@
     text-align: right;
   }
 
+
+  .table-actions {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    background-color: none;
+  }
+  
+  .action-icon {
+    all: unset;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-eye {
+    color: #94a3b8; /* slate-400 */
+  }
+  
+  .icon-play {
+    color: #4ade80; /* green-400 */
+  }
+  
+  .icon-pause {
+    color: #f87171; /* red-400 */
+  }
+  
+  .action-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+
 @media (max-width: 768px) {
   .history-page {
     padding: 16px;
+  }
+  .agent-name{
+    font-size: 0.9rem;
   }
 
   .history-header {
@@ -155,6 +196,9 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 16px;
+    }
+    .agent-name{
+      font-size: 0.9rem;
     }
     .history-table-container {
         overflow-x: auto;

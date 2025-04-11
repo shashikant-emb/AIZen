@@ -159,9 +159,9 @@ import "./Modal.css"
 interface CommissionModalProps {
   isOpen: boolean
   onClose: () => void
-  onConfirm: (amount: number) => void
+  onConfirm: (amount: any) => void
   agentName: string
-  walletBalance: string
+  walletBalance: any
 }
 
 const CommissionModal: React.FC<CommissionModalProps> = ({ isOpen, onClose, onConfirm, agentName, walletBalance }) => {
@@ -218,7 +218,8 @@ const CommissionModal: React.FC<CommissionModalProps> = ({ isOpen, onClose, onCo
       return
     }
 
-    const balanceStr = walletBalance.replace(/[^0-9.]/g, "")
+    // const balanceStr = walletBalance.replace(/[^0-9.]/g, "")
+    const balanceStr = walletBalance
     const balance = Number.parseFloat(balanceStr)
     const amountValue = Number.parseFloat(amount)
 

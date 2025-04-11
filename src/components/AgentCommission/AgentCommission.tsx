@@ -88,7 +88,7 @@ const dummyOperations = [
     type: "Rebalance",
     timestamp: "2025-03-18 14:32:15",
     status: "Completed",
-    details: "ETH-USDC position adjusted by +2.5%",
+    details: "Rebalance position adjusted by +2.5%",
   },
   {
     id: 2,
@@ -102,22 +102,22 @@ const dummyOperations = [
     type: "Position Adjustment",
     timestamp: "2025-03-17 19:45:33",
     status: "Completed",
-    details: "Reduced exposure to WBTC-ETH by 3%",
+    details: "Reduced exposure to ETH by 3%",
   },
   {
     id: 4,
     type: "Rebalance",
     timestamp: "2025-03-17 12:10:05",
     status: "Completed",
-    details: "ARB-ETH position adjusted by -1.8%",
+    details: "ETH position adjusted by -1.8%",
   },
-  {
-    id: 5,
-    type: "Liquidity Addition",
-    timestamp: "2025-03-16 22:30:18",
-    status: "Completed",
-    details: "Added 0.2 ETH to OP-USDC pool",
-  },
+//   {
+//     id: 5,
+//     type: "Liquidity Addition",
+//     timestamp: "2025-03-16 22:30:18",
+//     status: "Completed",
+//     details: "Added 0.2 ETH to OP-USD pool",
+//   },
 ]
 
 // Chart options
@@ -252,12 +252,12 @@ const AgentCommission: React.FC = () => {
                 >
                   Performance
                 </button>
-                <button
+                {/* <button
                   className={`tab-button ${activeTab === "operations" ? "active" : ""}`}
                   onClick={() => setActiveTab("operations")}
                 >
                   Operations
-                </button>
+                </button> */}
                 {/* <button
                   className={`tab-button ${activeTab === "settings" ? "active" : ""}`}
                   onClick={() => setActiveTab("settings")}
@@ -295,12 +295,12 @@ const AgentCommission: React.FC = () => {
                           <Line data={performanceData} options={chartOptions} />
                         </div>
                       </div>
-                      <div className="chart-container">
+                      {/* <div className="chart-container">
                         <h3>Current Allocation</h3>
                         <div className="chart-wrapper">
                           <Bar data={allocationData} options={barChartOptions} />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
 
                     <div className="recent-operations">

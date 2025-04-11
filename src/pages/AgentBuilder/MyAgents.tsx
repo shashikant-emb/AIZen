@@ -83,7 +83,7 @@ const { myAgents } = useReduxActions()
 
   return (
     <>
-    <Sidebar />
+    {/* <Sidebar /> */}
     {/* <div className="main-content"> */}
     <div className="my-agents">
       <div className="my-agents-header">

@@ -17,7 +17,7 @@ const useWalletTransactions = () => {
   const [progress,setIsProgress]=useState(false)
   const { address: connectedWallet, isConnected } = useAccount();
    const { address } = useAccount();
-    const { data: balance } = useBalance({ address });
+    // const { data: balance } = useBalance({ address });
   const { auth } = useReduxActions()
   const { auth: authSelectors } = useReduxSelectors()
   const {userID, isAuthenticated, loading, error } = authSelectors
