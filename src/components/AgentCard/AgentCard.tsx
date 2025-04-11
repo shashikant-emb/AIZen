@@ -59,7 +59,7 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
    
   }
 
-  const handleCommissionConfirm = async (amount: Number) => {
+  const handleCommissionConfirm = async (amount: any) => {
     try {
       showToast("Commissioning agent...", "info");
       const payload = {
@@ -154,7 +154,8 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
         onClose={() => setIsCommissionModalOpen(false)}
         onConfirm={handleCommissionConfirm}
         agentName={agent.name}
-        walletBalance={savedWalletBalance as string}
+        // walletBalance={savedWalletBalance as string}
+        walletBalance={savedWalletBalance}
       />
     </div>
   )

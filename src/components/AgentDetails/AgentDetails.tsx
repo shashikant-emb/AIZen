@@ -75,22 +75,28 @@ const allocationData: ChartData<"doughnut"> = {
 
 // Dummy data for transactions
 const dummyTransactions = [
-  { id: 1, type: "Rebalance", timestamp: "2025-03-18 14:32:15", pool: "ETH-USDC", amount: "+0.5 ETH", value: "$1,250" },
+  { id: 1, type: "Rebalance", timestamp: "2025-03-18 14:32:15", 
+    // pool: "ETH-USDC", 
+    amount: "+0.5 ETH", value: "$1,250" },
   {
     id: 2,
     type: "Fee Collection",
     timestamp: "2025-03-18 08:15:22",
-    pool: "All Pools",
+    // pool: "All Pools",
     amount: "0.08 ETH",
     value: "$200",
   },
-  { id: 3, type: "Rebalance", timestamp: "2025-03-17 19:45:33", pool: "WBTC-ETH", amount: "-0.2 ETH", value: "$500" },
-  { id: 4, type: "Rebalance", timestamp: "2025-03-17 12:10:05", pool: "ARB-ETH", amount: "+0.3 ETH", value: "$750" },
+  { id: 3, type: "Rebalance", timestamp: "2025-03-17 19:45:33",
+    //  pool: "WBTC-ETH",
+      amount: "-0.2 ETH", value: "$500" },
+  { id: 4, type: "Rebalance", timestamp: "2025-03-17 12:10:05",
+    //  pool: "ARB-ETH",
+      amount: "+0.3 ETH", value: "$750" },
   {
     id: 5,
     type: "Fee Collection",
     timestamp: "2025-03-16 22:30:18",
-    pool: "All Pools",
+    // pool: "All Pools",
     amount: "0.06 ETH",
     value: "$150",
   },
@@ -340,12 +346,12 @@ const fetchAgentDetails = async () => {
                           <Line data={performanceData} options={lineChartOptions} />
                         </div>
                       </div>
-                      <div className="chart-card">
+                      {/* <div className="chart-card">
                         <h3>Pool Allocation</h3>
                         <div className="chart-wrapper">
                           <Doughnut data={allocationData} options={doughnutChartOptions} />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 )}
@@ -359,7 +365,7 @@ const fetchAgentDetails = async () => {
                           <tr>
                             <th>Type</th>
                             <th>Timestamp</th>
-                            <th>Pool</th>
+                            {/* <th>Pool</th> */}
                             <th>Amount</th>
                             <th>Value</th>
                           </tr>
@@ -369,7 +375,7 @@ const fetchAgentDetails = async () => {
                             <tr key={tx.id}>
                               <td>{tx.type}</td>
                               <td>{tx.timestamp}</td>
-                              <td>{tx.pool}</td>
+                              {/* <td>{tx.pool}</td> */}
                               <td>{tx.amount}</td>
                               <td>{tx.value}</td>
                             </tr>
