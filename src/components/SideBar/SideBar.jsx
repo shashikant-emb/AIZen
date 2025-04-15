@@ -132,7 +132,7 @@ import { useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Menu, X, Home, PieChart, Users, History, Settings, LogOut } from "lucide-react"
 import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
-import "./Sidebar.css"
+import "./SideBar.css"
 import { formatUserName } from "../../utils/formatUserName"
 
 const Sidebar= () => {
