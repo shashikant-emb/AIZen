@@ -165,9 +165,12 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isAuthenticated = false
       state.userProfile = null
+      state.isWalletConnected= false,
+      state.walletAddress= null,
+      state.walletBalance= null,
+      state.userID='',
       localStorage.removeItem("auth_token")
       localStorage.removeItem("wallet_address")
-
     },
     setWalletBalance: (state, action: PayloadAction<string>) => {
       state.walletBalance = action.payload
@@ -267,20 +270,29 @@ const authSlice = createSlice({
         state.error = null
       })
       .addCase(connectWallet.fulfilled, (state, action) => {
+        console.log("action.payload.response",action.payload);
+        
         state.loading = false
-        // state.isWalletConnected = true
-        // state.walletAddress = action.payload.wallet_address
+        state.isWalletConnected = true
+        state.walletAddress = action.payload.wallet_address
         // state.walletBalance = action.payload.walletBalance
-        // state.isAuthenticated = true
-
-        // If the response includes user profile data
-        // if (action.payload.userProfile) {
-        //   state.userProfile = action.payload.userProfile
-        // }
-
+        state.isAuthenticated = true
+        state.userProfile = {
+          id: action.payload.user_id,
+          email: action?.payload?.email ||"",
+          name: action.payload.name ||"",
+          walletAddress: action.payload.wallet_address || "", // Default empty string
+          bio: action.payload.bio || "", // Default empty string
+          avatar: action.payload.avatar || "", // Default empty string
+        }
+        state.userID= action.payload.user_id  || null
+        console.log("usered", state.userProfile)
+    
         // Store auth token if provided
-        if (action.payload.token) {
-          localStorage.setItem("auth_token", action.payload.token)
+        if (action.payload.public_key) {
+          // localStorage.setItem("auth_token", action.payload.token)
+          localStorage.setItem("public_key", action.payload?.public_key)
+          localStorage.setItem("wallet_address", action.payload?.wallet_address)
         }
       })
       .addCase(connectWallet.rejected, (state, action) => {

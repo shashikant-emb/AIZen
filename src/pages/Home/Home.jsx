@@ -14,12 +14,27 @@
   
 //   export default Home;
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import Navbar from '../../components/Navbar/Navbar';
+import { useReduxActions, useReduxSelectors } from '../../hooks/useReduxActions';
 
 const Home= () => {
+    const { marketplace } = useReduxActions()
+    const { marketplace: marketplaceSelectors } = useReduxSelectors()
+    const {
+      stats,
+      filters: { searchQuery, selectedStrategy, selectedRiskLevel, selectedSort, selectedTimePeriod, selectedTags },
+      loading,
+    } = marketplaceSelectors
+  
+  
+    useEffect(() => {
+      // Fetch agents and stats when component mounts
+      marketplace.fetchAgents()
+      // marketplace.fetchStats()
+    }, [])
   return (
     <>
     <Navbar/>
@@ -46,19 +61,19 @@ const Home= () => {
 
       <section className="stats-section">
         <div className="stat-item">
-          <h2>$42.8M</h2>
+          <h2>{stats?.totalAUM ||0}</h2>
           <p>Total Value Locked</p>
         </div>
         <div className="stat-item">
-          <h2>248</h2>
+          <h2>{stats?.totalAgents||0}</h2>
           <p>Active Agents</p>
         </div>
         <div className="stat-item">
-          <h2>+18.4%</h2>
+          <h2>{stats?.avgPerformance ||0}</h2>
           <p>Average Monthly Return</p>
         </div>
         <div className="stat-item">
-          <h2>5</h2>
+          <h2>7</h2>
           <p>Supported Chains</p>
         </div>
       </section>

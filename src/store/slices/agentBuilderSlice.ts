@@ -62,7 +62,8 @@ const initialState: AgentBuilderState = {
   isChatLoading:false,
   isDeployed: false,
   deployedAgent: null,
-  chatMessages: [{ text: "Hello! I'm your liquidity rebalancer agent. How can I assist you today?", isUser: false }],
+  // chatMessages: [{ text: "Hello! I'm your liquidity rebalancer agent. How can I assist you today?", isUser: false }],
+  chatMessages: [],
   error: null,
   savedAgents: [],
   simulationResults: null,
@@ -184,7 +185,8 @@ const agentBuilderSlice = createSlice({
     },
     resetChat: (state) => {
       state.chatMessages = [
-        { text: "Hello! I'm your liquidity rebalancer agent. How can I assist you today?", isUser: false },
+        // { text: "Hello! I'm your liquidity rebalancer agent. How can I assist you today?", isUser: false },
+        // { text: "Hello! How can I assist you today?", isUser: false },
       ]
     },
     resetAgentBuilder: (state) => {
@@ -255,22 +257,22 @@ const agentBuilderSlice = createSlice({
       })
 
     // Handle sendChatMessage
-    builder
-      .addCase(sendChatMessage.pending, (state) => {
-        state.isChatLoading = true
-        state.error = null
-      })
-      .addCase(sendChatMessage.fulfilled, (state, action) => {
-        state.isChatLoading = false
-        state.chatMessages.push({
-          text: action.payload.response,
-          isUser: false,
-        })
-      })
-      .addCase(sendChatMessage.rejected, (state, action) => {
-        state.isChatLoading = false
-        state.error = action.payload as string
-      })
+    // builder
+    //   .addCase(sendChatMessage.pending, (state) => {
+    //     state.isChatLoading = true
+    //     state.error = null
+    //   })
+    //   .addCase(sendChatMessage.fulfilled, (state, action) => {
+    //     state.isChatLoading = false
+    //     state.chatMessages.push({
+    //       text: action.payload.response,
+    //       isUser: false,
+    //     })
+    //   })
+    //   .addCase(sendChatMessage.rejected, (state, action) => {
+    //     state.isChatLoading = false
+    //     state.error = action.payload as string
+    //   })
 
     // Handle fetchSavedAgents
     builder

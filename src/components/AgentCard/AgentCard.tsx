@@ -6,18 +6,20 @@ import CommissionModal from "../Modals/CommissionModal"
 import { useBalance } from "wagmi"
 import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
 import { fallbackImages } from "../../assets/constants/agentBuilderConstants"
-
+import { useConnectModal } from "@rainbow-me/rainbowkit" 
 
 const AgentCard = ({ agent,showActions,handleViewDetails }) => {
     const { auth: authSelectors } = useReduxSelectors()
     const { isAuthenticated, loading, error,walletBalance } = authSelectors 
+    console.log("walletbalance",walletBalance)
     
   const navigate = useNavigate()
   const { showToast } = useToast()
   const { marketplace } = useReduxActions()
   const [isCommissionModalOpen, setIsCommissionModalOpen] = useState(false)
   const [expanded, setExpanded] = useState(false)
-  
+  const { openConnectModal } = useConnectModal()
+
   const getPerformanceClass = (performance) => {
     const value = Number.parseFloat(performance)
     if (value > 0) return "positive"
@@ -53,8 +55,11 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
     if(isAuthenticated){
       setIsCommissionModalOpen(true)
     }else{
-      showToast("Kindly Login","warning")
-      navigate("/login")
+      showToast("Kindly Connect Wallet First","warning")
+      // navigate("/login")
+      if (openConnectModal) {
+        openConnectModal() // ✅ open modal manually
+      }
     }
    
   }
@@ -76,7 +81,7 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
 
         // Show success toast
         showToast(
-          `Successfully commissioned ${agent.name} with ${amount} ETH`,
+          `Successfully commissioned ${agent?.name || "agent"} with ${amount} ETH`,
           "success"
         );
 
@@ -107,7 +112,7 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
       <p className={`agent-description ${expanded ? "expanded" : ""}`}>
         {agent.description}
       </p>
-      {agent.description.length > 150 && (
+      {agent?.description?.length > 150 && (
         <button className="read-more" onClick={() => setExpanded(!expanded)}>
           {expanded ? "Read Less" : "Read More"}
         </button>
@@ -155,7 +160,7 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
         onConfirm={handleCommissionConfirm}
         agentName={agent.name}
         // walletBalance={savedWalletBalance as string}
-        walletBalance={savedWalletBalance}
+        walletBalance={walletBalance ||0}
       />
     </div>
   )

@@ -512,7 +512,8 @@ const History: React.FC = () => {
   // Filter history items based on selected filters and search query
   const filteredHistory = filteredItems.filter((item) => {
     const matchesSearch =
-      item.agentName.toLowerCase().includes(searchQuery.toLowerCase()) 
+      item?.agentName?.toLowerCase().includes(searchQuery.toLowerCase()) 
+      // item?.agentName?.includes(searchQuery.toLowerCase()) 
       // ||
       // item.agentType.toLowerCase().includes(searchQuery.toLowerCase())
 
@@ -550,7 +551,10 @@ const History: React.FC = () => {
   };
 
 const toggleAgentStatus = (id: any, status: any) => {
-  const agentId = id?.split("-")[1];
+  console.log("skfrf");
+  
+  // const agentId = id?.split("-")[1];
+  const agentId = id;
   const currentStatus = status === "Deployed";
 
   if (!agentId) {
@@ -710,9 +714,10 @@ const toggleAgentStatus = (id: any, status: any) => {
                             <Eye size={18} className="icon-eye" />
                           </button>
                           <button
-                            onClick={() =>
+                            onClick={() =>{
                               toggleAgentStatus(item.id, item.status)
-                            }
+                              console.log("skfrf");
+                            }}
                             className="action-icon download-icon"
                           >
                             {/* {item.status === "Deployed" ? "⏸️" : "▶️"} */}

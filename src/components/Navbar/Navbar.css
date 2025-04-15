@@ -106,7 +106,19 @@
     background-color: white;
     border-radius: 2px;
   }
-  
+  .backend-wallet-balance {
+    background-color: #1c1c1f;
+    color: white;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 12px;
+    margin-left: 10px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    height: 100%;            
+  box-sizing: border-box;
+  }
   .navbar-logo h1 {
     /* font-size: 1.5rem; */
     font-weight: 700;
@@ -122,7 +134,9 @@
   .navbar-links {
     display: flex;
     gap: 24px;
+    align-items: center; 
   }
+  
   
   .nav-link {
     color: var(--secondary-text);
@@ -190,6 +204,38 @@
     cursor: pointer;
     color: white;
   }
+
+
+  /* Highlighted nav link for Agent Builder */
+.agent-builder-link {
+  
+  background: linear-gradient(135deg, #6e72fc, #ad1deb);
+  color: #fff !important;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.agent-builder-link:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 2px 12px rgba(173, 29, 235, 0.4);
+}
+
+/* Optional badge to highlight as NEW or FEATURED */
+.agent-builder-link .badge {
+  background-color: #fff;
+  color: #ad1deb;
+  font-size: 0.65rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-left: 6px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
 
 
   /*---------*/
@@ -429,6 +475,9 @@
     .menu-toggle {
       display: block; 
     }
+    .backend-wallet-balance {
+      display: none; 
+    }
     .navbar{
       z-index: 99;
       padding: 16px 8px;
@@ -442,6 +491,12 @@
       -webkit-text-fill-color: transparent;
       line-height: 1.2;
   
+    }
+    .agent-builder-link {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
     }
     .navbar-links {
       display: none;
@@ -466,10 +521,10 @@
     }
   
     .navbar-actions .user-info{
-      display: none; 
+      /* display: none;  */
     }
     .navbar-actions .user-profile-container{
-      display: none; 
+      /* display: none;  */
     }
   }
   

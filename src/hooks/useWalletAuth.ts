@@ -1,13 +1,13 @@
 
 import { useEffect, useState } from "react";
-import { useAccount, useSignMessage } from "wagmi";
+import { useAccount, useSignMessage,useDisconnect } from "wagmi";
 import { useReduxActions, useReduxSelectors } from "./useReduxActions";
 
 export const useWalletAuth = () => {
   const { auth: authSelectors } = useReduxSelectors();
   const { isAuthenticated } = authSelectors;
   const { auth } = useReduxActions();
-  
+  const { disconnect } = useDisconnect();
   const { address, isConnected } = useAccount();
   const [signature, setSignature] = useState("");
 
@@ -66,5 +66,6 @@ export const useWalletAuth = () => {
     address,
     signature,
     handleDisconnect,
+    disconnect,
   };
 };

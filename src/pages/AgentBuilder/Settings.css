@@ -599,6 +599,16 @@
     border-radius: 8px;
     padding: 20px;
   }
+  .transaction-status-msg {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: #fff8dc;
+    border-left: 4px solid #f0ad4e;
+    color: #8a6d3b;
+    border-radius: 5px;
+    font-weight: 500;
+  }
+  
   
   .action-group h4 {
     font-size: 1.1rem;

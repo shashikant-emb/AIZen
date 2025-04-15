@@ -58,7 +58,8 @@ const useWalletTransactions = () => {
         });
 
         // console.log("Deposit TX Hash:", tx.hash);
-        showToast(`Deposit successful! TX Hash: ${tx.hash}`, "success");
+        // showToast(`Deposit successful! TX Hash: ${tx.hash}`, "success");
+        return tx;
       } else {
         showToast("Ethereum wallet not detected!", "error");
       }
@@ -80,8 +81,8 @@ const useWalletTransactions = () => {
 
   const withdrawETH = async (amount: string) => {
     if(!userID){
-        showToast("kindly login again", "error");
-        Navigate("/login")
+        showToast("kindly Connect Wallet first", "warning");
+        // Navigate("/login")
         return;
     }
     setIsProgress(true)
@@ -103,7 +104,8 @@ const useWalletTransactions = () => {
       });
 
       // console.log("Withdraw TX Hash:", tx.hash);
-      showToast(`Withdrawal successful! TX Hash: ${tx.hash}`, "success");
+      // showToast(`Withdrawal successful! TX Hash: ${tx.hash}`, "success");
+      return tx
     } catch (error) {
       console.error("Withdrawal Error:", error);
     //   showToast("Withdrawal failed!", "error");
