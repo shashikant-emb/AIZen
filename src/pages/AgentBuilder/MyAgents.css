@@ -137,6 +137,19 @@
     background-color: var(--negative);
   }
   
+  .action-button:disabled,
+.action-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #ccc !important; /* Optional: gray out the button */
+  color: #666 !important;           /* Optional: dim text color */
+  border: 1px solid #aaa;           /* Optional: adjust border */
+}
+
+.action-button:disabled:hover {
+  background-color: #ccc; /* Prevent hover changes */
+}
   .no-agents {
     text-align: center;
     padding: 40px;

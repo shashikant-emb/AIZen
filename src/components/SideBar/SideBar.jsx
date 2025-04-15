@@ -208,12 +208,12 @@ const Sidebar= () => {
         </div>
 
         <nav className="sidebar-nav">
-          <Link to="/marketplace" className={`nav-item ${isActive("/marketplace") ? "active" : ""}`}>
+          {/* <Link to="/marketplace" className={`nav-item ${isActive("/marketplace") ? "active" : ""}`}>
             <span className="nav-icon">
               <Home size={20} />
             </span>
             <span className="nav-text">Home</span>
-          </Link>
+          </Link> */}
           <Link to="/agent-builder" className={`nav-item ${isActive("/agent-builder") ? "active" : ""}`}>
             <span className="nav-icon">
               <PieChart size={20} />
@@ -241,7 +241,7 @@ const Sidebar= () => {
         </nav>
 
         <div className="sidebar-footer">
-          {userProfile && (
+          {/* {userProfile && (
             <div className="user-info">
               <div className="user-avatar">
               {formatUserName(userProfile?.name || "")}
@@ -256,7 +256,7 @@ const Sidebar= () => {
           <button className="logout-button" onClick={handleLogout}>
             <LogOut size={18} />
             <span className="logout-text">Logout</span>
-          </button>
+          </button> */}
 
           <div className="sidebar-collapse-toggle" onClick={toggleSidebar}>
             {collapsed ? "→" : "←"}

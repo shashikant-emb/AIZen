@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Marketplace from "../pages/Marketplace/Marketplace";
 import Sidebar from "../components/SideBar/SideBar";
 import AgentBuilder from "../pages/AgentBuilder/AgentBuilder";
-import Home from "../pages/Home/home";
+import Home from "../pages/Home/Home";
 import LPDashboard from "../pages/LPDashboard/LPDashboard";
 import About from "../pages/About/About";
 import MyAgents from "../pages/AgentBuilder/MyAgents";
@@ -17,6 +17,8 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AgentCommission from "../components/AgentCommission/AgentCommission";
 import AgentDetails from "../components/AgentDetails/AgentDetails";
+import NewAgentBuilder from "../pages/AgentBuilder/NewAgentBuilder";
+import Wallet from "../pages/AgentBuilder/Wallet";
 
 const AppRoutes = () => {
   const { auth } = useReduxActions()
@@ -34,8 +36,8 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Marketplace route with Navbar */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      {/* <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} /> */}
       {/* <Route path="/" element={ <ProtectedRoute><Home /></ProtectedRoute>} /> */}
       <Route path="/" element={ <Home />} />
       <Route
@@ -60,7 +62,8 @@ const AppRoutes = () => {
           <>
             <Sidebar />
             <div className="main-content">
-              <AgentBuilder />
+              {/* <AgentBuilder /> */}
+              <NewAgentBuilder/>
             </div>
           </>
            </ProtectedRoute>
@@ -69,6 +72,13 @@ const AppRoutes = () => {
 
      
       <Route path="/about" element={<About />} />
+      <Route path="/wallets" element={
+        <>
+        <Navbar />
+        <Wallet />
+        </>
+        } 
+        />
       <Route path="/lp-dashboard" element={<LPDashboard />} />
 
       {/* Default redirect to marketplace */}

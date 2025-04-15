@@ -64,6 +64,18 @@
     transition: all 0.2s ease;
   }
   
+  .deposit-link {
+    color: #0070f3;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .deposit-link:hover {
+    text-decoration: none;
+  }
+  
+  
   .modal-close-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--primary-text);

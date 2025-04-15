@@ -147,15 +147,15 @@ const { myAgents } = useReduxActions()
           {filteredAgents.map(agent => (
             <div key={agent.id} className="my-agent-card-container">
               <AgentCard agent={agent} showActions={false} handleViewDetails={handleViewDetails}/>
-              {/* <div className="agent-actions">
-                <button className="action-button edit-button">Edit</button>
-                <button className="action-button">Delete</button>
+              <div className="agent-actions">
+                <button disabled={true} className="action-button edit-button">Edit</button>
+                <button disabled={true} className="action-button">Delete</button>
                 {agent.status === 'Deployed' ? (
-                  <button className="action-button deploy-button">Deploy</button>
+                  <button disabled={true} className="action-button deploy-button">Deploy</button>
                 ) : (
-                  <button className="action-button stop-button">Stop</button>
+                  <button disabled={true} className="action-button stop-button">Stop</button>
                 )}
-              </div> */}
+              </div>
             </div>
           ))}
         </div>

@@ -168,6 +168,8 @@ const CommissionModal: React.FC<CommissionModalProps> = ({ isOpen, onClose, onCo
   const [amount, setAmount] = useState<string>("")
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+//   console.log("walletBalance", walletBalance);
+  
 
   // Reset state when modal opens
   useEffect(() => {
@@ -262,7 +264,16 @@ const CommissionModal: React.FC<CommissionModalProps> = ({ isOpen, onClose, onCo
                 <input type="text" id="amount" value={amount} onChange={handleAmountChange} placeholder="0.00" autoFocus />
                 <span className="currency-label">ETH</span>
               </div>
-              {error && <p className="error-message">{error}</p>}
+              {error && <p className="error-message">
+                {error}
+                {error === "Insufficient wallet balance" && (
+      <span style={{ marginLeft: "8px" }}>
+        <a href="/wallets" className="deposit-link">
+          Deposit now
+        </a>
+      </span>
+    )}
+                </p>}
             </div>
 
             <div className="commission-info">
