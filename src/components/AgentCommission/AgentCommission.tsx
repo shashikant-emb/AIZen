@@ -288,20 +288,20 @@ const AgentCommission: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="charts-row">
+                    {/* <div className="charts-row">
                       <div className="chart-container">
                         <h3>Performance History</h3>
                         <div className="chart-wrapper">
                           <Line data={performanceData} options={chartOptions} />
                         </div>
                       </div>
-                      {/* <div className="chart-container">
+                      <div className="chart-container">
                         <h3>Current Allocation</h3>
                         <div className="chart-wrapper">
                           <Bar data={allocationData} options={barChartOptions} />
                         </div>
-                      </div> */}
-                    </div>
+                      </div>
+                    </div> */}
 
                     <div className="recent-operations">
                       <h3>Recent Operations</h3>

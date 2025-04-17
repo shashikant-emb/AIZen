@@ -39,7 +39,13 @@ const AppRoutes = () => {
       {/* <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} /> */}
       {/* <Route path="/" element={ <ProtectedRoute><Home /></ProtectedRoute>} /> */}
-      <Route path="/" element={ <Home />} />
+      {/* <Route path="/" element={ <Home />} /> */}
+      <Route path="/" element={  <>
+            <Navbar />
+            <div className="marketplace-content">
+              <Marketplace />
+            </div>
+          </>} />
       <Route
         path="/marketplace"
         element={
@@ -102,13 +108,6 @@ const AppRoutes = () => {
 <Route path="/my-agents" element={<ProtectedRoute> <> <Sidebar /> <div className="main-content"><MyAgents /></div></></ProtectedRoute>}/>
 <Route path="/history" element={<ProtectedRoute> <> <Sidebar /> <div className="main-content"><History /></div></></ProtectedRoute>}/>
 <Route path="/settings" element={<ProtectedRoute> <> <Sidebar /> <div className="main-content"><Settings /></div></></ProtectedRoute>}/>
-      {/* <Route path="/my-agents" element={<ProtectedRoute><MyAgents /></ProtectedRoute>}/> */}
-      {/* <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>}/>
-      <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>}/> */}
-      {/* <Route path="/my-agents" element={<MyAgents />}/>
-      <Route path="/history" element={<History />}/>
-      <Route path="/settings" element={<Settings />}/> */}
-       {/* Agent Details route - Protected */}
        <Route
               path="/agent-details/:agentId"
               element={

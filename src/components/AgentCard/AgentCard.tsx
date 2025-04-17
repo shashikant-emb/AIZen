@@ -11,7 +11,6 @@ import { useConnectModal } from "@rainbow-me/rainbowkit"
 const AgentCard = ({ agent,showActions,handleViewDetails }) => {
     const { auth: authSelectors } = useReduxSelectors()
     const { isAuthenticated, loading, error,walletBalance } = authSelectors 
-    console.log("walletbalance",walletBalance)
     
   const navigate = useNavigate()
   const { showToast } = useToast()

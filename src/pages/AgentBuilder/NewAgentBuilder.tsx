@@ -30,6 +30,8 @@ const NewAgentBuilder: React.FC = () => {
    const [savedAgent, setsavedAgent] = useState(null);
    const [isEditingName, setIsEditingName] = useState(false)
 
+   const [tempagentID,setTempAgentID]=useState(0)
+
 
     const { auth: authSelectors } = useReduxSelectors()
    const { isAuthenticated, error,userProfile } = authSelectors
@@ -56,18 +58,21 @@ const handleSendMessage = async (e: React.FormEvent) => {
     setIsGenerating(true);
   
     const payload = {
-      user_id: 5,
-      state: activeTab === "generate" ? "config" : "ask",
+    //   user_id: 5,
+        user_id:userProfile?.id||"",
+    //   state: activeTab === "generate" ? "config" : "ask",
       user_input: message,
+      agent_id: tempagentID,
     };
   
     try {
       const res = await agentBuilder.sendChatMessage(payload);
-      console.log("Response from API:", res);
   
       const config = res?.payload?.response?.config;
       const raw = res?.payload?.response?.raw;
-  
+      const tempid= res?.payload?.response?.agent_id
+      setTempAgentID(tempid)
+
       const hasConfig = config && Object.keys(config).length > 0;
   
       if (hasConfig) {
@@ -78,7 +83,7 @@ const handleSendMessage = async (e: React.FormEvent) => {
   
       if (activeTab === "generate") {
         if (hasConfig) {
-          responseText = "Here's a configuration based on your requirements:";
+          responseText = raw || "Here's a configuration based on your requirements:";
           agentBuilder.addChatMessage({ text: responseText, isUser: false });
           agentBuilder.addChatMessage({ text: JSON.stringify(config, null, 2), isUser: false, isConfig: true });
         } else {
@@ -107,7 +112,6 @@ const handleSendMessage = async (e: React.FormEvent) => {
   const handleCreateAgent = async() => {
     // showToast("Agent created successfully!", "success")
     // navigate("/my-agents")
-    console.log("config",config)
     try {
     setIsSaveLoading(true);
    
@@ -120,6 +124,7 @@ const handleSendMessage = async (e: React.FormEvent) => {
         isDeployed:false,
         UserId:userProfile?.id||"",
         // config: config?  JSON.parse(config) :{}
+        id:tempagentID,
         config: config || {},
       };
     let res
@@ -168,11 +173,11 @@ const handleSendMessage = async (e: React.FormEvent) => {
         isDeployed:true,
         UserId:userProfile?.id||"",
         // config: config?  JSON.parse(config) :{},
-        config:config||{}
+        config:config||{},
+        id:savedagent?.agent_id
       };
       const id= savedagent?.agent_id
      await agentBuilder.deployAgent(payload,id).then((res)=>{
-        console.log("res",res);
        if( res.payload.status=="success"){
         showToast("Agent Deployed Successfully","success")
         navigate("/my-agents")
@@ -223,24 +228,24 @@ const handleSendMessage = async (e: React.FormEvent) => {
           </div>
         </div>
         <div className="header-right">
-          <div className="agent-category-selector">
+          {/* <div className="agent-category-selector">
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
               <option value="liquidity-rebalancer">Uniswap v3</option>
-              {/* <option value="yield-optimizer">Yield Optimizer</option>
+              <option value="yield-optimizer">Yield Optimizer</option>
               <option value="delta-neutral">Delta Neutral</option>
-              <option value="grid-trader">Grid Trader</option> */}
+              <option value="grid-trader">Grid Trader</option>
               <option value="momentum-strategy">Momentum Strategy</option>
             </select>
-          </div>
+          </div> */}
           <button className="create-button" onClick={handleCreateAgent}>
             {isSaveLoading ? "Creating..." : isSaved ? "Update" : "Create"}
           </button>
           <button
             /*className={!isSaved ? "deploy-button" : "outline-button"}*/ className={
-              !isSaved ? "simulate-button" : "deploy-button"
+              !isSaved ? "blur-button" : "deploy-button"
             }
             disabled={!isSaved}
             onClick={handleDeployAgent}
@@ -251,7 +256,7 @@ const handleSendMessage = async (e: React.FormEvent) => {
       </div>
 
       <div className="new-agent-content">
-        <div className="content-tabs">
+        {/* <div className="content-tabs">
           <div className="tabs-container">
             <button
               className={`tab-button ${
@@ -268,22 +273,59 @@ const handleSendMessage = async (e: React.FormEvent) => {
               Ask
             </button>
           </div>
-        </div>
+        </div> */}
 
         <div className="split-view">
           <div className="chat-panel">
             <div className="chat-messages">
-              <div className="system-message">
+              {/* <div className="system-message">
                 <p>
-                  {/* Hi! I'll help you build a new agent. You can say something
-                  like, "make a liquidity rebalancer that optimizes for minimal
-                  impermanent loss" or "create a yield farming agent for
-                  stablecoin pairs." */}
                   Hi! I'm here to help you create and deploy your trading agent. You can say something like,
                    "build a liquidity rebalancer that minimizes impermanent loss" or "create an agent that manages stablecoin positions."
                 </p>
                 <p>What would you like to make?</p>
-              </div>
+              </div> */}
+              <div className="system-message">
+      {/* <h3 className="text-lg font-semibold mb-2 text-gray-800">Create Your LP Rebalancing Agent</h3> */}
+      <p className="text-sm text-gray-600 mb-3">
+        Describe your strategy below. The AI will generate a custom agent based on your stretegy. Your strategy could be something like,
+      </p>
+      <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+        <li>“Rebalance ETH/USDC when position goes out of range”</li>
+        <li>“Aperture-style agent with dynamic range based on volatility”</li>
+        <li>“Low-frequency rebalancing once every 5 days”</li>
+        <li>“Move liquidity back in range if active liquidity falls below 70%”</li>
+        {/* <li>“Auto-manage stablecoin LP and optimize for fee yield”</li> */}
+      </ul>
+    </div>
+
+              {/* “Create an agent that rebalances my Uniswap V3 LP position whenever it goes out of range.”
+
+“I want an AI agent to manage my ETH/USDC liquidity and adjust the range dynamically.”
+
+“Set up an LP agent that tracks price and rebalances every time the price deviates more than 10%.”
+
+“Make an agent that watches my Uniswap pool and moves liquidity back into active range automatically.”
+
+“Generate an agent to rebalance my LP position once daily based on volatility.” */}
+
+
+              {/* <div className="system-message">
+  <p>Hi there! 👋 I'm here to help you create and launch your own AI-powered agent.</p>
+  <p>Your agent can do things like:</p>
+  <ul className="list-disc list-inside ml-4">
+    <li>Automate research or market analysis</li>
+    <li>Rebalance your portfolio or manage liquidity</li>
+    <li>Move liquidity back into range if it drops below 80% active</li>
+    
+  </ul>
+  <p className="mt-2">
+    Try saying: <em>"Make an agent that watches my Uniswap pool and moves liquidity back into active range automatically."</em> or <em>"create one that rebalances my portfolio daily"</em>.
+  </p>
+  <p>What kind of agent would you like to create? 🚀</p>
+</div> */}
+
+              
 
               {chatMessages.map((msg, index) => (
                 <div

@@ -1,130 +1,3 @@
-// import React from "react";
-// import { Link, useLocation,useNavigate } from "react-router-dom";
-// import "./Sidebar.css";
-
-// const Sidebar = () => {
-//   const location = useLocation();
-//   const navigate = useNavigate();
-
-//   return (
-//     <div className="sidebar">
-//       <div className="sidebar-logo" onClick={() => navigate("/")}>
-//         <div className="logo-icon">
-//           <div className="logo-square"></div>
-//         </div>
-//         <h1>AIZen</h1>
-//       </div>
-
-//       <nav className="sidebar-nav">
-//         <Link 
-//           to="/" 
-//           className={`nav-item ${location.pathname === "/" ? "active" : ""}`}
-//         >
-//           <span className="nav-icon">□</span>
-//           <span>Home</span>
-//         </Link>
-//         <Link 
-//           to="/agent-builder" 
-//           className={`nav-item ${location.pathname === "/agent-builder" ? "active" : ""}`}
-//         >
-//           <span className="nav-icon">□</span>
-//           <span>Agent Builder</span>
-//         </Link>
-//         <Link 
-//           to="/my-agents" 
-//           className={`nav-item ${location.pathname === "/my-agents" ? "active" : ""}`}
-//         >
-//           <span className="nav-icon">□</span>
-//           <span>My Agents</span>
-//         </Link>
-//         <Link 
-//           to="/history" 
-//           className={`nav-item ${location.pathname === "/history" ? "active" : ""}`}
-//         >
-//           <span className="nav-icon">□</span>
-//           <span>History</span>
-//         </Link>
-//         <Link 
-//           to="/settings" 
-//           className={`nav-item ${location.pathname === "/settings" ? "active" : ""}`}
-//         >
-//           <span className="nav-icon">□</span>
-//           <span>Settings</span>
-//         </Link>
-//       </nav>
-
-//       <div className="sidebar-footer">
-//         {/* <div className="made-with">Made with AIZen</div> */}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Sidebar;
-
-// import React, { useState, useEffect } from "react";
-// import { Link, useLocation, useNavigate } from "react-router-dom";
-// import "./Sidebar.css";
-
-// const Sidebar = () => {
-//   const location = useLocation();
-//   const navigate = useNavigate();
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   // Close sidebar when clicking outside
-//   useEffect(() => {
-//     const handleClickOutside = (event) => {
-//       if (!event.target.closest(".sidebar") && !event.target.closest(".sidebar-toggle")) {
-//         setIsOpen(false);
-//       }
-//     };
-//     document.addEventListener("mousedown", handleClickOutside);
-//     return () => document.removeEventListener("mousedown", handleClickOutside);
-//   }, []);
-
-//   return (
-//     <>
-//       <button className="sidebar-toggle" onClick={() => setIsOpen(!isOpen)}>
-//         ☰
-//       </button>
-//       <div className={`sidebar ${isOpen ? "open" : ""}`}>
-//         <div className="sidebar-logo" onClick={() => navigate("/")}> 
-//           <div className="logo-icon">
-//             <div className="logo-square"></div>
-//           </div>
-//           <h1>AIZen</h1>
-//         </div>
-
-//         <nav className="sidebar-nav">
-//           <Link to="/" className={`nav-item ${location.pathname === "/" ? "active" : ""}`} onClick={() => setIsOpen(false)}> 
-//             <span className="nav-icon">□</span>
-//             <span className="nav-text">Home</span>
-//           </Link>
-//           <Link to="/agent-builder" className={`nav-item ${location.pathname === "/agent-builder" ? "active" : ""}`} onClick={() => setIsOpen(false)}>
-//             <span className="nav-icon">□</span>
-//             <span className="nav-text">Agent Builder</span>
-//           </Link>
-//           <Link to="/my-agents" className={`nav-item ${location.pathname === "/my-agents" ? "active" : ""}`} onClick={() => setIsOpen(false)}>
-//             <span className="nav-icon">□</span>
-//             <span className="nav-text">My Agents</span>
-//           </Link>
-//           <Link to="/history" className={`nav-item ${location.pathname === "/history" ? "active" : ""}`} onClick={() => setIsOpen(false)}>
-//             <span className="nav-icon">□</span>
-//             <span className="nav-text">History</span>
-//           </Link>
-//           <Link to="/settings" className={`nav-item ${location.pathname === "/settings" ? "active" : ""}`} onClick={() => setIsOpen(false)}>
-//             <span className="nav-icon">□</span>
-//             <span className="nav-text">Settings</span>
-//           </Link>
-//         </nav>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Sidebar;
-
-
 "use client"
 
 import  React from "react"
@@ -143,11 +16,6 @@ const Sidebar= () => {
   const { auth: authSelectors } = useReduxSelectors()
   const { userProfile } = authSelectors
   
-  // const userProfile={
-  //   name:"Jane Creator",
-  //   email:"janecreator@test.com"
-  // }
-
   // Check if screen is mobile on mount and when window resizes
   useEffect(() => {
     const checkIfMobile = () => {
@@ -174,9 +42,7 @@ const Sidebar= () => {
   }
 
   const toggleSidebar = () => {
-    // console.log("Before toggle: ", mobileOpen);
     if (window.innerWidth <= 768) {
-      // console.log("After toggle: ", mobileOpen);
       setMobileOpen(!mobileOpen)
     } else {
       setCollapsed(!collapsed)
@@ -236,7 +102,7 @@ const Sidebar= () => {
             <span className="nav-icon">
               <Settings size={20} />
             </span>
-            <span className="nav-text">Settings</span>
+            <span className="nav-text">Wallet</span>
           </Link>
         </nav>
 
