@@ -20,6 +20,7 @@ interface AuthState {
   loading: boolean
   error: string | null,
   userID:string 
+  tempChatAgentID:string | number | null
 }
 
 // Initial state
@@ -32,6 +33,7 @@ const initialState: AuthState = {
   userID: '',
   loading: false,
   error: null,
+  tempChatAgentID:null
 }
 
 // Async thunks for API calls
@@ -175,6 +177,9 @@ const authSlice = createSlice({
     setWalletBalance: (state, action: PayloadAction<string>) => {
       state.walletBalance = action.payload
     },
+    setTempChatID: (state, action: PayloadAction<string>) => {
+      state.tempChatAgentID = action.payload
+    }
   },
   extraReducers: (builder) => {
         // Handle login
@@ -370,7 +375,7 @@ const authSlice = createSlice({
 })
 
 // Export actions
-export const { logout, setWalletBalance } = authSlice.actions
+export const { logout, setWalletBalance,setTempChatID } = authSlice.actions
 
 // Export reducer
 export default authSlice.reducer

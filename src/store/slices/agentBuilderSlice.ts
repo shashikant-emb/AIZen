@@ -146,6 +146,19 @@ export const sendChatMessage = createAsyncThunk(
   },
 )
 
+export const userChatHistory = createAsyncThunk(
+  "agentBuilder/sendChatMessage",
+  async (data:any, { rejectWithValue }) => {
+    
+    try {
+      const response = await getRequest(`/user_chat_history?user_id=${data.user_id}&agent_id=${data.agent_id}` )
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || "Failed to load chat history")
+    }
+  },
+)
+
 export const fetchSavedAgents = createAsyncThunk("agentBuilder/fetchSavedAgents", async (_, { rejectWithValue }) => {
   try {
     const response = await getRequest("/agents/saved")
@@ -184,10 +197,10 @@ const agentBuilderSlice = createSlice({
       state.chatMessages.push(action.payload)
     },
     resetChat: (state) => {
-      state.chatMessages = [
-        // { text: "Hello! I'm your liquidity rebalancer agent. How can I assist you today?", isUser: false },
-        // { text: "Hello! How can I assist you today?", isUser: false },
-      ]
+      state.chatMessages = []
+    },
+    setChatHistory: (state, action: PayloadAction<ChatMessage[]>) => {
+      state.chatMessages = action.payload
     },
     resetAgentBuilder: (state) => {
       return initialState
@@ -292,7 +305,7 @@ const agentBuilderSlice = createSlice({
 })
 
 // Export actions
-export const { updateFormField, toggleCapability, toggleTool, addChatMessage, resetChat, resetAgentBuilder } =
+export const { updateFormField, toggleCapability, toggleTool, addChatMessage, resetChat,setChatHistory, resetAgentBuilder } =
   agentBuilderSlice.actions
 
 // Export reducer

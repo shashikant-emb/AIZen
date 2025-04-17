@@ -198,6 +198,9 @@ const Navbar: React.FC = () => {
         >
           Marketplace
         </Link>
+      {isAuthenticated  &&  <Link to="/commissioned-agents" className={`nav-link ${isActive("/commissioned-agents")}`}>
+          My Commissions
+        </Link>}
         {/* <Link to="/agent-builder" className={`nav-link ${isActive("/agent-builder")}`}>
           Agent Builder
         </Link> */}

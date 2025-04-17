@@ -92,12 +92,12 @@ const Sidebar= () => {
             </span>
             <span className="nav-text">My Agents</span>
           </Link>
-          <Link to="/history" className={`nav-item ${isActive("/history") ? "active" : ""}`}>
+          {/* <Link to="/history" className={`nav-item ${isActive("/history") ? "active" : ""}`}>
             <span className="nav-icon">
               <History size={20} />
             </span>
             <span className="nav-text">History</span>
-          </Link>
+          </Link> */}
           <Link to="/settings" className={`nav-item ${isActive("/settings") ? "active" : ""}`}>
             <span className="nav-icon">
               <Settings size={20} />

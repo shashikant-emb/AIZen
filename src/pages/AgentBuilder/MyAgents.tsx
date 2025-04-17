@@ -26,8 +26,10 @@ import AgentCard from '../../components/AgentCard/AgentCard';
 import Sidebar from '../../components/SideBar/SideBar';
 import { Link, useLocation, useNavigate} from "react-router-dom"
 import { Agent } from "../../types";
+import { useToast } from "../../components/Toast/Toast";
 
 const MyAgents:React.FC = () => {
+  const {showToast}= useToast()
 const { myAgents } = useReduxActions()
   const { auth: authSelectors } = useReduxSelectors()
   const { isAuthenticated, error,userProfile } = authSelectors
@@ -80,6 +82,10 @@ const { myAgents } = useReduxActions()
     }
     return matchesSearch;
   });
+  const handleEdit=(id:number,name:string)=>{
+    // showToast(`Edit agent${id}`, "info");
+navigate("/agent-builder", { state: { agentId: id,name: name} });
+  }
 
   return (
     <>
@@ -148,7 +154,7 @@ const { myAgents } = useReduxActions()
             <div key={agent.id} className="my-agent-card-container">
               <AgentCard agent={agent} showActions={false} handleViewDetails={handleViewDetails}/>
               <div className="agent-actions">
-                <button disabled={true} className="action-button edit-button">Edit</button>
+                <button onClick={()=>handleEdit(agent?.id,agent?.name)}  className="action-button edit-button">Edit</button>
                 <button disabled={true} className="action-button">Delete</button>
                 {agent.status === 'Deployed' ? (
                   <button disabled={true} className="action-button deploy-button">Deploy</button>
