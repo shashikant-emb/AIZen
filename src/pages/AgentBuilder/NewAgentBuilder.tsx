@@ -7,8 +7,14 @@ import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
 // import { useToast } from "../Toast/Toast"
 import "./NewAgentBuilder.css"
 import { useToast } from "../../components/Toast/Toast"
+import { tags } from "../../assets/constants/agentBuilderConstants"
+import { useLocation } from "react-router-dom";
 
 const NewAgentBuilder: React.FC = () => {
+  const location = useLocation();
+//   const agentId = location.state?.agentId;  
+const { agentId, name } = location.state || {};
+  const isEdit= agentId ? true :false
   const navigate = useNavigate()
   const { showToast } = useToast()
   const [message, setMessage] = useState("")
@@ -18,7 +24,7 @@ const NewAgentBuilder: React.FC = () => {
   const [agentName, setAgentName] = useState("New Agent")
   const [isDraft, setIsDraft] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-
+  const { auth } = useReduxActions()
   const { agentBuilder } = useReduxActions()
   const { agentBuilder: agentBuilderSelectors } = useReduxSelectors()
   const { chatMessages, deployedAgent } = agentBuilderSelectors
@@ -34,7 +40,7 @@ const NewAgentBuilder: React.FC = () => {
 
 
     const { auth: authSelectors } = useReduxSelectors()
-   const { isAuthenticated, error,userProfile } = authSelectors
+   const { isAuthenticated, error,userProfile,tempChatAgentID } = authSelectors
    const {
     tools,
     capabilities,
@@ -48,6 +54,67 @@ const NewAgentBuilder: React.FC = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [chatMessages])
+
+  useEffect(()=>{
+   if(isEdit && agentId){
+    fetchChatHistory(agentId)
+    setAgentName(name)
+    setIsDraft(false)
+    setIsSaved(true)
+    setTempAgentID(agentId)
+   }else{
+    agentBuilder.setChatHistory([]);
+   }
+  },[])
+  const fetchChatHistory= async(tempChatAgentID:any)=>{
+    const payload={
+        user_id:userProfile?.id||"",
+        // agent_id:42073||tempagentID,
+        // user_id:27,
+        // agent_id:24635,
+        agent_id:tempChatAgentID,
+    }
+ const userChatHistory=  await agentBuilder.userChatHistory(payload)
+//  console.log("userChatHistory",userChatHistory.payload)
+ const data=userChatHistory.payload
+//  console.log("Data",data)
+ const formattedChat = transformChatHistory(data);
+ agentBuilder.setChatHistory(formattedChat);
+//  console.log("formated chat ",formattedChat)
+ const latestConfigEntry = data.find((entry:any) => entry.response.config !== null);
+  if (latestConfigEntry) {
+    setConfig(latestConfigEntry.response.config);
+  }
+}
+  const transformChatHistory = (apiData: any[]) => {
+    const chatMessages: any[] = [];
+  
+    apiData?.reverse().forEach((entry) => {
+      const userMessage = {
+        text: entry?.user_query,
+        isUser: true,
+      };
+  
+      const botMessage = {
+        text: entry?.response.raw,
+        isUser: false,
+      };
+  
+      chatMessages.push(userMessage, botMessage);
+  
+      if (entry?.response?.config) {
+        const configMessage = {
+          text: JSON.stringify(entry.response.config, null, 2),
+          isUser: false,
+          isConfig: true,
+        };
+        chatMessages.push(configMessage);
+      }
+    });
+  
+    return chatMessages;
+  };
+  
 
 const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +138,10 @@ const handleSendMessage = async (e: React.FormEvent) => {
       const config = res?.payload?.response?.config;
       const raw = res?.payload?.response?.raw;
       const tempid= res?.payload?.response?.agent_id
-      setTempAgentID(tempid)
+      if(tempid){
+        setTempAgentID(tempid)
+        auth.setTempChatID(tempid)
+      } 
 
       const hasConfig = config && Object.keys(config).length > 0;
   
@@ -81,7 +151,7 @@ const handleSendMessage = async (e: React.FormEvent) => {
   
       let responseText = "";
   
-      if (activeTab === "generate") {
+    //   if (activeTab === "generate") {
         if (hasConfig) {
           responseText = raw || "Here's a configuration based on your requirements:";
           agentBuilder.addChatMessage({ text: responseText, isUser: false });
@@ -90,10 +160,10 @@ const handleSendMessage = async (e: React.FormEvent) => {
           responseText = raw || "Could not generate configuration. Try refining your prompt.";
           agentBuilder.addChatMessage({ text: responseText, isUser: false });
         }
-      } else {
-        responseText = raw || "I can help answer questions about trading strategies or configuring your agent.";
-        agentBuilder.addChatMessage({ text: responseText, isUser: false });
-      }
+    //   } else {
+    //     responseText = raw || "I can help answer questions about trading strategies or configuring your agent.";
+    //     agentBuilder.addChatMessage({ text: responseText, isUser: false });
+    //   }
   
     } catch (err) {
       console.error("Error while sending message:", err);
@@ -131,8 +201,9 @@ const handleSendMessage = async (e: React.FormEvent) => {
     if(isSaved){
       
       let savedagent= savedAgents[savedAgents.length-1]
-      const id= savedagent?.agent_id
-      res = await agentBuilder.deployAgent({...payload,config:{}},id)
+      const id= isEdit?agentId: savedagent?.agent_id
+     
+      res = await agentBuilder.deployAgent({...payload,id},id)
     }else{
       res = await agentBuilder.saveAgent(payload)
     }
@@ -176,8 +247,9 @@ const handleSendMessage = async (e: React.FormEvent) => {
         config:config||{},
         id:savedagent?.agent_id
       };
-      const id= savedagent?.agent_id
-     await agentBuilder.deployAgent(payload,id).then((res)=>{
+    //   const id= savedagent?.agent_id
+    const id= isEdit?agentId: savedagent?.agent_id
+     await agentBuilder.deployAgent({...payload,id},id).then((res)=>{
        if( res.payload.status=="success"){
         showToast("Agent Deployed Successfully","success")
         navigate("/my-agents")
@@ -240,7 +312,7 @@ const handleSendMessage = async (e: React.FormEvent) => {
               <option value="momentum-strategy">Momentum Strategy</option>
             </select>
           </div> */}
-          <button className="create-button" onClick={handleCreateAgent}>
+          <button className="gradient-button" onClick={handleCreateAgent}>
             {isSaveLoading ? "Creating..." : isSaved ? "Update" : "Create"}
           </button>
           <button
@@ -274,6 +346,18 @@ const handleSendMessage = async (e: React.FormEvent) => {
             </button>
           </div>
         </div> */}
+         {/* <div className="filter-tags">
+        {tags.map((tag:any) => (
+          <button
+            key={tag}
+            className={`tag active`}
+            style={{ cursor: "auto", opacity: 0.8 }}
+            disabled
+          >
+            {tag}
+          </button>
+        ))}
+      </div> */}
 
         <div className="split-view">
           <div className="chat-panel">
@@ -392,7 +476,8 @@ const handleSendMessage = async (e: React.FormEvent) => {
           <div className="preview-panel">
             <div className="preview-header">
               <h2>Preview Config</h2>
-              <button
+             <div className="preview-buttons">
+             <button
                 className="reset-config-button"
                 onClick={() => {
                   agentBuilder.resetChat();
@@ -404,6 +489,16 @@ const handleSendMessage = async (e: React.FormEvent) => {
               >
                 Reset chat
               </button>
+             {tempChatAgentID && chatMessages.length===0 && <button
+                className="reload-chat-button"
+                onClick={() => {
+                    fetchChatHistory(tempChatAgentID)
+                //   setAgentName("New Agent"); 
+                }}
+              >
+                Reload Previous Chat
+              </button>}
+             </div>
             </div>
             <div className="preview-content">
               <div className="config-preview">

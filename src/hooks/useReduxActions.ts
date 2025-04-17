@@ -50,6 +50,10 @@ export const useReduxActions = () => {
       (data:any) => dispatch(agentBuilderActions.sendChatMessage(data)),
       [dispatch],
     ),
+    userChatHistory: useCallback(
+      (data:any) => dispatch(agentBuilderActions.userChatHistory(data)),
+      [dispatch],
+    ),
     fetchSavedAgents: useCallback(() => dispatch(agentBuilderActions.fetchSavedAgents()), [dispatch]),
     updateFormField: useCallback(
       (field: string, value: any) => dispatch(agentBuilderActions.updateFormField({ field: field as any, value })),
@@ -62,6 +66,7 @@ export const useReduxActions = () => {
     toggleTool: useCallback((tool: string) => dispatch(agentBuilderActions.toggleTool(tool)), [dispatch]),
     addChatMessage: useCallback((message: any) => dispatch(agentBuilderActions.addChatMessage(message)), [dispatch]),
     resetChat: useCallback(() => dispatch(agentBuilderActions.resetChat()), [dispatch]),
+    setChatHistory: useCallback((message: any) => dispatch(agentBuilderActions.setChatHistory(message)), [dispatch]),
     resetAgentBuilder: useCallback(() => dispatch(agentBuilderActions.resetAgentBuilder()), [dispatch]),
   }
 
@@ -125,6 +130,7 @@ export const useReduxActions = () => {
     ),
     logout: useCallback(() => dispatch(authActions.logout()), [dispatch]),
     setWalletBalance: useCallback((balance: string) => dispatch(authActions.setWalletBalance(balance)), [dispatch]),
+    setTempChatID:useCallback((id: any) => dispatch(authActions.setTempChatID(id)), [dispatch]),
     getUserPrivatekey:useCallback((id: string) => dispatch(authActions.getUserPrivatekey(id)), [dispatch]),
   }
 
@@ -151,6 +157,7 @@ export const useReduxActions = () => {
   // History actions
   const history = {
     fetchHistoryItems: useCallback(() => dispatch(historyActions.fetchHistoryItems()), [dispatch]),
+    fetchCommisonedHistoryItems: useCallback((userID:any) => dispatch(historyActions.fetchCommisonedHistoryItems(userID)), [dispatch]),
     fetchHistoryStats: useCallback(() => dispatch(historyActions.fetchHistoryStats()), [dispatch]),
     fetchHistoryItemDetails: useCallback(
       (itemId: string) => dispatch(historyActions.fetchHistoryItemDetails(itemId)),
@@ -240,6 +247,7 @@ export const useReduxSelectors = () => {
     loading: useAppSelector((state) => state.auth.loading),
     error: useAppSelector((state) => state.auth.error),
     userID:useAppSelector((state) => state.auth.userID),
+    tempChatAgentID:useAppSelector((state) => state.auth.tempChatAgentID),
   }
 
   // Settings selectors

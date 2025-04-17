@@ -8,5 +8,3 @@ export const config = getDefaultConfig({
   chains: [mainnet, polygon, optimism, arbitrum, base, sepolia,bsc],
 
 });
-
-

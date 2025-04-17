@@ -100,7 +100,16 @@ const initialState: HistoryState = {
 // Async thunks for API calls
 export const fetchHistoryItems = createAsyncThunk("history/fetchHistoryItems", async (_, { rejectWithValue }) => {
   try {
-    const response = await getRequest("/agent_history")
+    const response = await getRequest("/agent_history/")
+    return response.data
+  } catch (error: any) {
+    return rejectWithValue(error.response?.data || "Failed to fetch history items")
+  }
+})
+export const fetchCommisonedHistoryItems = createAsyncThunk("history/fetchHistory", async (userID, { rejectWithValue }) => {
+  try {
+    console.log("userID",userID)
+    const response = await getRequest(`/agent_history/${userID}`)
     return response.data
   } catch (error: any) {
     return rejectWithValue(error.response?.data || "Failed to fetch history items")

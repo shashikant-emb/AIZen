@@ -190,7 +190,7 @@ const AgentCommission: React.FC = () => {
         //   id: agentId || "1",
         // })
 
-        showToast("Agent commissioned successfully!", "success")
+        // showToast("Agent commissioned successfully!", "success")
       } catch (error) {
         showToast("Failed to load agent details", "error")
       } finally {

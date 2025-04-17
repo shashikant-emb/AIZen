@@ -21,6 +21,13 @@ export const capabilities = [
     'Volatility Index'
   ];
 
+  export const tags = [
+    'Liquidity Pool',
+    // 'DEX Integration',
+    'Bollinger Bands',
+    'Volatility Index',
+    'Calendar Rebalance'
+  ];
  export const fallbackImages = [
     "https://cdn.prod.website-files.com/6583e2b6af21ee3aa85c3013/66c2da2c9e54d874767b8217_Building%20of%20ai%20agent-p-1080.jpg",
     "https://cdn.prod.website-files.com/63974a9c19a1dd54281c47a8/64d0b5970be523e3ea00fe44_AI-Agents.webp",

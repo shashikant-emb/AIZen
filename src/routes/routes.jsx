@@ -19,6 +19,7 @@ import AgentCommission from "../components/AgentCommission/AgentCommission";
 import AgentDetails from "../components/AgentDetails/AgentDetails";
 import NewAgentBuilder from "../pages/AgentBuilder/NewAgentBuilder";
 import Wallet from "../pages/AgentBuilder/Wallet";
+import CommissionedAgents from "../components/CommissionedAgents/CommissionedAgents";
 
 const AppRoutes = () => {
   const { auth } = useReduxActions()
@@ -57,6 +58,19 @@ const AppRoutes = () => {
             </div>
           </>
           // </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/commissioned-agents"
+        element={
+          <ProtectedRoute>
+          <>
+            <Navbar />
+            <div className="marketplace-content">
+              <CommissionedAgents />
+            </div>
+          </>
+           </ProtectedRoute>
         }
       />
 

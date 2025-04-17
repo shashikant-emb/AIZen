@@ -437,6 +437,7 @@ const handleCopyAddress = (address: string) => {
       </div>
     </form>
   )
+  // console.log("savedWalletBalance",savedWalletBalance)
   
   const renderWalletsTab = () => (
     <div className="settings-form">
