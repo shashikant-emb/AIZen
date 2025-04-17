@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './AgentBuilder.css';
 import { useToast } from '../Toast/Toast';
+import { capabilities,tools } from '../../assets/constants/agentBuilderConstants';
 
 const AgentBuilder = () => {
   const [formData, setFormData] = useState({
@@ -20,29 +21,6 @@ const AgentBuilder = () => {
     { text: "Hello! I'm your liquidity rebalancer agent. How can I assist you today?", isUser: false }
   ]);
   const [userMessage, setUserMessage] = useState('');
-
-  const capabilities = [
-    'Liquidity Provision',
-    'Asset Rebalancing',
-    'Yield Farming',
-    'Volatility Prediction',
-    'Arbitrage Execution'
-  ];
-
-  const tools = [
-    'Bollinger Bands',
-    'RSI',
-    'Momentum',
-    'MACD',
-    'Calendar Rebalance',
-    'Alpha-based Trigger',
-    'Stop-Loss',
-    'Moving Average',
-    'Liquidity Pool API',
-    'DEX Integration',
-    'Trend Analysis',
-    'Volatility Index'
-  ];
 
 
   const handleInputChange = (e) => {

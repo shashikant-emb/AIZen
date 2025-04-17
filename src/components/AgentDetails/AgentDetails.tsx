@@ -26,19 +26,7 @@ import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend)
 
 // Dummy data for the agent
-const dummyAgent = {
-  id: "my-1",
-  name: "OrionBot",
-  description: "Advanced algorithmic agent for DeFi liquidity optimization with minimal impermanent loss.",
-  performance: "+18.2%",
-  aum: "$450K",
-  il: "1.2%",
-  dailyRebalance: "6x",
-  weeklyReward: "4.5%",
-  tags: ["Liquidity", "Rebalancer", "Ethereum"],
-  status: "Deployed",
-  dateCreated: "2025-02-15",
-}
+const dummyAgent = {}
 
 // Dummy data for performance chart
 const performanceData: ChartData<"line"> = {

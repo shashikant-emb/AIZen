@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-const INFURA_API = "https://sepolia.infura.io/v3/YOUR_INFURA_API_KEY"; // Replace with your Infura API key
+const INFURA_API = "https://sepolia.infura.io/v3/YOUR_INFURA_API_KEY"; 
 
 const useTransactionTracker = () => {
   const [transactions, setTransactions] = useState<any[]>([]);

@@ -26,19 +26,7 @@ import { useReduxActions, useReduxSelectors } from "../../hooks/useReduxActions"
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend)
 
 // Dummy data for the agent
-const dummyAgent = {
-  id: "1",
-  name: "Alpha Hunter",
-  description:
-    "Aggressive high-volume trading agent focused on capturing short-term alpha across multiple DEXes with minimal impermanent loss.",
-  performance: "+34.5%",
-  aum: "$3.2M",
-  il: "3.1%",
-  dailyRebalance: "12x",
-  weeklyReward: "8.2%",
-  tags: ["Momentum", "High Risk", "Ethereum"],
-  trending: true,
-}
+const dummyAgent = {}
 
 // Dummy data for performance chart
 const performanceData: ChartData<"line"> = {

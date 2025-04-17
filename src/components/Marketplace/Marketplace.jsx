@@ -56,7 +56,6 @@ const Marketplace = () => {
   }
 
   // Filter agents based on selected filters
-  // In a real app, this would be handled by the API
   const filteredAgents = dummyData.agents
 
   return (
