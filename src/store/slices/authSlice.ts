@@ -270,7 +270,6 @@ const authSlice = createSlice({
         state.error = null
       })
       .addCase(connectWallet.fulfilled, (state, action) => {
-        console.log("action.payload.response",action.payload);
         
         state.loading = false
         state.isWalletConnected = true
@@ -286,7 +285,6 @@ const authSlice = createSlice({
           avatar: action.payload.avatar || "", // Default empty string
         }
         state.userID= action.payload.user_id  || null
-        console.log("usered", state.userProfile)
     
         // Store auth token if provided
         if (action.payload.public_key) {

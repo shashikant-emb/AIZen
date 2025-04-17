@@ -30,10 +30,10 @@ const Wallet: React.FC = () => {
   const { depositETH, withdrawETH, progress } = useWalletTransactions()
 
   const [formData, setFormData] = useState({
-    name: "Jane Creator",
-    email: "jane@example.com",
+    name: "",
+    email: "",
     walletAddress: address,
-    bio: "DeFi enthusiast and algorithmic trading specialist with 5+ years of experience.",
+    bio: "",
     darkMode: true,
     notifications: {
       email: true,
@@ -41,7 +41,7 @@ const Wallet: React.FC = () => {
       security: true,
       marketing: false,
     },
-    apiKey: "sk-1234567890abcdefghijklmnopqrstuvwxyz",
+    apiKey: "",
     twoFactorEnabled: false,
     wallets: {
       saved: {
@@ -444,13 +444,13 @@ const handleCopyAddress = (address: string) => {
   
   const renderWalletsTab = () => (
     <div className="settings-form">
-      <h3 className="section-title">Your Wallets</h3>
-      <p className="section-description">Manage your wallets and transfer funds between them.</p>
+      <h3 className="section-title">Your Wallet</h3>
+      <p className="section-description">Manage your wallet and transfer funds from your connected wallet.</p>
 
       <div className="wallets-container">
         <div className="wallet-card">
           <div className="wallet-header">
-            <h4>Saved Wallet</h4>
+            <h4>Platform Wallet</h4>
             <span className="wallet-badge">Platform</span>
           </div>
           <div className="wallet-address">
@@ -472,7 +472,7 @@ const handleCopyAddress = (address: string) => {
           </div>
         </div>
 
-        <div className="wallet-card">
+        {/* <div className="wallet-card">
           <div className="wallet-header">
             <h4>Connected Wallet</h4>
             <span className="wallet-badge active">Active</span>
@@ -494,7 +494,7 @@ const handleCopyAddress = (address: string) => {
           <div className="wallet-description">
             This is your currently connected wallet used for authentication and transactions.
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="wallet-actions">
@@ -550,8 +550,8 @@ const handleCopyAddress = (address: string) => {
           ← Back to MarketPlace
         </button>
       </div>
-
-      <div className="settings-container">
+{renderWalletsTab()}
+      {/* <div className="settings-container">
         <div className="settings-tabs">
          
           <button
@@ -564,13 +564,11 @@ const handleCopyAddress = (address: string) => {
 
         <div className="settings-content">
         {activeTab === "wallets" && renderWalletsTab()}
-          {/* {activeTab === "profile" && renderProfileTab()}
-          {activeTab === "preferences" && renderPreferencesTab()}
-          {activeTab === "security" && renderSecurityTab()} */}
+          
          
           
         </div>
-      </div>
+      </div> */}
     </div>
     </>
   )

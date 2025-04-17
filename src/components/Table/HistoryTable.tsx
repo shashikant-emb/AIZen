@@ -20,7 +20,6 @@ interface AgentHistoryEvent {
   timestamp: string
 }
 
-// Mock data for agent history - in a real app, this would come from the API
 const mockAgentHistory: Record<string, AgentHistoryEvent[]> = {
   "h-1": [
     { event: "Agent deployed", timestamp: "2025-03-17 10:20:15" },

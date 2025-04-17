@@ -11,7 +11,6 @@ import { useConnectModal } from "@rainbow-me/rainbowkit"
 const AgentCard = ({ agent,showActions,handleViewDetails }) => {
     const { auth: authSelectors } = useReduxSelectors()
     const { isAuthenticated, loading, error,walletBalance } = authSelectors 
-    console.log("walletbalance",walletBalance)
     
   const navigate = useNavigate()
   const { showToast } = useToast()
@@ -29,23 +28,7 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
 
      const backendWallet = localStorage.getItem("wallet_address") as `0x${string}`;
      const [savedWalletBalance,setSavedWalletBalance]=useState(walletBalance)
-    //  const { data: savedBalance, refetch: refetchSavedBalance } = useBalance({ address: backendWallet });
-    // const savedWalletBalance = savedBalance?.formatted
 
-  // const handleCommission = async () => {
-  //   try {
-  //     showToast("Commissioning agent...", "info")
-
-  //     // In a real app, this would be a call to your API
-  //     // For now, we'll simulate a successful response after a delay
-  //     await new Promise((resolve) => setTimeout(resolve, 1500))
-
-  //     // Navigate to the agent commission page
-  //     navigate(`/agent-commission/${agent.id}`)
-  //   } catch (error) {
-  //     showToast("Failed to commission agent. Please try again.", "error")
-  //   }
-  // }
   const getRandomImage = () => {
     const index = Math.floor(Math.random() * fallbackImages.length);
     return fallbackImages[index];
@@ -58,7 +41,7 @@ const AgentCard = ({ agent,showActions,handleViewDetails }) => {
       showToast("Kindly Connect Wallet First","warning")
       // navigate("/login")
       if (openConnectModal) {
-        openConnectModal() // ✅ open modal manually
+        openConnectModal() 
       }
     }
    

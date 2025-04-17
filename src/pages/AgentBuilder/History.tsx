@@ -550,9 +550,7 @@ const History: React.FC = () => {
     setExpandedRow(expandedRow === id ? null : id);
   };
 
-const toggleAgentStatus = (id: any, status: any) => {
-  console.log("skfrf");
-  
+const toggleAgentStatus = (id: any, status: any) => {  
   // const agentId = id?.split("-")[1];
   const agentId = id;
   const currentStatus = status === "Deployed";
@@ -716,7 +714,6 @@ const toggleAgentStatus = (id: any, status: any) => {
                           <button
                             onClick={() =>{
                               toggleAgentStatus(item.id, item.status)
-                              console.log("skfrf");
                             }}
                             className="action-icon download-icon"
                           >

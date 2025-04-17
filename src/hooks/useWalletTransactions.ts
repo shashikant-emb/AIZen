@@ -42,10 +42,8 @@ const useWalletTransactions = () => {
         }
         // const provider = new ethers.BrowserProvider(window.ethereum);
         const provider = new ethers.BrowserProvider(walletClient.transport);
-        // console.log("prodivder",provider)
         const signer = await provider.getSigner();       
         const signerAddress = await signer.getAddress();
-        // console.log("Signer Wallet Address:", signerAddress);
        if (signerAddress.toLowerCase() !== connectedWallet.toLowerCase()) {
         showToast("Signer wallet does not match connected wallet!", "error");
         return;
@@ -53,11 +51,9 @@ const useWalletTransactions = () => {
         const tx = await signer.sendTransaction({
           // from:connectedWallet,
           to: backendWallet,
-          value: parseEther(amount), // Convert ETH to wei (bigint is correct here)
+          value: parseEther(amount), // Convert ETH to wei
           gasLimit: ethers.toBigInt(21000),
         });
-
-        // console.log("Deposit TX Hash:", tx.hash);
         // showToast(`Deposit successful! TX Hash: ${tx.hash}`, "success");
         return tx;
       } else {

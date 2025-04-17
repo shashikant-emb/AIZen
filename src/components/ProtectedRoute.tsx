@@ -57,7 +57,7 @@ import React, { useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useReduxSelectors } from "../hooks/useReduxActions";
 import { useToast } from "./Toast/Toast";
-import { useConnectModal } from "@rainbow-me/rainbowkit"; // ✅ Add this
+import { useConnectModal } from "@rainbow-me/rainbowkit"; 
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -68,7 +68,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, redirectTo = 
   const { showToast } = useToast();
   const { auth } = useReduxSelectors();
   const location = useLocation();
-  const { openConnectModal } = useConnectModal(); // ✅ Get modal trigger
+  const { openConnectModal } = useConnectModal(); 
 
   useEffect(() => {
     if (!auth.isAuthenticated) {

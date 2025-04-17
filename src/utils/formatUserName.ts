@@ -1,5 +1,5 @@
 export const formatUserName = (name: string | null | undefined): string => {
-    if (!name) return ""; // Handle empty name
+    if (!name) return ""; 
   
     const nameParts = name.trim().split(" ");
     if (nameParts.length === 1) {
@@ -15,7 +15,7 @@ export const formatUserName = (name: string | null | undefined): string => {
   };
 
 // export const formatUserInitials = (name: string | null | undefined): string => {
-//     if (!name) return ""; // Handle empty name
+//     if (!name) return ""; 
   
 //     return name
 //     .split(" ")

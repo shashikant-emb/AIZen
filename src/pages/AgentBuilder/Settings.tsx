@@ -160,39 +160,6 @@ const handleCopyAddress = (address: string) => {
   showToast("Wallet address copied to clipboard!", "success")
 }
   
-  // const handleDeposit = async() => {
-  //   if(!isConnected){
-  //     showToast("Plese Connect the wallet first","error")
-  //     return
-  //   }else if(!depositAmount || Number(depositAmount)<0){
-  //     showToast("please enter a valid amount","warning")
-  //     return
-  //   }
-  
-  //   showToast("Deposit initiated. Please confirm the transaction in your wallet.", "info")
-  //   setProcessing(true)
-  //   //  depositETH(depositAmount.toString()).then(() => {
-  //   //   setProcessing(false)
-  //   //   setDepositAmount("")
-  //   //   // getBalances()
-  //   //   setTimeout(()=>{
-  //   //     getBalances()
-  //   //   },500)
-  //   //   // showToast("Deposit successful!", "success")
-  //   // })
-  //   try {
-  //     const tx= await depositETH(depositAmount.toString())
-  //     await tx.wait?.(); // OR wait for 1 block confirmation
-  //     setDepositAmount("")
-  //           setTimeout(()=>{
-  //       getBalances()
-  //     },5000)
-  //   } catch (error) {
-  //     console.log("error",error);
-      
-  //   }
-  
-  // }
 
   const handleDeposit = async () => {
     if (!isConnected) {
@@ -249,42 +216,6 @@ const handleCopyAddress = (address: string) => {
   };
 
 
-
-  
-
-  // const handleWithdraw = async() => {
-  //   if(!isConnected ){
-  //     showToast("Plese Connect the wallet first","warning")
-  //     return
-  //   }else if(!withdrawAmount || Number(withdrawAmount)<0){
-  //     showToast("please enter a valid amount","warning")
-  //     return
-  //   }
-
-  //   showToast("Withdrawal initiated.", "info")
-  //   setProcessing(true)
-  //     // withdrawETH(withdrawAmount.toString()).then(() => {
-  //     // setProcessing(false)
-  //     // setWithdrawAmount("")
-  //     // setTimeout(()=>{
-  //     //   getBalances()
-  //     // },2000)
-      
-    
-  //    // // showToast("Withdrawal successful!", "success")
-  //   // })
-  //   const tx = await withdrawETH(withdrawAmount.toString())
-  //   await tx.wait?.(); // OR wait for 1 block confirmation
-  //   // OR await tx.confirmations >= 1 (depends on lib)
-
-  //   setWithdrawAmount("");
-
-  //   // Wait a bit extra for backend/indexer sync (optional)
-  //   setTimeout(() => {
-  //     getBalances();
-  //   }, 5000);
-  // }
-
   const handleWithdraw = async () => {
     if (!isConnected) {
       showToast("Please connect the wallet first", "warning");
@@ -339,7 +270,6 @@ const handleCopyAddress = (address: string) => {
   const balanceInBigInt = BigInt(Math.floor(savedWalletBalance * 1e18));
 
   const { maxWithdrawable, formatted, isLoading } = useMaxWithdrawableAmount(backendWallet, balanceInBigInt)
-  console.log("formatted",formatted)
   // console.log("maxWithdrawable",maxWithdrawable)
   
   // console.log("savedBalance",savedWalletBalance)
@@ -510,13 +440,13 @@ const handleCopyAddress = (address: string) => {
   
   const renderWalletsTab = () => (
     <div className="settings-form">
-      <h3 className="section-title">Your Wallets</h3>
-      <p className="section-description">Manage your wallets and transfer funds between them.</p>
+      {/* <h3 className="section-title">Your Wallet</h3> */}
+      <p className="section-description">Manage your wallet and transfer funds from your connected wallet.</p>
 
       <div className="wallets-container">
         <div className="wallet-card">
           <div className="wallet-header">
-            <h4>Saved Wallet</h4>
+            <h4>Platform Wallet</h4>
             <span className="wallet-badge">Platform</span>
           </div>
           <div className="wallet-address">
@@ -538,7 +468,7 @@ const handleCopyAddress = (address: string) => {
           </div>
         </div>
 
-        <div className="wallet-card">
+        {/* <div className="wallet-card">
           <div className="wallet-header">
             <h4>Connected Wallet</h4>
             <span className="wallet-badge active">Active</span>
@@ -560,7 +490,7 @@ const handleCopyAddress = (address: string) => {
           <div className="wallet-description">
             This is your currently connected wallet used for authentication and transactions.
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="wallet-actions">
@@ -568,7 +498,7 @@ const handleCopyAddress = (address: string) => {
           <h4>Transfer Funds</h4>
           <div className="transfer-actions">
             {!processing && (<><div className="transfer-action">
-              <label htmlFor="depositAmount">Deposit to Saved Wallet</label>
+              <label htmlFor="depositAmount">Deposit to Plateform Wallet</label>
               <div className="transfer-input-group">
                 <input type="number" id="depositAmount" placeholder="0.00" min="0.01" step="0.01" onChange={(e)=>setDepositAmount(e.target.value)} />
                 {/* <span className="currency-label">ETH</span> */}
@@ -607,18 +537,18 @@ const handleCopyAddress = (address: string) => {
     {/* <Sidebar /> */}
     <div className="settings-page">
       <div className="settings-header">
-        <h1>Settings</h1>
+        <h1>Wallet</h1>
       </div>
 
       <div className="settings-container">
-        <div className="settings-tabs">
-          {/* <button
+        {/* <div className="settings-tabs">
+          <button
             className={`tab-button ${activeTab === "profile" ? "active" : ""}`}
             onClick={() => setActiveTab("profile")}
           >
             Profile
-          </button> */}
-          {/* <button
+          </button>
+          <button
             className={`tab-button ${activeTab === "preferences" ? "active" : ""}`}
             onClick={() => setActiveTab("preferences")}
           >
@@ -629,23 +559,24 @@ const handleCopyAddress = (address: string) => {
             onClick={() => setActiveTab("security")}
           >
             Security
-          </button> */}
+          </button>
           <button
             className={`tab-button ${activeTab === "wallets" ? "active" : ""}`}
             onClick={() => setActiveTab("wallets")}
           >
             Wallets
           </button>
-        </div>
-
-        <div className="settings-content">
+        </div> */}
+        <div>{renderWalletsTab()}</div>
+        
+        {/* <div className="settings-content">
         {activeTab === "wallets" && renderWalletsTab()}
           {activeTab === "profile" && renderProfileTab()}
           {activeTab === "preferences" && renderPreferencesTab()}
           {activeTab === "security" && renderSecurityTab()}
          
           
-        </div>
+        </div> */}
       </div>
     </div>
     </>
@@ -653,298 +584,3 @@ const handleCopyAddress = (address: string) => {
 }
 
 export default Settings
-
-
-// "use client"
-
-// import  React from "react"
-// import { useState } from "react"
-// // import { useToast } from "../Toast/Toast"
-// import "./Settings.css"
-// import { useToast } from "../../components/Toast/Toast"
-
-// const Settings: React.FC = () => {
-//   // Update the activeTab state to include the new "wallets" option
-//   const [activeTab, setActiveTab] = useState("profile")
-
-//   // Add the wallets data to the formData state
-//   const [formData, setFormData] = useState({
-//     name: "Jane Creator",
-//     email: "jane@example.com",
-//     walletAddress: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-//     bio: "DeFi enthusiast and algorithmic trading specialist with 5+ years of experience.",
-//     darkMode: true,
-//     notifications: {
-//       email: true,
-//       performance: true,
-//       security: true,
-//       marketing: false,
-//     },
-//     apiKey: "sk-1234567890abcdefghijklmnopqrstuvwxyz",
-//     twoFactorEnabled: false,
-//     wallets: {
-//       saved: {
-//         address: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-//         balance: "12.45 ETH",
-//       },
-//       connected: {
-//         address: "0x3a54Cf3B6e7a3D6A0392d5d8ea15b7b5B358aDd9",
-//         balance: "3.78 ETH",
-//       },
-//     },
-//   })
-
-//   // Get toast functionality
-//   const { showToast } = useToast()
-
-//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-//     const { name, value } = e.target
-//     setFormData((prev) => ({ ...prev, [name]: value }))
-//   }
-
-//   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const { name, checked } = e.target
-
-//     if (name.includes(".")) {
-//       const [parent, child] = name.split(".")
-//       setFormData((prev) => ({
-//         ...prev,
-//         [parent]: {
-//           ...prev[parent as keyof typeof prev],
-//           [child]: checked,
-//         },
-//       }))
-//     } else {
-//       setFormData((prev) => ({ ...prev, [name]: checked }))
-//     }
-//   }
-
-//   const handleSaveProfile = (e: React.FormEvent) => {
-//     e.preventDefault()
-//     // Simulate API call to save profile
-//     setTimeout(() => {
-//       showToast("Profile saved successfully!", "success")
-//     }, 500)
-//   }
-
-//   const handleSavePreferences = (e: React.FormEvent) => {
-//     e.preventDefault()
-//     // Simulate API call to save preferences
-//     setTimeout(() => {
-//       showToast("Preferences saved successfully!", "success")
-//     }, 500)
-//   }
-
-//   const handleSaveSecurity = (e: React.FormEvent) => {
-//     e.preventDefault()
-//     // Simulate API call to save security settings
-//     setTimeout(() => {
-//       showToast("Security settings saved successfully!", "success")
-//     }, 500)
-//   }
-
-//   const handleGenerateNewApiKey = () => {
-//     // Simulate generating a new API key
-//     const newApiKey = "sk-" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-
-//     setFormData((prev) => ({ ...prev, apiKey: newApiKey }))
-//     showToast("New API key generated!", "info")
-//   }
-
-//   // Add the handleCopyAddress function
-//   const handleCopyAddress = (address: string) => {
-//     navigator.clipboard.writeText(address)
-//     showToast("Wallet address copied to clipboard!", "success")
-//   }
-
-//   // Add the handleDeposit and handleWithdraw functions
-//   const handleDeposit = () => {
-//     // In a real app, this would trigger a wallet transaction
-//     showToast("Deposit initiated. Please confirm the transaction in your wallet.", "info")
-
-//     // Simulate a successful deposit after 2 seconds
-//     setTimeout(() => {
-//       showToast("Successfully deposited ETH to your saved wallet!", "success")
-//     }, 2000)
-//   }
-
-//   const handleWithdraw = () => {
-//     // In a real app, this would trigger a wallet transaction
-//     showToast("Withdrawal initiated. Please confirm the transaction in your wallet.", "info")
-
-//     // Simulate a successful withdrawal after 2 seconds
-//     setTimeout(() => {
-//       showToast("Successfully withdrew ETH to your connected wallet!", "success")
-//     }, 2000)
-//   }
-
-//   // Add the renderWalletsTab function
-//   const renderWalletsTab = () => (
-//     <div className="settings-form">
-//       <h3 className="section-title">Your Wallets</h3>
-//       <p className="section-description">Manage your wallets and transfer funds between them.</p>
-
-//       <div className="wallets-container">
-//         <div className="wallet-card">
-//           <div className="wallet-header">
-//             <h4>Saved Wallet</h4>
-//             <span className="wallet-badge">Platform</span>
-//           </div>
-//           <div className="wallet-address">
-//             {maskAddress(formData.wallets.saved.address)}
-//             <button
-//               className="copy-button"
-//               onClick={() => handleCopyAddress(formData.wallets.saved.address)}
-//               title="Copy address"
-//             >
-//               📋
-//             </button>
-//           </div>
-//           <div className="wallet-balance">
-//             <span className="balance-label">Balance:</span>
-//             <span className="balance-value">{formData.wallets.saved.balance}</span>
-//           </div>
-//           <div className="wallet-description">
-//             This is your platform wallet used for agent operations and fee collection.
-//           </div>
-//         </div>
-
-//         <div className="wallet-card">
-//           <div className="wallet-header">
-//             <h4>Connected Wallet</h4>
-//             <span className="wallet-badge active">Active</span>
-//           </div>
-//           <div className="wallet-address">
-//             {maskAddress(formData.wallets.connected.address)}
-//             <button
-//               className="copy-button"
-//               onClick={() => handleCopyAddress(formData.wallets.connected.address)}
-//               title="Copy address"
-//             >
-//               📋
-//             </button>
-//           </div>
-//           <div className="wallet-balance">
-//             <span className="balance-label">Balance:</span>
-//             <span className="balance-value">{formData.wallets.connected.balance}</span>
-//           </div>
-//           <div className="wallet-description">
-//             This is your currently connected wallet used for authentication and transactions.
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="wallet-actions">
-//         <div className="action-group">
-//           <h4>Transfer Funds</h4>
-//           <div className="transfer-actions">
-//             <div className="transfer-action">
-//               <label htmlFor="depositAmount">Deposit to Saved Wallet</label>
-//               <div className="transfer-input-group">
-//                 <input type="number" id="depositAmount" placeholder="0.00" min="0.01" step="0.01" />
-//                 <span className="currency-label">ETH</span>
-//                 <button className="transfer-button" onClick={handleDeposit}>
-//                   Deposit
-//                 </button>
-//               </div>
-//               <p className="transfer-description">Transfer ETH from your connected wallet to your platform wallet.</p>
-//             </div>
-
-//             <div className="transfer-action">
-//               <label htmlFor="withdrawAmount">Withdraw to Connected Wallet</label>
-//               <div className="transfer-input-group">
-//                 <input type="number" id="withdrawAmount" placeholder="0.00" min="0.01" step="0.01" />
-//                 <span className="currency-label">ETH</span>
-//                 <button className="transfer-button" onClick={handleWithdraw}>
-//                   Withdraw
-//                 </button>
-//               </div>
-//               <p className="transfer-description">Transfer ETH from your platform wallet to your connected wallet.</p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   )
-
-//   // Add the maskAddress helper function
-//   const maskAddress = (address: string) => {
-//     if (!address || address.length < 10) return address
-//     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
-//   }
-
-//   const renderProfileTab = () => {
-//     return (
-//       <div className="settings-form">
-//         <h3>Profile Settings</h3>
-//         <p>This is where you can manage your profile information.</p>
-//       </div>
-//     )
-//   }
-
-//   const renderPreferencesTab = () => {
-//     return (
-//       <div className="settings-form">
-//         <h3>Preferences</h3>
-//         <p>This is where you can manage your preferences.</p>
-//       </div>
-//     )
-//   }
-
-//   const renderSecurityTab = () => {
-//     return (
-//       <div className="settings-form">
-//         <h3>Security</h3>
-//         <p>This is where you can manage your security settings.</p>
-//       </div>
-//     )
-//   }
-
-//   // Update the settings-tabs section to include the new Wallets tab
-//   return (
-//     <div className="settings-page">
-//       <div className="settings-header">
-//         <h1>Settings</h1>
-//       </div>
-
-//       <div className="settings-container">
-//         <div className="settings-tabs">
-//           <button
-//             className={`tab-button ${activeTab === "profile" ? "active" : ""}`}
-//             onClick={() => setActiveTab("profile")}
-//           >
-//             Profile
-//           </button>
-//           <button
-//             className={`tab-button ${activeTab === "wallets" ? "active" : ""}`}
-//             onClick={() => setActiveTab("wallets")}
-//           >
-//             Wallets
-//           </button>
-//           <button
-//             className={`tab-button ${activeTab === "preferences" ? "active" : ""}`}
-//             onClick={() => setActiveTab("preferences")}
-//           >
-//             Preferences
-//           </button>
-//           <button
-//             className={`tab-button ${activeTab === "security" ? "active" : ""}`}
-//             onClick={() => setActiveTab("security")}
-//           >
-//             Security
-//           </button>
-//         </div>
-
-//         <div className="settings-content">
-//           {activeTab === "profile" && renderProfileTab()}
-//           {activeTab === "wallets" && renderWalletsTab()}
-//           {activeTab === "preferences" && renderPreferencesTab()}
-//           {activeTab === "security" && renderSecurityTab()}
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Settings
-

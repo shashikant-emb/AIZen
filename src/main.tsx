@@ -49,7 +49,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <PersistGate loading={null} persistor={persistor}>
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider theme={darkTheme()}>
+        <RainbowKitProvider  modalSize="compact" theme={darkTheme()}>
           <App />
         </RainbowKitProvider>
       </QueryClientProvider>

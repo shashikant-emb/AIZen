@@ -14,14 +14,14 @@ export const useWalletAuth = () => {
   const { signMessage } = useSignMessage({
     mutation: {
       onSuccess: (data) => {
-        console.log("✅ Signature Received:", data);
+        // console.log("✅ Signature Received:", data);
         setSignature(data);
 
         if (address) {
-          console.log("🚀 Sending API Request with:", {
-            wallet_address: address,
-            signature: data,
-          });
+          // console.log("🚀 Sending API Request with:", {
+          //   wallet_address: address,
+          //   signature: data,
+          // });
 
           auth
             .connectWallet({
